@@ -19,10 +19,17 @@ android.permission.INTERNET was added because:
 android.permission.ACCESS_NETWORK_STATE was added because:
 	UnityEngine.Application::get_internetReachability was present in:
 		Unity.Services.Core.Telemetry-FeaturesChecked.txt
+android.hardware.sensor.accelerometer was added because:
+	UnityEngine.Input::get_acceleration was present in:
+		Assembly-CSharp-firstpass-FeaturesChecked.txt
 android.hardware.touchscreen.multitouch, android.hardware.touchscreen.multitouch.distinct were enabled because:
+	UnityEngine.Input::get_touches was present in:
+		Assembly-CSharp-firstpass-FeaturesChecked.txt
+		Assembly-CSharp-FeaturesChecked.txt
 	UnityEngine.Input::GetTouch was present in:
 		Assembly-CSharp-FeaturesChecked.txt
 		UnityEngine.UI-FeaturesChecked.txt
 	UnityEngine.Input::get_touchCount was present in:
+		Assembly-CSharp-firstpass-FeaturesChecked.txt
 		Assembly-CSharp-FeaturesChecked.txt
 		UnityEngine.UI-FeaturesChecked.txt

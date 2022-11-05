@@ -1,25 +1,25 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:2:1-25:12
-INJECTED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:2:1-25:12
-INJECTED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:2:1-25:12
-INJECTED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:2:1-25:12
-INJECTED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:2:1-25:12
-INJECTED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:2:1-25:12
-INJECTED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:2:1-25:12
+ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:2:1-26:12
+INJECTED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:2:1-26:12
+INJECTED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:2:1-26:12
+INJECTED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:2:1-26:12
+INJECTED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:2:1-26:12
+INJECTED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:2:1-26:12
+INJECTED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:2:1-26:12
 	package
 		ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:2:70-98
 		INJECTED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml
-		ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:2:1-25:12
+		ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:2:1-26:12
 		INJECTED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml
 	xmlns:tools
 		ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:2:99-145
 	android:versionCode
 		INJECTED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml
-		ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:2:1-25:12
+		ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:2:1-26:12
 		INJECTED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:2:11-69
@@ -113,24 +113,30 @@ uses-permission#android.permission.ACCESS_NETWORK_STATE
 ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:21:3-77
 	android:name
 		ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:21:20-74
+uses-feature#android.hardware.sensor.accelerometer
+ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:22:3-97
+	android:required
+		ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:22:70-94
+	android:name
+		ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:22:17-69
 uses-feature#android.hardware.touchscreen
-ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:22:3-88
+ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:23:3-88
 	android:required
-		ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:22:61-85
+		ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:23:61-85
 	android:name
-		ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:22:17-60
+		ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:23:17-60
 uses-feature#android.hardware.touchscreen.multitouch
-ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:23:3-99
+ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:24:3-99
 	android:required
-		ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:23:72-96
+		ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:24:72-96
 	android:name
-		ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:23:17-71
+		ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:24:17-71
 uses-feature#android.hardware.touchscreen.multitouch.distinct
-ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:24:3-108
+ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:25:3-108
 	android:required
-		ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:24:81-105
+		ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:25:81-105
 	android:name
-		ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:24:17-80
+		ADDED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml:25:17-80
 uses-sdk
 INJECTED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\AndroidManifest.xml

@@ -118,6 +118,7 @@
 -define:ENABLE_TILEMAP
 -define:ENABLE_TIMELINE
 -define:ENABLE_LEGACY_INPUT_MANAGER
+-define:CROSS_PLATFORM_INPUT
 -define:CSHARP_7_OR_LATER
 -define:CSHARP_7_3_OR_NEWER
 -r:"C:/Users/ewans/Desktop/Honours/HonoursProject/HonoursProject/Library/PackageCache/com.unity.nuget.newtonsoft-json@3.0.2/Runtime/Newtonsoft.Json.dll"
@@ -328,6 +329,7 @@
 -r:"D:/Unity/2021.3.11f1/Editor/Data/NetStandard/ref/2.1.0/netstandard.dll"
 -r:"D:/Unity/2021.3.11f1/Editor/Data/PlaybackEngines/AndroidPlayer/Unity.Android.Gradle.dll"
 -r:"D:/Unity/2021.3.11f1/Editor/Data/PlaybackEngines/AndroidPlayer/Unity.Android.Types.dll"
+-r:"Library/Bee/artifacts/1900b0aE.dag/Assembly-CSharp-firstpass.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.EditorCoroutines.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.Performance.Profile-Analyzer.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.PlasticSCM.Editor.ref.dll"
@@ -354,7 +356,34 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.VSCode.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
+"Assets/FixedButton.cs"
+"Assets/FixedTouchField.cs"
+"Assets/InputSystem/StarterAssetsInputs.cs"
+"Assets/Joystick Pack/Examples/JoystickPlayerExample.cs"
+"Assets/Joystick Pack/Examples/JoystickSetterExample.cs"
+"Assets/Joystick Pack/Scripts/Base/Joystick.cs"
+"Assets/Joystick Pack/Scripts/Joysticks/DynamicJoystick.cs"
+"Assets/Joystick Pack/Scripts/Joysticks/FixedJoystick.cs"
+"Assets/Joystick Pack/Scripts/Joysticks/FloatingJoystick.cs"
+"Assets/Joystick Pack/Scripts/Joysticks/VariableJoystick.cs"
+"Assets/LevelSelect.cs"
 "Assets/MainMenu.cs"
+"Assets/Mobile/Scripts/CanvasInputs/UICanvasControllerInput.cs"
+"Assets/Mobile/Scripts/Utilities/MobileDisableAutoSwitchControls.cs"
+"Assets/Mobile/Scripts/VirtualInputs/UIVirtualButton.cs"
+"Assets/Mobile/Scripts/VirtualInputs/UIVirtualJoystick.cs"
+"Assets/Mobile/Scripts/VirtualInputs/UIVirtualTouchZone.cs"
+"Assets/MyScript.cs"
+"Assets/SampleScenes/Menu/Scripts/MenuSceneLoader.cs"
+"Assets/SampleScenes/Menu/Scripts/PauseMenu.cs"
+"Assets/SampleScenes/Menu/Scripts/SceneAndURLLoader.cs"
+"Assets/SampleScenes/Scripts/CameraSwitch.cs"
+"Assets/SampleScenes/Scripts/LevelReset.cs"
+"Assets/SampleScenes/Scripts/ParticleSceneControls.cs"
+"Assets/SampleScenes/Scripts/PlaceTargetWithMouse.cs"
+"Assets/SampleScenes/Scripts/SlowMoButton.cs"
+"Assets/Scripts/BasicRigidBodyPush.cs"
+"Assets/Scripts/FirstPersonController.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01_UGUI.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark02.cs"
@@ -389,6 +418,7 @@
 "Assets/TextMesh Pro/Examples & Extras/Scripts/VertexShakeB.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/VertexZoom.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/WarpTextExample.cs"
+"Assets/TutorialInfo/Scripts/Readme.cs"
 -langversion:9.0
 
 /deterministic
