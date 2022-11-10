@@ -117,6 +117,7 @@
 -define:ENABLE_LEGACY_INPUT_MANAGER
 -define:CROSS_PLATFORM_INPUT
 -define:MOBILE_INPUT
+-define:UNITY_POST_PROCESSING_STACK_V2
 -define:MODULE_AI_EXISTS
 -define:MODULE_ANIMATION_EXISTS
 -define:MODULE_PHYSICS_EXISTS
@@ -124,6 +125,11 @@
 -define:MODULE_PARTICLE_SYSTEM_EXISTS
 -define:CSHARP_7_OR_LATER
 -define:CSHARP_7_3_OR_NEWER
+-r:"C:/Users/ewans/Desktop/Honours/HonoursProject/HonoursProject/Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.CodeGen/Unity.Burst.Cecil.dll"
+-r:"C:/Users/ewans/Desktop/Honours/HonoursProject/HonoursProject/Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.CodeGen/Unity.Burst.Cecil.Mdb.dll"
+-r:"C:/Users/ewans/Desktop/Honours/HonoursProject/HonoursProject/Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.CodeGen/Unity.Burst.Cecil.Pdb.dll"
+-r:"C:/Users/ewans/Desktop/Honours/HonoursProject/HonoursProject/Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.CodeGen/Unity.Burst.Cecil.Rocks.dll"
+-r:"C:/Users/ewans/Desktop/Honours/HonoursProject/HonoursProject/Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.Unsafe.dll"
 -r:"C:/Users/ewans/Desktop/Honours/HonoursProject/HonoursProject/Library/PackageCache/com.unity.nuget.newtonsoft-json@3.0.2/Runtime/AOT/Newtonsoft.Json.dll"
 -r:"C:/Users/ewans/Desktop/Honours/HonoursProject/HonoursProject/Library/PackageCache/com.unity.visualscripting@1.7.8/Runtime/VisualScripting.Flow/Dependencies/NCalc/Unity.VisualScripting.Antlr3.Runtime.dll"
 -r:"D:/Unity/2021.3.11f1/Editor/Data/NetStandard/compat/2.1.0/shims/netfx/mscorlib.dll"

@@ -1,3 +1,12 @@
+Library\Bee\artifacts\mvdfrm\Unity.Burst.ref.dll_3BFBF039CEAD8141.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.Mathematics.ref.dll_56687DF9F95CDA87.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.Postprocessing.Runtime.ref.dll_3F5F8BCF08469052.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.RenderPipeline.Universal.ShaderLibrary.ref.dll_A698F48BCC4C95A2.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.RenderPipelines.Core.Runtime.ref.dll_FB7B746CE9551AC1.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.RenderPipelines.Core.ShaderLibrary.ref.dll_49901292BB509F6F.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.ref.dll_E846594D70B572AF.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.RenderPipelines.Universal.Runtime.ref.dll_F4C2FC145B126783.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.RenderPipelines.Universal.Shaders.ref.dll_352B0B5D998102B9.mvfrm
 Library\Bee\artifacts\mvdfrm\Unity.Services.Core.Analytics.ref.dll_8978DFF0A763ACB8.mvfrm
 Library\Bee\artifacts\mvdfrm\Unity.Services.Core.Environments.ref.dll_E6F5EFF277AE7B44.mvfrm
 Library\Bee\artifacts\mvdfrm\Unity.Services.Core.ref.dll_14B3D3EA4B41B970.mvfrm
@@ -7,6 +16,11 @@ Library\Bee\artifacts\mvdfrm\Unity.VisualScripting.Core.ref.dll_9C5571F37391692B
 Library\Bee\artifacts\mvdfrm\Unity.VisualScripting.Flow.ref.dll_E3665249F59ADDDA.mvfrm
 Library\Bee\artifacts\mvdfrm\Unity.VisualScripting.State.ref.dll_BD90478CA038653B.mvfrm
 Library\Bee\artifacts\mvdfrm\UnityEngine.UI.ref.dll_B7EAB4C997F13057.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.Burst.Cecil.dll_8CCB79815A24F3F9.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.Burst.Cecil.Mdb.dll_6EC329317DDAED76.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.Burst.Cecil.Pdb.dll_8615A1A0FC8FEEF9.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.Burst.Cecil.Rocks.dll_CDD5EBE72847F839.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.Burst.Unsafe.dll_99CCC776145351CA.mvfrm
 Library\Bee\artifacts\mvdfrm\Unity.VisualScripting.Antlr3.Runtime.dll_59F1A3747A863750.mvfrm
 Library\Bee\artifacts\mvdfrm\UnityEngine.AccessibilityModule.dll_8F91A5C641421A96.mvfrm
 Library\Bee\artifacts\mvdfrm\UnityEngine.AIModule.dll_5EB0A21C3F117204.mvfrm
