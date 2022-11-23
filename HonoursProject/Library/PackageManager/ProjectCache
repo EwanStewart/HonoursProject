@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638036764349182582
-    m_Hash: 2979372195
+      ticks: 638047991804168353
+    m_Hash: 181964779
   m_LockFileStatus:
     m_FilePath: C:/Users/ewans/Desktop/Honours/HonoursProject/HonoursProject/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638036764349243105
-    m_Hash: 3639119629
+      ticks: 638047991804395523
+    m_Hash: 620050830
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
@@ -22,6 +22,57 @@ m_LocalPackages:
 m_ProjectPath: C:/Users/ewans/Desktop/Honours/HonoursProject/HonoursProject/Packages
 m_EditorVersion: 2021.3.11f1 (0a5ca18544bf)
 m_ResolvedPackages:
+- packageId: com.unity.2d.sprite@1.0.0
+  testable: 0
+  isDirectDependency: 1
+  version: 1.0.0
+  source: 2
+  resolvedPath: C:\Users\ewans\Desktop\Honours\HonoursProject\HonoursProject\Library\PackageCache\com.unity.2d.sprite@1.0.0
+  assetPath: Packages/com.unity.2d.sprite
+  name: com.unity.2d.sprite
+  displayName: 2D Sprite
+  author:
+    name: 
+    email: 
+    url: 
+  category: 2D
+  type: 
+  description: Use Unity Sprite Editor Window to create and edit Sprite asset properties
+    like pivot, borders and Physics shape
+  status: 4
+  errors: []
+  versions:
+    all:
+    - 1.0.0
+    compatible:
+    - 1.0.0
+    verified: 1.0.0
+  dependencies: []
+  resolvedDependencies: []
+  keywords:
+  - 2d
+  - sprite
+  - sprite editor window
+  registry:
+    id: main
+    name: 
+    url: https://packages.unity.com
+    scopes: []
+    isDefault: 1
+    capabilities: 7
+  hideInEditor: 1
+  isAssetStorePackage: 0
+  datePublishedTicks: 0
+  documentationUrl: 
+  hasRepository: 0
+  repository:
+    type: 
+    url: 
+    revision: 
+    path: 
+  unityLifecycle:
+    version: 1.0.0
+    nextVersion: 
 - packageId: com.unity.collab-proxy@1.17.2
   testable: 0
   isDirectDependency: 1
@@ -96,6 +147,7 @@ m_ResolvedPackages:
     - 1.17.1
     - 1.17.2
     - 1.17.6
+    - 1.17.7
     - 2.0.0-preview.6
     - 2.0.0-preview.8
     - 2.0.0-preview.15
@@ -109,6 +161,7 @@ m_ResolvedPackages:
     compatible:
     - 1.17.2
     - 1.17.6
+    - 1.17.7
     - 2.0.0-preview.6
     - 2.0.0-preview.8
     - 2.0.0-preview.15
@@ -119,7 +172,7 @@ m_ResolvedPackages:
     - 2.1.0-preview.3
     - 2.1.0-preview.5
     - 2.1.0-preview.6
-    verified: 1.17.6
+    verified: 1.17.7
   dependencies:
   - name: com.unity.services.core
     version: 1.0.1
@@ -748,6 +801,7 @@ m_ResolvedPackages:
     - 1.1.33
     - 1.3.0
     - 2.0.1-exp.1
+    - 2.0.1-exp.2
     - 2.0.1-pre.12
     - 2.0.1-pre.18
     compatible:
@@ -755,6 +809,7 @@ m_ResolvedPackages:
     - 1.1.33
     - 1.3.0
     - 2.0.1-exp.1
+    - 2.0.1-exp.2
     - 2.0.1-pre.12
     - 2.0.1-pre.18
     verified: 1.1.33
@@ -1054,6 +1109,7 @@ m_ResolvedPackages:
     - 1.7.0
     - 1.7.1
     - 1.7.2
+    - 1.8.0
     compatible:
     - 1.6.4
     - 1.7.0-pre.1
@@ -1061,6 +1117,7 @@ m_ResolvedPackages:
     - 1.7.0
     - 1.7.1
     - 1.7.2
+    - 1.8.0
     verified: 1.6.4
   dependencies:
   - name: com.unity.modules.director
@@ -3257,6 +3314,7 @@ m_ResolvedPackages:
     - 1.8.0-pre.2
     - 1.8.0
     - 1.8.1
+    - 1.8.2
     compatible:
     - 1.6.6
     - 1.7.0-pre.1
@@ -3269,6 +3327,7 @@ m_ResolvedPackages:
     - 1.8.0-pre.2
     - 1.8.0
     - 1.8.1
+    - 1.8.2
     verified: 1.6.6
   dependencies:
   - name: com.unity.mathematics
@@ -3801,6 +3860,7 @@ m_ResolvedPackages:
     - 1.2.0-exp.7
     - 1.2.0
     - 1.2.1
+    - 1.2.2
     compatible:
     - 1.0.1
     - 1.1.0
@@ -3814,6 +3874,7 @@ m_ResolvedPackages:
     - 1.2.0-exp.7
     - 1.2.0
     - 1.2.1
+    - 1.2.2
     verified: 1.0.1
   dependencies:
   - name: com.unity.test-framework

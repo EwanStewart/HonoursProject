@@ -338,6 +338,7 @@
 -r:"D:/Unity/2021.3.11f1/Editor/Data/PlaybackEngines/AndroidPlayer/Unity.Android.Types.dll"
 -r:"Library/Bee/artifacts/1300b0aE.dag/Assembly-CSharp-firstpass.ref.dll"
 -r:"Library/Bee/artifacts/1300b0aE.dag/PPv2URPConverters.ref.dll"
+-r:"Library/Bee/artifacts/1300b0aE.dag/Unity.2D.Sprite.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1300b0aE.dag/Unity.Burst.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1300b0aE.dag/Unity.Burst.ref.dll"
 -r:"Library/Bee/artifacts/1300b0aE.dag/Unity.EditorCoroutines.Editor.ref.dll"
@@ -399,6 +400,7 @@
 "Assets/Mobile/Scripts/VirtualInputs/UIVirtualJoystick.cs"
 "Assets/Mobile/Scripts/VirtualInputs/UIVirtualTouchZone.cs"
 "Assets/MyScript.cs"
+"Assets/Objectives.cs"
 "Assets/SampleScenes/Menu/Scripts/MenuSceneLoader.cs"
 "Assets/SampleScenes/Menu/Scripts/PauseMenu.cs"
 "Assets/SampleScenes/Menu/Scripts/SceneAndURLLoader.cs"
@@ -444,6 +446,7 @@
 "Assets/TextMesh Pro/Examples & Extras/Scripts/VertexZoom.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/WarpTextExample.cs"
 "Assets/TutorialInfo/Scripts/Readme.cs"
+"Assets/Wire.cs"
 -langversion:9.0
 
 /deterministic

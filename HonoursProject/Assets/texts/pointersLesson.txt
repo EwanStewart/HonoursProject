@@ -1,0 +1,2 @@
+A pointer is an object that stores a memory address, a powerful feature... but also a dangerous one.
+A pointer is a reference type – it points to another variable in memory.
