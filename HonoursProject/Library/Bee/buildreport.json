@@ -5,17 +5,14 @@
 { "pid": "Unity", "ph":"M", "name": "process_name", "args": {"name": "Unity"} },
 { "pid": "Unity", "ph":"M", "name": "process_sort_index", "args": {"sort_index": -100} },
 { "pid": "Unity", "tid": 1, "ph":"M", "name": "thread_name", "args": {"name": ""} },
-{ "pid": "Unity", "tid": 1,"ts": 1.66912439569757E+15,"dur": 2225168, "ph":"X", "name": "Build player"},
-{ "pid": "Unity", "tid": 1,"ts": 1.66912439571091E+15,"dur": 283318, "ph":"X", "name": "Preprocess Player"},
-{ "pid": "Unity", "tid": 1,"ts": 1.66912439601728E+15,"dur": 887456, "ph":"X", "name": "Prepare For Build"},
-{ "pid": "Unity", "tid": 1,"ts": 1.66912439690475E+15,"dur": 981895, "ph":"X", "name": "ProducePlayerScriptAssemblies"},
-{ "pid": "Unity", "tid": 1,"ts": 1.66912439786132E+15,"dur": 24811, "ph":"X", "name": "Prebuild Cleanup and Recompile"},
+{ "pid": "Unity", "tid": 1,"ts": 1.66938439635312E+15,"dur": 2404685, "ph":"X", "name": "Build player"},
+{ "pid": "Unity", "tid": 1,"ts": 1.66938439637974E+15,"dur": 533351, "ph":"X", "name": "Preprocess Player"},
 {}
 
 ],
-"meta_datetime": "11/22/2022 13:39:57",
-"meta_command_line": "D:\\Unity\\2021.3.11f1\\Editor\\Unity.exe -projectpath C:\\Users\\ewans\\Desktop\\Honours\\HonoursProject\\HonoursProject -useHub -hubIPC -cloudEnvironment production -licensingIpc LicenseClient-ewans -hubSessionId 8ba05300-6a63-11ed-b494-6996c23322ad -accessToken do3-pFTmDShpgLURv10JiM6Ba1qyMEv0JW6tzWzeC8k005f",
-"meta_command_line_args": "D:\\Unity\\2021.3.11f1\\Editor\\Unity.exe -projectpath C:\\Users\\ewans\\Desktop\\Honours\\HonoursProject\\HonoursProject -useHub -hubIPC -cloudEnvironment production -licensingIpc LicenseClient-ewans -hubSessionId 8ba05300-6a63-11ed-b494-6996c23322ad -accessToken do3-pFTmDShpgLURv10JiM6Ba1qyMEv0JW6tzWzeC8k005f",
+"meta_datetime": "11/25/2022 13:53:18",
+"meta_command_line": "D:\\Unity\\2021.3.11f1\\Editor\\Unity.exe -projectpath C:\\Users\\ewans\\Desktop\\Honours\\HonoursProject\\HonoursProject -useHub -hubIPC -cloudEnvironment production -licensingIpc LicenseClient-ewans -hubSessionId dc87b8c0-6cc6-11ed-8990-57acfc39b82f -accessToken 8XtTWBtb-TGwghetbs9EibE75QVgQyk8dJbhSw51Mk0005f",
+"meta_command_line_args": "D:\\Unity\\2021.3.11f1\\Editor\\Unity.exe -projectpath C:\\Users\\ewans\\Desktop\\Honours\\HonoursProject\\HonoursProject -useHub -hubIPC -cloudEnvironment production -licensingIpc LicenseClient-ewans -hubSessionId dc87b8c0-6cc6-11ed-8990-57acfc39b82f -accessToken 8XtTWBtb-TGwghetbs9EibE75QVgQyk8dJbhSw51Mk0005f",
 "meta_user_name": "ewans",
 "meta_os_version": "Microsoft Windows NT 10.0.19044.0",
 "meta_cpu_count": "6"

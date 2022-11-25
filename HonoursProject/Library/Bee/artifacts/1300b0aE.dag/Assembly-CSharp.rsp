@@ -401,6 +401,7 @@
 "Assets/Mobile/Scripts/VirtualInputs/UIVirtualTouchZone.cs"
 "Assets/MyScript.cs"
 "Assets/Objectives.cs"
+"Assets/Quiz.cs"
 "Assets/SampleScenes/Menu/Scripts/MenuSceneLoader.cs"
 "Assets/SampleScenes/Menu/Scripts/PauseMenu.cs"
 "Assets/SampleScenes/Menu/Scripts/SceneAndURLLoader.cs"
