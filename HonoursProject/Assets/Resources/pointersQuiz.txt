@@ -1,2 +1,2 @@
-Are Pointers Cool?, defo yes, defo no, mby, hey
-this is an example question 2, possible answer 12, possible answer 22, possible answer 32, possible answer 42
+If you've been given a pointer (e.g. string *s)... and you want to use the thing it points to... which of these operators should you use?, *, <<, &, new
+Which of the following defines a pointer?, int *p, int n, char c, int &p

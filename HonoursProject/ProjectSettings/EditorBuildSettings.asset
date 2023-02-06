@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 6e6cf3ad3a4257e44b4f3fdcc5a349ad
   - enabled: 1
+    path: Assets/Scenes/Quiz.unity
+    guid: 6b530858e64847a4dace631b3f61ee02
+  - enabled: 1
     path: Assets/Scenes/LevelSelect.unity
     guid: 5183e4587898c244a8fee7681f57059f
   - enabled: 1
@@ -20,4 +23,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Pointers1.unity
     guid: 142bae5d12131af4087fe8a844d6d0d9
+  - enabled: 1
+    path: Assets/Scenes/register-login/login.unity
+    guid: 8acc618d0855fdf408a394093681dd2f
+  - enabled: 1
+    path: Assets/Scenes/register-login/register.unity
+    guid: 60efba33e455e2543bed75c84b615c7d
+  - enabled: 1
+    path: Assets/Scenes/register-login/sign-login.unity
+    guid: fa9bf6060953522419df1c8cee43e212
   m_configObjects: {}

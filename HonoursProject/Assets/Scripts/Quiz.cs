@@ -22,7 +22,7 @@ public class Quiz : MonoBehaviour
 
     private int _count = 0;
 
-    private const int WaitCount = 500;
+    private const int WaitCount = 25;
     private int _waitCurrent = 0;
     private bool _waiting = false;
 
