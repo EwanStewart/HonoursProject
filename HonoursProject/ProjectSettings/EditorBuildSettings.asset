@@ -24,12 +24,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Pointers1.unity
     guid: 142bae5d12131af4087fe8a844d6d0d9
   - enabled: 1
-    path: Assets/Scenes/register-login/login.unity
+    path: Assets/Scenes/registerLogin/login.unity
     guid: 8acc618d0855fdf408a394093681dd2f
   - enabled: 1
-    path: Assets/Scenes/register-login/register.unity
+    path: Assets/Scenes/registerLogin/register.unity
     guid: 60efba33e455e2543bed75c84b615c7d
   - enabled: 1
-    path: Assets/Scenes/register-login/sign-login.unity
+    path: Assets/Scenes/registerLogin/sign-login.unity
     guid: fa9bf6060953522419df1c8cee43e212
+  - enabled: 1
+    path: Assets/Scenes/BadgeGallery.unity
+    guid: a2d73d046d7592549b4fc4cb5c8a8a6d
   m_configObjects: {}

@@ -16,6 +16,8 @@ public class FirebaseManager : MonoBehaviour
     
     public bool nextSceneFlag = false;
     public bool usernameTakenFlag = false;
+    
+    public bool incorrectDetailsFlag = false;
     public TextMeshProUGUI errorText;
     
     static string encrypt(string password) //encrypt password using sha256
@@ -43,13 +45,10 @@ public class FirebaseManager : MonoBehaviour
 
     void Update()
     {
-        
         if (nextSceneFlag)
         {
-            Debug.Log("User added");
-            errorText.text = "Account created";
-            SceneManager.UnloadSceneAsync("Register");
-            SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
+            PlayerPrefs.SetString("username", usernameInputField.text); //save username to playerprefs
+            SceneManager.LoadScene("MainMenu");
         }
 
         if (usernameTakenFlag)
@@ -57,12 +56,30 @@ public class FirebaseManager : MonoBehaviour
             errorText.text = "Username already taken";
         }
 
+        if (incorrectDetailsFlag)
+        {
+            errorText.text = "Incorrect details";
+        }
     }
+
+	
+   
     void addUserToFirebase()
     {
+
+
+
         User user = new User(usernameInputField.text, passwordInputField.text); //create user
         string json = JsonUtility.ToJson(user); //convert user to json
         FirebaseDatabase.DefaultInstance.GetReference("users").Child(usernameInputField.text).SetRawJsonValueAsync(json); //add user to firebase
+        
+		Dictionary<string, object> badgeData = new Dictionary<string, object>();
+		for (int i = 0; i <= 9; i++) {
+			badgeData.Add("badge" + i, false);
+		}
+		FirebaseDatabase.DefaultInstance.GetReference("users").Child(usernameInputField.text).Child("badges").UpdateChildrenAsync(badgeData);
+		
+
         nextSceneFlag = true;
     }
     void checkIfUsernameTaken()
@@ -90,6 +107,37 @@ public class FirebaseManager : MonoBehaviour
         });
     }
     
+    void checkLoginDetails()
+    {
+        FirebaseDatabase.DefaultInstance.GetReference("users").GetValueAsync().ContinueWith(task => { //get all users
+            if (task.IsFaulted)
+            {
+                // Handle the error...
+            }
+            else if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+                foreach (DataSnapshot user in snapshot.Children)                            //loop through all users
+                {
+                    if (user.Child("username").Value.ToString() == usernameInputField.text) //check if username is taken
+                    {
+                        if (user.Child("password").Value.ToString() == encrypt(passwordInputField.text)) //check if password is correct
+                        {
+                            nextSceneFlag = true;
+                            return;
+                        }
+                        else
+                        {
+                            incorrectDetailsFlag = true;
+                            return;
+                        }
+                    }
+                }
+                incorrectDetailsFlag = true;
+            }
+        });
+    }
+    
     void RegisterAccount()
     {
         if (usernameInputField.text.Length >= 1 && passwordInputField.text.Length >= 1)   //check if inputs aren't empty
@@ -108,9 +156,22 @@ public class FirebaseManager : MonoBehaviour
 
     }
 
+    
+
     void LoginAccount()
     {
-        
+        if (usernameInputField.text.Length >= 1 && passwordInputField.text.Length >= 1)   //check if inputs aren't empty
+        {
+            if (usernameInputField.text.Length > 15)
+            {
+                errorText.text = "Username must be no longer than 15 characters";
+                return;
+            }
+            checkLoginDetails();
+        } else {   
+            errorText.text = "Please enter a username and password";
+        }
+
     }
     
     void Start() {
