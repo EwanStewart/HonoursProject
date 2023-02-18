@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "R58N5346GYZ",
         "name": "com.DefaultCompany.HonoursProject",
-        "processId": 18832,
+        "processId": 14010,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -24,12 +24,36 @@
             "deviceId": "R58N5346GYZ",
             "name": "com.DefaultCompany.HonoursProject",
             "processId": 18147,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "R58N5346GYZ",
             "name": "com.DefaultCompany.HonoursProject",
             "processId": 18832,
+            "exited": true
+        },
+        {
+            "deviceId": "R58N5346GYZ",
+            "name": "com.DefaultCompany.HonoursProject",
+            "processId": 9908,
+            "exited": false
+        },
+        {
+            "deviceId": "R58N5346GYZ",
+            "name": "com.DefaultCompany.HonoursProject",
+            "processId": 12439,
+            "exited": false
+        },
+        {
+            "deviceId": "R58N5346GYZ",
+            "name": "com.DefaultCompany.HonoursProject",
+            "processId": 13362,
+            "exited": false
+        },
+        {
+            "deviceId": "R58N5346GYZ",
+            "name": "com.DefaultCompany.HonoursProject",
+            "processId": 14010,
             "exited": false
         }
     ],

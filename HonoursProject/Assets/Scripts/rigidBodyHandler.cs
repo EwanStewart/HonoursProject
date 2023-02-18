@@ -4,33 +4,45 @@ using System.Numerics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityStandardAssets.Characters.FirstPerson;
-public class MyScript : MonoBehaviour
+public class rigidBodyHandler : MonoBehaviour
 {
     public FixedJoystick MoveJoystick;
     public FixedButton JumpButton;
     public FixedTouchField TouchField;
+    public GameObject mainCanvas;
+    public GameObject pauseCanvas;
 
     [SerializeField] private Objectives ObjectivesRef;
 
     private bool done;
-    // Start is called before the first frame update
-    void Start()
+    
+    public void togglePause()
     {
-
+        if (mainCanvas.activeSelf)
+        {
+            mainCanvas.SetActive(false);
+            pauseCanvas.SetActive(true);
+        }
+        else
+        {
+            mainCanvas.SetActive(true);
+            pauseCanvas.SetActive(false);
+        }
     }
-    // Update is called once per frame
+    
+    public void loadScene(string scene)
+    {
+        SceneManager.LoadScene(scene);
+    }
+    
     void Update()
     {
-
-
         var fps = GetComponent<RigidbodyFirstPersonController>();
         fps.RunAxis = MoveJoystick.Direction;
         fps.JumpAxis = JumpButton.Pressed;
         fps.mouseLook.LookAxis = TouchField.TouchDist;
 
         UnityEngine.Vector3 pos = transform.position;
-        //Debug.Log(pos.x + " " + pos.y + " " + pos.z);
-        //check if in scence
         string scene;
         
         scene = SceneManager.GetActiveScene().name;
