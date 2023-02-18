@@ -1,0 +1,6 @@
+Pointers are a distinctive feature of C and C++, they provide a powerful feature but also can be dangerous.
+A pointer is a reference type – it points to another variable in memory. Which provides lots of useful utility.
+These are pointers:  int *p, char *q;
+These are not pointers: int n, char c;
+/Here is an example of a pointer pointing to a memory location.
+Let's try match up some examples!

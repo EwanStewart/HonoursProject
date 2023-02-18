@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "R58N5346GYZ",
         "name": "com.DefaultCompany.HonoursProject",
-        "processId": 14010,
+        "processId": 6630,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -11,49 +11,31 @@
         {
             "deviceId": "R58N5346GYZ",
             "name": "com.DefaultCompany.HonoursProject",
-            "processId": 6205,
+            "processId": 29757,
             "exited": true
         },
         {
             "deviceId": "R58N5346GYZ",
             "name": "com.DefaultCompany.HonoursProject",
-            "processId": 7954,
+            "processId": 30942,
             "exited": true
         },
         {
             "deviceId": "R58N5346GYZ",
             "name": "com.DefaultCompany.HonoursProject",
-            "processId": 18147,
+            "processId": 1195,
             "exited": true
         },
         {
             "deviceId": "R58N5346GYZ",
             "name": "com.DefaultCompany.HonoursProject",
-            "processId": 18832,
+            "processId": 5815,
             "exited": true
         },
         {
             "deviceId": "R58N5346GYZ",
             "name": "com.DefaultCompany.HonoursProject",
-            "processId": 9908,
-            "exited": false
-        },
-        {
-            "deviceId": "R58N5346GYZ",
-            "name": "com.DefaultCompany.HonoursProject",
-            "processId": 12439,
-            "exited": false
-        },
-        {
-            "deviceId": "R58N5346GYZ",
-            "name": "com.DefaultCompany.HonoursProject",
-            "processId": 13362,
-            "exited": false
-        },
-        {
-            "deviceId": "R58N5346GYZ",
-            "name": "com.DefaultCompany.HonoursProject",
-            "processId": 14010,
+            "processId": 6630,
             "exited": false
         }
     ],

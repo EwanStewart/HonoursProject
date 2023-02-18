@@ -16,8 +16,9 @@ public class rigidBodyHandler : MonoBehaviour
 
     private bool done;
     
-    public void togglePause()
+    public void togglePause() 
     {
+        //toggle the canvases on and off
         if (mainCanvas.activeSelf)
         {
             mainCanvas.SetActive(false);
@@ -30,29 +31,27 @@ public class rigidBodyHandler : MonoBehaviour
         }
     }
     
-    public void loadScene(string scene)
+    public void loadScene(string scene) //load a scene
     {
         SceneManager.LoadScene(scene);
     }
     
     void Update()
     {
-        var fps = GetComponent<RigidbodyFirstPersonController>();
-        fps.RunAxis = MoveJoystick.Direction;
-        fps.JumpAxis = JumpButton.Pressed;
-        fps.mouseLook.LookAxis = TouchField.TouchDist;
+        var fps = GetComponent<RigidbodyFirstPersonController>(); //get the rigidbody controller
+        fps.RunAxis = MoveJoystick.Direction;                     //set the joystick direction to the run axis
+        fps.JumpAxis = JumpButton.Pressed;                        //set the jump button to the jump axis
+        fps.mouseLook.LookAxis = TouchField.TouchDist;            //set the touch field to the look axis
 
-        UnityEngine.Vector3 pos = transform.position;
-        string scene;
+        UnityEngine.Vector3 pos = transform.position;             //get the position of the player
         
-        scene = SceneManager.GetActiveScene().name;
-        if (scene == "Pointers" & (pos.z < 5 & pos.z > 3) )
+        if (SceneManager.GetActiveScene().name == "Pointers" & (pos.z < 5 & pos.z > 3) ) //if the player is in the pointers scene and is in the right position
         {
-            if (!done)
+            if (!done)                                             //if the player hasn't already completed the objective
             {
-                ObjectivesRef.nextLine();
-                done = true;
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                ObjectivesRef.nextLine();                          //go to the next line in the objectives
+                done = true;                                       //set done to true so that the player can't complete the objective again
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); //load the next scene
             }
         }
     }

@@ -3,46 +3,50 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
-
+using UnityEngine.UI;
 public class Dialogue : MonoBehaviour
 {
     public TextMeshProUGUI txtComponent;
     public string[] lines;
     
     public float textSpeed;
-    private int index;
+    private int index = 0;
     private string[] paths;
-
-    // Start is called before the first frame update
-
-
-
+    private List<string> textLine;
+    public GameObject panel;
+    
+    private int imgCount  = 0;
     void Start()
     {
-
-        lines = new string[2] { "A pointer is an object that stores a memory address, " +
-            "a powerful feature... but also a dangerous one.", 
-            "A pointer is a reference type – it points to another variable in memory." };
-
-        //paths = new string[2] { "pointers-1", "pointers-2"};
-
-        //image.sprite = Resources.Load<Sprite>("images/" + paths[0]);
-
-
+        textLine = new List<string>(); 
+        TextAsset file = Resources.Load("pointersContent") as TextAsset;  
+        string[] linesFromfile = file.text.Split("\n"[0]); 
+        foreach (string line in linesFromfile)
+        {
+            textLine.Add(line);
+        }
         txtComponent.text = string.Empty;
         StartDialogue();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.touchCount > 0 || Input.anyKeyDown)
+        if (Input.touchCount > 0 || Input.anyKeyDown) 
         {
-            if (txtComponent.text == lines[index])
+            if (textLine[index].ToCharArray()[0] == '/')
             {
+                textLine[index] = textLine[index].Substring(1);
+            }
+
+            if (txtComponent.text == textLine[index])
+            {
+                if (imgCount > 0) 
+                {
+                    panel.transform.GetChild(imgCount).gameObject.SetActive(false);
+                }
                 NextLine();
             }
+
         }
 
     }
@@ -53,18 +57,30 @@ public class Dialogue : MonoBehaviour
         StartCoroutine(TypeLine());
     }
 
-    IEnumerator TypeLine()
+    IEnumerator TypeLine() 
     {
-        foreach (char c in lines[index].ToCharArray())
+
+        if (textLine[index].ToCharArray()[0] == '/')
         {
-            txtComponent.text += c;
-            yield return new WaitForSeconds(textSpeed);
+            panel.transform.GetChild(imgCount+1).gameObject.SetActive(true);
+            imgCount++;
         }
+        
+
+        foreach (char c in textLine[index].ToCharArray()) 
+        {
+            if (c == '/') {}
+            else {
+                txtComponent.text += c; 
+                yield return new WaitForSeconds(textSpeed);
+            }
+        }
+        
     }
 
     void NextLine()
     {
-        if (index < lines.Length -1)
+        if (index < textLine.Count - 1)
         {
             index++;
             txtComponent.text = string.Empty;
@@ -73,7 +89,7 @@ public class Dialogue : MonoBehaviour
         else
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            gameObject.SetActive(false);
         }
+        
     }
 }
