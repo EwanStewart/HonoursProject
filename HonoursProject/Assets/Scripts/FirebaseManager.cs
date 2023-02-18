@@ -32,7 +32,7 @@ public class FirebaseManager : MonoBehaviour
         return builder.ToString();
     }
     
-    public class User
+    public class User //user class to structure data for firebase
     {
         public string username;
         public string password;
@@ -45,10 +45,10 @@ public class FirebaseManager : MonoBehaviour
 
     void Update()
     {
-        if (nextSceneFlag)
+        if (nextSceneFlag) 
         {
             PlayerPrefs.SetString("username", usernameInputField.text); //save username to playerprefs
-            SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene("MainMenu");                         //load main menu
         }
 
         if (usernameTakenFlag)
@@ -61,25 +61,19 @@ public class FirebaseManager : MonoBehaviour
             errorText.text = "Incorrect details";
         }
     }
-
-	
-   
-    void addUserToFirebase()
+    
+    void addUserToFirebase() 
     {
-
-
-
-        User user = new User(usernameInputField.text, passwordInputField.text); //create user
-        string json = JsonUtility.ToJson(user); //convert user to json
+        User user = new User(usernameInputField.text, passwordInputField.text);                                           //create user
+        string json = JsonUtility.ToJson(user);                                                                           //convert user to json
         FirebaseDatabase.DefaultInstance.GetReference("users").Child(usernameInputField.text).SetRawJsonValueAsync(json); //add user to firebase
         
-		Dictionary<string, object> badgeData = new Dictionary<string, object>();
-		for (int i = 0; i <= 9; i++) {
-			badgeData.Add("badge" + i, false);
+		Dictionary<string, object> badgeData = new Dictionary<string, object>();    //create dictionary for badges
+		for (int i = 0; i <= 11; i++) {                                             //add badges to user
+			badgeData.Add("badge" + i, false);                                      //set all badges to false
 		}
-		FirebaseDatabase.DefaultInstance.GetReference("users").Child(usernameInputField.text).Child("badges").UpdateChildrenAsync(badgeData);
-		
-
+		FirebaseDatabase.DefaultInstance.GetReference("users").Child(usernameInputField.text).Child("badges").UpdateChildrenAsync(badgeData); //add badges to user
+        
         nextSceneFlag = true;
     }
     void checkIfUsernameTaken()
@@ -174,12 +168,12 @@ public class FirebaseManager : MonoBehaviour
 
     }
     
-    void Start() {
-        if (confirmPasswordInputField != null)
+    void Start() { 
+        if (confirmPasswordInputField != null) //if register scene
         {
             submitButton.onClick.AddListener(RegisterAccount);
         }
-        else
+        else                                    //if login scene
         {
             submitButton.onClick.AddListener(LoginAccount); 
         }
