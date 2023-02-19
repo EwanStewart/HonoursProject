@@ -3,39 +3,45 @@
     "m_SelectedPackage": {
         "deviceId": "R58N5346GYZ",
         "name": "com.DefaultCompany.HonoursProject",
-        "processId": 9040,
-        "exited": true
+        "processId": 20336,
+        "exited": false
     },
     "m_SelectedPriority": 0,
     "m_KnownPackagesForSerialization": [
         {
             "deviceId": "R58N5346GYZ",
+            "name": "com.sec.android.app.launcher",
+            "processId": 30415,
+            "exited": false
+        },
+        {
+            "deviceId": "R58N5346GYZ",
             "name": "com.DefaultCompany.HonoursProject",
-            "processId": 5815,
+            "processId": 20353,
             "exited": true
         },
         {
             "deviceId": "R58N5346GYZ",
             "name": "com.DefaultCompany.HonoursProject",
-            "processId": 6630,
+            "processId": 20985,
             "exited": true
         },
         {
             "deviceId": "R58N5346GYZ",
             "name": "com.DefaultCompany.HonoursProject",
-            "processId": 8510,
+            "processId": 26074,
             "exited": true
         },
         {
             "deviceId": "R58N5346GYZ",
             "name": "com.DefaultCompany.HonoursProject",
-            "processId": 9040,
+            "processId": 15536,
             "exited": true
         },
         {
             "deviceId": "R58N5346GYZ",
             "name": "com.DefaultCompany.HonoursProject",
-            "processId": 9505,
+            "processId": 20336,
             "exited": false
         }
     ],

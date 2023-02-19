@@ -1,0 +1,2 @@
+If you've been given a pointer (e.g. string *s)... and you want to use the thing it points to... which of these operators should you use?, *, <<, &, new
+Which of the following defines a pointer?, int *p, int n, char c, int &p

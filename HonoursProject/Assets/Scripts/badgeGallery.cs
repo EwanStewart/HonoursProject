@@ -63,15 +63,22 @@ public class badgeGallery : MonoBehaviour
         {
             foreach (KeyValuePair<string, object> badge in data)
             {
-                if (badge.Value.ToString() == "False")
+                try
                 {
-                    GameObject.Find(badge.Key).GetComponent<Image>().color = Color.red;
-                    flag = false;
-                } else
+                    if (badge.Value.ToString() == "False")
+                    {
+                        GameObject.Find(badge.Key).GetComponent<Image>().color = Color.red;
+                        flag = false;
+                    } else
+                    {
+                        GameObject.Find(badge.Key).GetComponent<Image>().color = Color.white;
+                        flag = false;
+                    }
+                } catch
                 {
-                    GameObject.Find(badge.Key).GetComponent<Image>().color = Color.white;
-                    flag = false;
+                    Debug.Log("Error");
                 }
+
             }
         }
     }

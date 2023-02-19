@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 35919136}
   - component: {fileID: 35919135}
   m_Layer: 5
-  m_Name: 1
+  m_Name: badge10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -968,7 +968,7 @@ GameObject:
   - component: {fileID: 320998019}
   - component: {fileID: 320998018}
   m_Layer: 5
-  m_Name: badge1
+  m_Name: badge01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1361,7 +1361,7 @@ GameObject:
   - component: {fileID: 376163534}
   - component: {fileID: 376163533}
   m_Layer: 5
-  m_Name: badge4
+  m_Name: badge04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1483,7 +1483,7 @@ GameObject:
   - component: {fileID: 663066936}
   - component: {fileID: 663066935}
   m_Layer: 5
-  m_Name: badge8
+  m_Name: badge08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2145,7 +2145,7 @@ GameObject:
   - component: {fileID: 830969983}
   - component: {fileID: 830969982}
   m_Layer: 5
-  m_Name: 2
+  m_Name: badge11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2335,7 +2335,7 @@ GameObject:
   - component: {fileID: 878648044}
   - component: {fileID: 878648043}
   m_Layer: 5
-  m_Name: badge6
+  m_Name: badge06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2457,7 +2457,7 @@ GameObject:
   - component: {fileID: 890209878}
   - component: {fileID: 890209877}
   m_Layer: 5
-  m_Name: badge0
+  m_Name: badge00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2579,7 +2579,7 @@ GameObject:
   - component: {fileID: 901747302}
   - component: {fileID: 901747301}
   m_Layer: 5
-  m_Name: badge9
+  m_Name: badge09
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3205,7 +3205,7 @@ GameObject:
   - component: {fileID: 1068129675}
   - component: {fileID: 1068129674}
   m_Layer: 5
-  m_Name: badge7
+  m_Name: badge07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3597,7 +3597,7 @@ GameObject:
   - component: {fileID: 1243972644}
   - component: {fileID: 1243972643}
   m_Layer: 5
-  m_Name: badge3
+  m_Name: badge03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3823,7 +3823,7 @@ GameObject:
   - component: {fileID: 1254498366}
   - component: {fileID: 1254498365}
   m_Layer: 5
-  m_Name: badge5
+  m_Name: badge05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4862,7 +4862,7 @@ GameObject:
   - component: {fileID: 1877405888}
   - component: {fileID: 1877405887}
   m_Layer: 5
-  m_Name: badge2
+  m_Name: badge02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

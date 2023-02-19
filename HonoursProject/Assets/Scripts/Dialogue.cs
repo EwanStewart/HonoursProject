@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.IO;
 public class Dialogue : MonoBehaviour
 {
     public TextMeshProUGUI txtComponent;
@@ -16,12 +17,32 @@ public class Dialogue : MonoBehaviour
     public GameObject panel;
     
     private int imgCount  = 0;
+    private TextAsset text;
     void Start()
     {
-        textLine = new List<string>(); 
-        TextAsset file = Resources.Load("pointersContent") as TextAsset;  
-        string[] linesFromfile = file.text.Split("\n"[0]); 
-        foreach (string line in linesFromfile)
+        if (PlayerPrefs.HasKey("imgCount"))
+        {
+            imgCount = PlayerPrefs.GetInt("imgCount");
+        }
+        else
+        {
+            PlayerPrefs.SetInt("imgCount", 0);
+        }
+        
+        if (PlayerPrefs.HasKey("pointersPosition"))
+        {
+            string path = PlayerPrefs.GetString("pointersPosition");
+            text = Resources.Load(path) as TextAsset;
+        }
+        else
+        {
+            text = Resources.Load("pointersContent1") as TextAsset;
+            PlayerPrefs.SetString("pointersPosition", "pointersContent1");
+        }
+
+        lines = text.text.Split('\n');
+        textLine = new List<string>();
+        foreach (string line in lines)
         {
             textLine.Add(line);
         }
@@ -64,6 +85,7 @@ public class Dialogue : MonoBehaviour
         {
             panel.transform.GetChild(imgCount+1).gameObject.SetActive(true);
             imgCount++;
+            PlayerPrefs.SetInt("imgCount", imgCount);
         }
         
 
@@ -88,7 +110,12 @@ public class Dialogue : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            string path = PlayerPrefs.GetString("pointersPosition");
+            char lastChar = path[path.Length - 1];
+            path = path.Remove(path.Length - 1);
+            path += (char)(lastChar + 1);
+            PlayerPrefs.SetString("pointersPosition", path);
+            SceneManager.LoadScene("Pointers1");
         }
         
     }

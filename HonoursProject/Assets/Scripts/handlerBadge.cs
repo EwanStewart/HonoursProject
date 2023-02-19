@@ -30,7 +30,7 @@ public class handlerBadge : MonoBehaviour
         
         if (PlayerPrefs.HasKey("username"))
         {
-            FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge0").SetValueAsync(true);
+            FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge00").SetValueAsync(true);
         } else
         {
             SceneManager.LoadScene("sign-login");

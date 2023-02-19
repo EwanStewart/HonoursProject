@@ -1,0 +1,3 @@
+/Pointers can be used to reference structures and classes aswell as variables.
+C++ provides syntactical sugar to interact with values within a class or structure referenced by a pointer. 
+/(*p).x is replace by p-> x, which is much nicer to read.

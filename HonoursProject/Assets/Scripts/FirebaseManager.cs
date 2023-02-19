@@ -69,8 +69,12 @@ public class FirebaseManager : MonoBehaviour
         FirebaseDatabase.DefaultInstance.GetReference("users").Child(usernameInputField.text).SetRawJsonValueAsync(json); //add user to firebase
         
 		Dictionary<string, object> badgeData = new Dictionary<string, object>();    //create dictionary for badges
-		for (int i = 0; i <= 11; i++) {                                             //add badges to user
-			badgeData.Add("badge" + i, false);                                      //set all badges to false
+		for (int i = 0; i < 12; i++) {                                             //add badges to user
+            if (i < 10) {
+                badgeData.Add("badge0" + i, false);
+            } else {
+                badgeData.Add("badge" + i, false);
+            }
 		}
 		FirebaseDatabase.DefaultInstance.GetReference("users").Child(usernameInputField.text).Child("badges").UpdateChildrenAsync(badgeData); //add badges to user
         
