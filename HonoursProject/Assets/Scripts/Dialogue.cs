@@ -112,6 +112,9 @@ public class Dialogue : MonoBehaviour
         {
             string path = PlayerPrefs.GetString("pointersPosition");
             char lastChar = path[path.Length - 1];
+            int objCount = PlayerPrefs.GetInt("objPosition");
+            objCount++;
+            PlayerPrefs.SetInt("objPosition", objCount);
             path = path.Remove(path.Length - 1);
             path += (char)(lastChar + 1);
             PlayerPrefs.SetString("pointersPosition", path);

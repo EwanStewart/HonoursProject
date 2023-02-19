@@ -13,6 +13,7 @@ public class Objectives : MonoBehaviour
 
     void Start()
     {
+        
         textLine = new List<string>(); 
         txtComponent.text = string.Empty;
         TextAsset file;
@@ -33,7 +34,19 @@ public class Objectives : MonoBehaviour
             textLine.Add(line);
 
         }
-        txtComponent.text = textLine[0]; 
+        
+        if (!PlayerPrefs.HasKey("objPosition"))
+        {
+            PlayerPrefs.SetInt("objPosition", 0);
+        }
+        else
+        {
+            count = PlayerPrefs.GetInt("objPosition");
+        }
+        
+        Debug.Log(count);
+        Debug.Log(textLine[count]);
+        txtComponent.text = textLine[count]; 
     }
 
     public void nextLine() 

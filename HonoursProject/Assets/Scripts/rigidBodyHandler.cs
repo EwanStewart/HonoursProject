@@ -49,7 +49,6 @@ public class rigidBodyHandler : MonoBehaviour
         {
             if (!done)                                             //if the player hasn't already completed the objective
             {
-                ObjectivesRef.nextLine();                          //go to the next line in the objectives
                 done = true;                                       //set done to true so that the player can't complete the objective again
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); //load the next scene
             }
