@@ -20,6 +20,10 @@ public class FirebaseManager : MonoBehaviour
     public bool incorrectDetailsFlag = false;
     public TextMeshProUGUI errorText;
     
+    public void backToLoginMenu() //load login scene
+    {
+        SceneManager.LoadScene("sign-login");
+    }
     static string encrypt(string password) //encrypt password using sha256
     {
         SHA256 sha256 = SHA256.Create();
