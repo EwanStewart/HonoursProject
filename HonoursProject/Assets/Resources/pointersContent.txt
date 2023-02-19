@@ -3,4 +3,6 @@ A pointer is a reference type – it points to another variable in memory. Which
 These are pointers:  int *p, char *q;
 These are not pointers: int n, char c;
 /Here is an example of a pointer pointing to a memory location.
-Let's try match up some examples!
+Pointer p now points towards integer n, you can now dereference the pointer to use the value it is pointing to.
+/Outputting *p, will now print the value of n so in this case p will have the value of 42.
+Let's try match up some basic pointer examples!
