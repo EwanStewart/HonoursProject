@@ -1,2 +1,2 @@
-Sit down for the next lesson!
-a
+Sit down for your first lesson on Pointers!
+Take a seat to continue Pointers!

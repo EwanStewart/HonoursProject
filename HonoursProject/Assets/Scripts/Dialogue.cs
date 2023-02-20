@@ -18,8 +18,10 @@ public class Dialogue : MonoBehaviour
     
     private int imgCount  = 0;
     private TextAsset text;
+    public Slider slider;
     void Start()
     {
+        
         if (PlayerPrefs.HasKey("imgCount"))
         {
             imgCount = PlayerPrefs.GetInt("imgCount");
@@ -40,11 +42,21 @@ public class Dialogue : MonoBehaviour
             PlayerPrefs.SetString("pointersPosition", "pointersContent1");
         }
 
+        if (text == null)
+        {
+            text = Resources.Load("pointersContent1") as TextAsset;
+            PlayerPrefs.SetString("pointersPosition", "pointersContent1");
+            PlayerPrefs.SetInt("imgCount", 0);
+            imgCount = 0;
+            PlayerPrefs.SetInt("objPosition", 0);
+        }
         lines = text.text.Split('\n');
         textLine = new List<string>();
         foreach (string line in lines)
         {
             textLine.Add(line);
+            slider.maxValue += 1;
+
         }
         txtComponent.text = string.Empty;
         StartDialogue();
@@ -98,6 +110,7 @@ public class Dialogue : MonoBehaviour
             }
         }
         
+        slider.value += 1;
     }
 
     void NextLine()
@@ -118,7 +131,15 @@ public class Dialogue : MonoBehaviour
             path = path.Remove(path.Length - 1);
             path += (char)(lastChar + 1);
             PlayerPrefs.SetString("pointersPosition", path);
-            SceneManager.LoadScene("Pointers1");
+            string pointersPosition = PlayerPrefs.GetString("pointersPosition");
+            Debug.Log(pointersPosition);
+            
+            if (pointersPosition == "pointersContent2")
+            {
+                SceneManager.LoadScene("Pointers1");
+            } else if (pointersPosition == "pointersContent3") {
+                SceneManager.LoadScene("SwipeLeftRight");
+            }
         }
         
     }

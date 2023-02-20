@@ -1,3 +1,5 @@
 /Pointers can be used to reference structures and classes aswell as variables.
 C++ provides syntactical sugar to interact with values within a class or structure referenced by a pointer. 
 /(*p).x is replace by p-> x, which is much nicer to read.
+It's often useful to have a pointer that doesn't point to anything, often used to return as a sentinel value for “item not found”.
+The special value nullptr can be used for this – it's guaranteed not to be a valid pointer. This is typed as int *p = nullptr;

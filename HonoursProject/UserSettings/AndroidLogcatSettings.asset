@@ -1,72 +1,36 @@
 {
     "m_SelectedDeviceId": "R58N5346GYZ",
     "m_SelectedPackage": {
-        "deviceId": "R58N5346GYZ",
-        "name": "com.DefaultCompany.HonoursProject",
-        "processId": 32763,
+        "deviceId": "",
+        "name": "",
+        "processId": 0,
         "exited": false
     },
     "m_SelectedPriority": 0,
     "m_KnownPackagesForSerialization": [
         {
             "deviceId": "R58N5346GYZ",
-            "name": "com.sec.android.app.launcher",
-            "processId": 30415,
-            "exited": false
-        },
-        {
-            "deviceId": "R58N5346GYZ",
             "name": "com.DefaultCompany.HonoursProject",
-            "processId": 20353,
+            "processId": 18630,
             "exited": true
         },
         {
             "deviceId": "R58N5346GYZ",
             "name": "com.DefaultCompany.HonoursProject",
-            "processId": 20985,
+            "processId": 19929,
             "exited": true
         },
         {
             "deviceId": "R58N5346GYZ",
             "name": "com.DefaultCompany.HonoursProject",
-            "processId": 26074,
+            "processId": 20636,
             "exited": true
         },
         {
             "deviceId": "R58N5346GYZ",
             "name": "com.DefaultCompany.HonoursProject",
-            "processId": 15536,
+            "processId": 28775,
             "exited": true
-        },
-        {
-            "deviceId": "R58N5346GYZ",
-            "name": "com.DefaultCompany.HonoursProject",
-            "processId": 20336,
-            "exited": false
-        },
-        {
-            "deviceId": "R58N5346GYZ",
-            "name": "com.DefaultCompany.HonoursProject",
-            "processId": 26245,
-            "exited": false
-        },
-        {
-            "deviceId": "R58N5346GYZ",
-            "name": "com.DefaultCompany.HonoursProject",
-            "processId": 31144,
-            "exited": false
-        },
-        {
-            "deviceId": "R58N5346GYZ",
-            "name": "com.DefaultCompany.HonoursProject",
-            "processId": 32418,
-            "exited": false
-        },
-        {
-            "deviceId": "R58N5346GYZ",
-            "name": "com.DefaultCompany.HonoursProject",
-            "processId": 32763,
-            "exited": false
         }
     ],
     "m_Tags": {

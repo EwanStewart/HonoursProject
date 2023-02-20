@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/SwipeLeftRight.unity
+    guid: b1f5767d069a08b4993c67005652bfce
+  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 6e6cf3ad3a4257e44b4f3fdcc5a349ad
   - enabled: 1

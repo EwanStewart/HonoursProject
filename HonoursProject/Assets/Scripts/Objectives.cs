@@ -21,12 +21,9 @@ public class Objectives : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Pointers")
         {
             file = Resources.Load("pointers") as TextAsset; 
+        } else {
+		   return; 
         }
-        else
-        {
-            return;
-        }
-
 
         string[] linesFromfile = file.text.Split("\n"[0]); 
         foreach (string line in linesFromfile)
@@ -43,9 +40,8 @@ public class Objectives : MonoBehaviour
         {
             count = PlayerPrefs.GetInt("objPosition");
         }
-        
-        Debug.Log(count);
-        Debug.Log(textLine[count]);
+		Debug.Log(count);
+		Debug.Log(textLine.Count-1);
         txtComponent.text = textLine[count]; 
     }
 
