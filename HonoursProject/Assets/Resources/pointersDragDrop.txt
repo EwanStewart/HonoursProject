@@ -1,4 +1,4 @@
-A pointer point to be used to reference structures and classes, true
+A pointer can be used to reference structures and classes, true
 When defining a pointer - the * symbol is used, true
 In short - a pointer holds the memory address of some other data, true
 Manipulating the memory referenced by a pointer is called accessing the memory, false

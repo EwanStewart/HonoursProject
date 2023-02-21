@@ -1,2 +1,3 @@
 Sit down for your first lesson on Pointers!
 Take a seat to continue Pointers!
+Exit the classroom to take your final pointers lesson.

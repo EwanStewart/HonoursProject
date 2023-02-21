@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class account_menu : MonoBehaviour
 {
-    public void loadScene(string scene)
+    public void loadScene(string scene) //load scene on parameter value
     {
         SceneManager.LoadScene(scene);
     }

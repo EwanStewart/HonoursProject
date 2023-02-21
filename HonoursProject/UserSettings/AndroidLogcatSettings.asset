@@ -1,9 +1,9 @@
 {
     "m_SelectedDeviceId": "R58N5346GYZ",
     "m_SelectedPackage": {
-        "deviceId": "",
-        "name": "",
-        "processId": 0,
+        "deviceId": "R58N5346GYZ",
+        "name": "com.DefaultCompany.HonoursProject",
+        "processId": 16998,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -31,6 +31,24 @@
             "name": "com.DefaultCompany.HonoursProject",
             "processId": 28775,
             "exited": true
+        },
+        {
+            "deviceId": "R58N5346GYZ",
+            "name": "com.DefaultCompany.HonoursProject",
+            "processId": 12301,
+            "exited": false
+        },
+        {
+            "deviceId": "R58N5346GYZ",
+            "name": "com.DefaultCompany.HonoursProject",
+            "processId": 14365,
+            "exited": false
+        },
+        {
+            "deviceId": "R58N5346GYZ",
+            "name": "com.DefaultCompany.HonoursProject",
+            "processId": 16998,
+            "exited": false
         }
     ],
     "m_Tags": {

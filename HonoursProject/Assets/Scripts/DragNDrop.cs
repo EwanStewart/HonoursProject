@@ -11,143 +11,148 @@ using UnityEngine.SceneManagement;
 
 public class DragNDrop : MonoBehaviour
 {
-    private TextAsset text;
+    //gameobjects from scene
+    private TextAsset text;	
     public GameObject prefabButton;
     public RectTransform ParentPanel;
     public RectTransform panelTrue;
     public RectTransform panelFalse;
 	public RectTransform panelFeedback;
-	bool Done = false;
 
-	private int consecutiveCorrect = 0;
-	private int buttonsSubmited = 0;
-    public void submit()
-    {
-        Dictionary<string, string> dict = new Dictionary<string, string>();
+	bool Done = false;    				//check if game over
+	private int consecutiveCorrect = 0;	//total correct answers in a row
+	private int buttonsSubmited = 0;	//total statements correctly submitted
 
-        foreach (string k in PlayerPrefs.GetString("keys", "").Split(','))
-        {
-            string v = PlayerPrefs.GetString(k, "");
-            dict.Add(k, v);
-        }
-        
-        //create a panel list
-        List<RectTransform> panelList = new List<RectTransform>();
+    public void submitAnswers() {
+        Dictionary<string, string> dict = new Dictionary<string, string>();	//create dictionary to hold statements and values
+        List<RectTransform> panelList = new List<RectTransform>();	//list to hold panels
+
+        int panelIndex = 0;	//index to hold which panel is being checked
+        bool correctValueForPanel = true;	
+
         panelList.Add(panelTrue);
         panelList.Add(panelFalse);
 
-        int i = 0;
-        bool a = true;
-        
-        foreach (RectTransform panel in panelList)
+        foreach (string k in PlayerPrefs.GetString("keys", "").Split(','))	//for each key in dictionary, add to dictionary with value from playerprefs
         {
-            
-            foreach (Transform child in panel)
+            dict.Add(k, PlayerPrefs.GetString(k, ""));
+        }
+        
+        foreach (RectTransform panel in panelList)	//for each panel
+        {
+            foreach (Transform child in panel)		//for each child in panel
             {
-                if (i > 0)
+                if (panelIndex > 0)					//define correct answer for panel
                 {
-                    a = false;
+                    correctValueForPanel = false;
                 }
                
-                if (child.GetComponent<Button>())
+                if (child.GetComponent<Button>())	//if child is a button
                 {
-                    Button tempButton = child.GetComponent<Button>();
-                    string tempText = tempButton.GetComponentInChildren<TextMeshProUGUI>().text;
-                    bool tempValue = Convert.ToBoolean(dict[tempText]);
+                    Button tempButton = child.GetComponent<Button>();	//get button
+                    string tempText = tempButton.GetComponentInChildren<TextMeshProUGUI>().text; 	    //get text from button
+                    bool tempValue = Convert.ToBoolean(dict[tempText]);	//convert value from dictionary to bool
           
-                    if (tempValue == a)
-                    { 
-						consecutiveCorrect++;
-					    buttonsSubmited++;
-                        Destroy(tempButton.gameObject);
-                    } else {
-						consecutiveCorrect = 0;
-						panelFeedback.gameObject.SetActive(true);
-						TextMeshProUGUI feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();
-						feedBackTxt.text = "That's not quite it, at least one of your answers are incorrect. Try again.";
-						Invoke("clearFeedback", 3);
+                    if (tempValue == correctValueForPanel) { 	//if value is correct
+						consecutiveCorrect++;					//increment correct answers in a row
+					    buttonsSubmited++;						//increment total statements submitted
+                        Destroy(tempButton.gameObject);			//destroy button to denote correct answer
+                    } else {																					//if wrong
+						consecutiveCorrect = 0;																				//reset correct answers in a row
+						panelFeedback.gameObject.SetActive(true);															//show feedback panel to denote wrong answer	
+						TextMeshProUGUI feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();				//get text from feedback panel
+						feedBackTxt.text = "That's not quite it, at least one of your answers are incorrect. Try again.";	//change text to denote wrong answer
+						Invoke("clearFeedback", 3);																//clear feedback panel after 3 seconds
 					}
                 }
             }
-
-            i++;
+            panelIndex++;	//increment panel index, to go to next panel
         }
-	
-		if (!Done) {
-			if (consecutiveCorrect >=2) {
-				if (PlayerPrefs.HasKey("username"))
-        		{
-            		FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge01").SetValueAsync(true);
-					panelFeedback.gameObject.SetActive(true);
-					TextMeshProUGUI feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();
-					feedBackTxt.text = "Congratulations! You have got five answers correct in a row! You have unlocked a badge.";
-					Invoke("clearFeedback", 3);
-        		} else
-        		{
-					PlayerPrefs.DeleteAll();
-            		SceneManager.LoadScene("sign-login");
-        		}
-				Done = true;
-			}
-		} 
-
     }
 
-    public void clearFeedback()
+	public void checkIfBadgeMet() {	//check if badge in this scene has been met
+		if (!Done) {									//check if already met
+			if (consecutiveCorrect >=5) {				//if the user has got 5 correct answers in a row
+				if (PlayerPrefs.HasKey("username")) {	//ensure user is logged in
+            		FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge01").SetValueAsync(true);	//store badge in firebase
+					panelFeedback.gameObject.SetActive(true);																	  //set feedback panel to active
+					TextMeshProUGUI feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();						  //get text from feedback panel
+					feedBackTxt.text = "Congratulations! You have got five answers correct in a row! You have unlocked a badge."; //change text to denote badge unlocked
+        		} else {
+					PlayerPrefs.DeleteAll();				//delete all playerprefs
+            		SceneManager.LoadScene("sign-login");	//send user to login screen
+        		}
+				Done = true;	//badge has been met
+				Invoke("clearFeedback", 3);	//clear feedback panel after 3 seconds
+			}
+		} 
+	}
+
+    public void clearFeedback()	//clear text of panel and hide panel
     {
+		Debug.Log("Clearing feedback");
 		panelFeedback.gameObject.SetActive(false);
 		TextMeshProUGUI feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();
 		feedBackTxt.text = "";
     }
+
+	public void nextScene() {	//load next scene
+		SceneManager.LoadScene("Pointers");
+	}
 	
  	void Update()
     {
-		if (buttonsSubmited >= 8) {
-			SceneManager.LoadScene("Pointers");
+		if (!Done) {	//if badge hasen't been met check
+			checkIfBadgeMet();
+		}
+
+		if(!panelFeedback.gameObject.activeSelf) {	//if feedback panel is not active
+            if (buttonsSubmited >= 8) {				//check if all statements have been submitted
+				foreach (string k in PlayerPrefs.GetString("keys", "").Split(','))	//delete data stored in playerprefs pertaining to this scene
+            	{
+                	PlayerPrefs.DeleteKey(k);
+           		}
+
+				panelFeedback.gameObject.SetActive(true);														//set feedback panel to active
+				TextMeshProUGUI feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();			//get text from feedback panel
+				feedBackTxt.text = "Well Done! You successfully sorted the statements into true and false.";	//change text to denote completion of scene
+				Invoke("nextScene", 3);																			//load next scene after 3 seconds
+        	}
         }
 	}
 
     void Start()
     {
-		TextMeshProUGUI feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();
-		feedBackTxt.text = "Drag and drop the statements to the correct side depending on whether they are true or false.";
-	    Invoke("clearFeedback", 3);
-		
-        string fileName = "pointersDragDrop";
-        text = Resources.Load(fileName) as TextAsset;
+        Dictionary<string, string> dict = new Dictionary<string, string>();
+        string keys = "";
 
-        if (text == null)
-        {
+		TextMeshProUGUI feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();									//get text from feedback panel
+		feedBackTxt.text = "Drag and drop the statements to the correct side depending on whether they are true or false.";		//change text to denote start of scene
+	    Invoke("clearFeedback", 3);																								//clear feedback panel after 3 seconds
+		
+        text = Resources.Load("pointersDragDrop") as TextAsset;	//load text file from resources folder
+
+        if (text == null) {	//ensure file exists
             print("File not found");
             return;
         }
         
+        string[] lines = text.text.Split('\n');	//split text file into lines
         
-        string[] lines = text.text.Split('\n');
-        
-        Dictionary<string, string> dict = new Dictionary<string, string>();
-        
-        foreach (string line in lines)
-        {
-            string[] split = line.Split(',');
-            dict.Add(split[0], split[1]);
+        foreach (string line in lines) {		//for each line in text file
+            string[] split = line.Split(',');	//split line into key and value
+            dict.Add(split[0], split[1]);		//add key and value to dictionary
         }
         
-
-        string keys = "";
-
-        foreach (KeyValuePair<string, string> entry in dict)
+        foreach (KeyValuePair<string, string> entry in dict)	//for each key in dictionary
         {
-            keys += entry.Key + ",";
-            PlayerPrefs.SetString(entry.Key, entry.Value);
+            keys += entry.Key + ",";						//add key to string
+            PlayerPrefs.SetString(entry.Key, entry.Value);	//store key and value in playerprefs
         }
 
-        PlayerPrefs.SetString("keys", keys);
-        PlayerPrefs.Save();
+        PlayerPrefs.SetString("keys", keys);				//store keys in playerprefs
+        PlayerPrefs.Save();									//save playerprefs
             
-    
-
-
         //for each key in dictionary, dynamically create a button
         foreach (KeyValuePair<string, string> entry in dict)
         {
@@ -158,15 +163,12 @@ public class DragNDrop : MonoBehaviour
             tempButton.transform.localPosition = new Vector3(UnityEngine.Random.Range(-200, 200), UnityEngine.Random.Range(-200, 200), 0);
             TextMeshProUGUI tempText = goButton.GetComponentInChildren<TextMeshProUGUI>();
             tempText.text = entry.Key;
-            try
-            {
+            try {
                 tempButton.GetComponentInChildren<Text>().text = entry.Value;				
             }
-            catch (System.Exception e)
-            {
+            catch (System.Exception e) {
                 print(e);
             }
-            
             tempButton.gameObject.SetActive(true);
         }
     }

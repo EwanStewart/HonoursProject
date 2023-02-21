@@ -2225,7 +2225,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2069326401}
         m_TargetAssemblyTypeName: DragNDrop, Assembly-CSharp
-        m_MethodName: submit
+        m_MethodName: submitAnswers
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
