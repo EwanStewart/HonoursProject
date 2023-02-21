@@ -11,15 +11,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [Serializable]
         public class MovementSettings
         {
-            public float ForwardSpeed = 4.0f;   // Speed when walking forward
-            public float BackwardSpeed = 4.0f;  // Speed when walking backwards
-            public float StrafeSpeed = 4.0f;    // Speed when walking sideways
-            public float RunMultiplier = 2.0f;   // Speed when sprinting
+            public float ForwardSpeed = 1.0f;   // Speed when walking forward
+            public float BackwardSpeed = 1.0f;  // Speed when walking backwards
+            public float StrafeSpeed = 1.0f;    // Speed when walking sideways
+            public float RunMultiplier = 1.0f;   // Speed when sprinting
 	        public KeyCode RunKey = KeyCode.LeftShift;
             public float JumpForce = 30f;
             public AnimationCurve SlopeCurveModifier = new AnimationCurve(new Keyframe(-90.0f, 1.0f), new Keyframe(0.0f, 1.0f), new Keyframe(90.0f, 0.0f));
             [HideInInspector] public float CurrentTargetSpeed = 8f;
-
+	
 #if !MOBILE_INPUT
             private bool m_Running;
 #endif
@@ -234,7 +234,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // get the rotation before it's changed
             float oldYRotation = transform.eulerAngles.y;
 
-            mouseLook.LookRotation (transform, cam.transform);
+			mouseLook.XSensitivity = 0.5f;
+			
+			mouseLook.LookRotation (transform, cam.transform);
+
+			
 
             if (m_IsGrounded || advancedSettings.airControl)
             {
