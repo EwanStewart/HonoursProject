@@ -1,3 +1,8 @@
-Can a pointer point to any variable type?, true
-b, false
-a, true
+A pointer point to be used to reference structures and classes, true
+When defining a pointer - the * symbol is used, true
+In short - a pointer holds the memory address of some other data, true
+Manipulating the memory referenced by a pointer is called accessing the memory, false
+Pointers in C++ have restricted manipulation, false
+Pointers cannot reference all value types, false
+Pointers can reference memory which has been deallocated, true
+A pointer can point towards another pointer, true

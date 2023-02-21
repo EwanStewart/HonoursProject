@@ -6,7 +6,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.IO;
-
+using Firebase.Database;
+using UnityEngine.SceneManagement;
 
 public class DragNDrop : MonoBehaviour
 {
@@ -15,6 +16,11 @@ public class DragNDrop : MonoBehaviour
     public RectTransform ParentPanel;
     public RectTransform panelTrue;
     public RectTransform panelFalse;
+	public RectTransform panelFeedback;
+	bool Done = false;
+
+	private int consecutiveCorrect = 0;
+	private int buttonsSubmited = 0;
     public void submit()
     {
         Dictionary<string, string> dict = new Dictionary<string, string>();
@@ -48,28 +54,65 @@ public class DragNDrop : MonoBehaviour
                     Button tempButton = child.GetComponent<Button>();
                     string tempText = tempButton.GetComponentInChildren<TextMeshProUGUI>().text;
                     bool tempValue = Convert.ToBoolean(dict[tempText]);
-                    print(tempText);
-                    print(tempValue);
-                    
+          
                     if (tempValue == a)
                     { 
+						consecutiveCorrect++;
+					    buttonsSubmited++;
                         Destroy(tempButton.gameObject);
-                    }
-
+                    } else {
+						consecutiveCorrect = 0;
+						panelFeedback.gameObject.SetActive(true);
+						TextMeshProUGUI feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();
+						feedBackTxt.text = "That's not quite it, at least one of your answers are incorrect. Try again.";
+						Invoke("clearFeedback", 3);
+					}
                 }
             }
 
             i++;
         }
-
-
-
-
+	
+		if (!Done) {
+			if (consecutiveCorrect >=2) {
+				if (PlayerPrefs.HasKey("username"))
+        		{
+            		FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge01").SetValueAsync(true);
+					panelFeedback.gameObject.SetActive(true);
+					TextMeshProUGUI feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();
+					feedBackTxt.text = "Congratulations! You have got five answers correct in a row! You have unlocked a badge.";
+					Invoke("clearFeedback", 3);
+        		} else
+        		{
+					PlayerPrefs.DeleteAll();
+            		SceneManager.LoadScene("sign-login");
+        		}
+				Done = true;
+			}
+		} 
 
     }
-    
+
+    public void clearFeedback()
+    {
+		panelFeedback.gameObject.SetActive(false);
+		TextMeshProUGUI feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();
+		feedBackTxt.text = "";
+    }
+	
+ 	void Update()
+    {
+		if (buttonsSubmited >= 8) {
+			SceneManager.LoadScene("Pointers");
+        }
+	}
+
     void Start()
     {
+		TextMeshProUGUI feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();
+		feedBackTxt.text = "Drag and drop the statements to the correct side depending on whether they are true or false.";
+	    Invoke("clearFeedback", 3);
+		
         string fileName = "pointersDragDrop";
         text = Resources.Load(fileName) as TextAsset;
 
@@ -117,7 +160,7 @@ public class DragNDrop : MonoBehaviour
             tempText.text = entry.Key;
             try
             {
-                tempButton.GetComponentInChildren<Text>().text = entry.Value;
+                tempButton.GetComponentInChildren<Text>().text = entry.Value;				
             }
             catch (System.Exception e)
             {
@@ -125,12 +168,6 @@ public class DragNDrop : MonoBehaviour
             }
             
             tempButton.gameObject.SetActive(true);
-
-
         }
-        
-
-
-
     }
 }
