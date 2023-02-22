@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Connect
   - chair
+  - answer
+  - question
   layers:
   - Default
   - TransparentFX

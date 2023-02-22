@@ -234,7 +234,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // get the rotation before it's changed
             float oldYRotation = transform.eulerAngles.y;
 
-			mouseLook.XSensitivity = 0.5f;
+			mouseLook.XSensitivity = 1f;
 			
 			mouseLook.LookRotation (transform, cam.transform);
 

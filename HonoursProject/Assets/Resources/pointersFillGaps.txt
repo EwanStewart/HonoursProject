@@ -1,0 +1,2 @@
+When using pointers the _ symbol is used to define a pointer _ this is really cool _ i am a colfesfesf fesgsefge, *, (, $, nothing
+FillGaps2, 2, a, b, c, d, e, f
