@@ -18,8 +18,10 @@ public class FillGaps : MonoBehaviour
     public RectTransform ParentPanel;
     public RectTransform panelText;
     public GameObject textObj;
+	public RectTransform a;
+	public Slider slider;
+
     private List<List<string>> list = new List<List<string>>();
-	private int currentIndex = 0;
 	public RectTransform panelFeedback;
 
     public void clearFeedback()	//clear text of panel and hide panel
@@ -27,10 +29,26 @@ public class FillGaps : MonoBehaviour
 		Debug.Log("Clearing feedback");
 		panelFeedback.gameObject.SetActive(false);
 		TextMeshProUGUI feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();
+		if (feedBackTxt.text == "That's not quite it, at least one of your answers are incorrect. Try again.")
+		{
+			clearAnswers();
+		}
+		else
+		{
+			int currentIndex = PlayerPrefs.GetInt("currentIndexFill");
+			currentIndex++;
+			PlayerPrefs.SetInt("currentIndexFill", currentIndex);
+			clearAnswers();
+		}
 		feedBackTxt.text = "";
     }
 
-	public void submitAnswers() {
+    public void clearAnswers()
+    { 
+	    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void submitAnswers() {
 		int correctAnswers = 0;
 
 		foreach (Transform child in panelText) {
@@ -129,7 +147,16 @@ public class FillGaps : MonoBehaviour
             goButton.transform.SetParent(ParentPanel, false);
             goButton.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
             Button tempButton = goButton.GetComponent<Button>();
-            tempButton.transform.localPosition = new Vector3(UnityEngine.Random.Range(-ParentPanel.rect.width / 2, ParentPanel.rect.width / 2), UnityEngine.Random.Range(-ParentPanel.rect.height / 2, ParentPanel.rect.height / 2), 0);
+            float x = UnityEngine.Random.Range(-ParentPanel.rect.width / 2, ParentPanel.rect.width / 2);
+            float y = UnityEngine.Random.Range(-ParentPanel.rect.height / 2, ParentPanel.rect.height / 2);
+            while (Physics2D.OverlapCircle(new Vector2(x, y), goButton.GetComponent<RectTransform>().rect.width / 2) != null) {
+                x = UnityEngine.Random.Range(-ParentPanel.rect.width / 2, ParentPanel.rect.width / 2);
+                y = UnityEngine.Random.Range(-ParentPanel.rect.height / 2, ParentPanel.rect.height / 2);
+                if (x + goButton.GetComponent<RectTransform>().rect.width / 2 > ParentPanel.rect.width / 2) {
+                    x = ParentPanel.rect.width / 2 - goButton.GetComponent<RectTransform>().rect.width / 2;
+                }
+            }
+            tempButton.transform.localPosition = new Vector3(x, y, 0);
             tempButton.GetComponentInChildren<TextMeshProUGUI>().text = s;
 			tempButton.tag = "answer";
             TextMeshProUGUI tempText = goButton.GetComponentInChildren<TextMeshProUGUI>();
@@ -137,6 +164,8 @@ public class FillGaps : MonoBehaviour
             tempButton.gameObject.SetActive(true);
         }
     }
+    
+    
     void Start()
     {
         
@@ -158,10 +187,20 @@ public class FillGaps : MonoBehaviour
             }
             list.Add(temp);
         }
-
-        createButtonsForLine(list[0]);
-		
-		
-
+        
+        int pos = 0;
+		if (PlayerPrefs.HasKey("currentIndexFill")) {
+			pos = PlayerPrefs.GetInt("currentIndexFill");
+        }
+        if (pos >= list.Count-1) {
+            pos = 0;
+        }
+        slider.maxValue = list.Count-1;
+        slider.value = pos;
+        
+        PlayerPrefs.SetInt("currentIndexFill", pos);
+		print(pos);
+        createButtonsForLine(list[pos]);
+        
     }
 }

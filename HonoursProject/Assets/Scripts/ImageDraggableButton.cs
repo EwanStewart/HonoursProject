@@ -13,6 +13,17 @@ public class ImageDraggableButton : MonoBehaviour, IDragHandler, IEndDragHandler
         {
             transform.position = eventData.position;
         }
+        
+        if (tag == "answer")
+        {
+            if (RectTransformUtility.RectangleContainsScreenPoint(questionsPanel, eventData.position))
+            {
+                if (transform.parent == questionsPanel)
+                {
+                    transform.position = originalPosition;
+                }
+            }
+        }
     }
     
     public void OnEndDrag(PointerEventData eventData) //when button is released, check if it is in either panel, if not reset to original position
@@ -25,7 +36,8 @@ public class ImageDraggableButton : MonoBehaviour, IDragHandler, IEndDragHandler
         }
         
         Button[] buttons = questionsPanel.GetComponentsInChildren<Button>();
-
+        
+        
         foreach (Button button in buttons)
         {
             if (RectTransformUtility.RectangleContainsScreenPoint(button.GetComponent<RectTransform>(), eventData.position))
@@ -38,10 +50,10 @@ public class ImageDraggableButton : MonoBehaviour, IDragHandler, IEndDragHandler
                 }
                 transform.SetParent(questionsPanel);
                 transform.position = button.transform.position; //set position of button to position of button it is in
+                originalPosition = button.transform.position;
                 transform.name = button.transform.position.y.ToString();
                 button.gameObject.SetActive(false);
                 buttons = questionsPanel.GetComponentsInChildren<Button>();
-                
                 return;
             }
         }
