@@ -18,11 +18,21 @@ public class Objectives : MonoBehaviour
         txtComponent.text = string.Empty;
         TextAsset file;
 
-        if (SceneManager.GetActiveScene().name == "Pointers")
-        {
+        if (SceneManager.GetActiveScene().name == "Pointers") {
             file = Resources.Load("pointers") as TextAsset; 
+            if (!PlayerPrefs.HasKey("objPosition")) {
+                PlayerPrefs.SetInt("objPosition", 0);
+            } else  {
+                count = PlayerPrefs.GetInt("objPosition");
+            }
+        } else if (SceneManager.GetActiveScene().name == "sorting") {
+            file = Resources.Load("sorting") as TextAsset;
+            if (!PlayerPrefs.HasKey("objPositionSorting")) {
+                PlayerPrefs.SetInt("objPositionSorting", 0);
+            }                 
+            count = PlayerPrefs.GetInt("objPositionSorting");
         } else {
-		   return; 
+            return;
         }
 
         string[] linesFromfile = file.text.Split("\n"[0]); 
@@ -32,14 +42,7 @@ public class Objectives : MonoBehaviour
 
         }
         
-        if (!PlayerPrefs.HasKey("objPosition"))
-        {
-            PlayerPrefs.SetInt("objPosition", 0);
-        }
-        else
-        {
-            count = PlayerPrefs.GetInt("objPosition");
-        }
+
 		Debug.Log(count);
 		Debug.Log(textLine.Count-1);
         txtComponent.text = textLine[count]; 

@@ -41,7 +41,6 @@ public class rigidBodyHandler : MonoBehaviour
         {
             if (!done)                                             //if the player hasn't already completed the objective
             {
-                print("a");
                 done = true;                                       //set done to true so that the player can't complete the objective again
                 SceneManager.LoadScene("PointersLessonUI"); //load the next scene
             }
