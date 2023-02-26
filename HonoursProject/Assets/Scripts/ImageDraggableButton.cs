@@ -4,25 +4,21 @@ using UnityEngine.UI;
 
 public class ImageDraggableButton : MonoBehaviour, IDragHandler, IEndDragHandler 
 {
-    private Vector3 originalPosition; // The original position in center panel
-    private Transform startParent;
+    private Vector3 _originalPosition; // The original position in center panel
+    private Transform _startParent;
     public RectTransform questionsPanel;
     public void OnDrag(PointerEventData eventData) //as button is being dragged change position to mouse/touch position
     {
-        if (tag != "question")
+        if (!CompareTag("question"))
         {
             transform.position = eventData.position;
         }
-        
-        if (tag == "answer")
+
+        if (!CompareTag("answer")) return;
+        if (!RectTransformUtility.RectangleContainsScreenPoint(questionsPanel, eventData.position)) return;
+        if (transform.parent == questionsPanel)
         {
-            if (RectTransformUtility.RectangleContainsScreenPoint(questionsPanel, eventData.position))
-            {
-                if (transform.parent == questionsPanel)
-                {
-                    transform.position = originalPosition;
-                }
-            }
+            transform.position = _originalPosition;
         }
     }
     
@@ -30,8 +26,8 @@ public class ImageDraggableButton : MonoBehaviour, IDragHandler, IEndDragHandler
     {
         if (!RectTransformUtility.RectangleContainsScreenPoint(questionsPanel, eventData.position))
         {
-            transform.position = originalPosition;
-            transform.SetParent(startParent);
+            transform.position = _originalPosition;
+            transform.SetParent(_startParent);
             return;
         }
         
@@ -40,27 +36,31 @@ public class ImageDraggableButton : MonoBehaviour, IDragHandler, IEndDragHandler
         
         foreach (Button button in buttons)
         {
-            if (RectTransformUtility.RectangleContainsScreenPoint(button.GetComponent<RectTransform>(), eventData.position))
+            if (!RectTransformUtility.RectangleContainsScreenPoint(button.GetComponent<RectTransform>(),
+                    eventData.position)) continue;
+            if (button.CompareTag("answer"))
             {
-                if (button.tag == "answer")
-                {
-                    transform.position = originalPosition;
-                    transform.SetParent(startParent);
-                    return;
-                }
-                transform.SetParent(questionsPanel);
-                transform.position = button.transform.position; //set position of button to position of button it is in
-                originalPosition = button.transform.position;
-                transform.name = button.transform.position.y.ToString();
-                button.gameObject.SetActive(false);
-                buttons = questionsPanel.GetComponentsInChildren<Button>();
+                transform.position = _originalPosition;
+                transform.SetParent(_startParent);
                 return;
             }
+
+            Transform transform1;
+            (transform1 = transform).SetParent(questionsPanel);
+            var transform2 = button.transform;
+            var position = transform2.position;
+            transform1.position = position; //set position of button to position of button it is in
+            _originalPosition = position;
+            transform.name = button.transform.position.y.ToString();
+            button.gameObject.SetActive(false);
+            buttons = questionsPanel.GetComponentsInChildren<Button>();
+            return;
         }
     }
     void Start() 
     {
-        startParent = transform.parent; //set start parent to parent of button
-        originalPosition = transform.position; //set original position to starting point for button
+        var transform1 = transform;
+        _startParent = transform1.parent; //set start parent to parent of button
+        _originalPosition = transform1.position; //set original position to starting point for button
     }
 }

@@ -3,8 +3,8 @@ using UnityEngine.EventSystems;
 
 public class DraggableButton : MonoBehaviour, IDragHandler, IEndDragHandler 
 {
-    private Vector3 originalPosition; // The original position in center panel
-    private Transform startParent;
+    private Vector3 _originalPosition; // The original position in center panel
+    private Transform _startParent;
     public RectTransform panelTrue; //Panel object for true statements
     public RectTransform panelFalse; //Panel object for false statements
     public void OnDrag(PointerEventData eventData) //as button is being dragged change position to mouse/touch position
@@ -17,9 +17,9 @@ public class DraggableButton : MonoBehaviour, IDragHandler, IEndDragHandler
         if (!RectTransformUtility.RectangleContainsScreenPoint(panelTrue, Input.mousePosition) && !RectTransformUtility.RectangleContainsScreenPoint(panelFalse, Input.mousePosition))  //if not in either panel, reset to original position
         {
             if (transform.parent == panelTrue || transform.parent == panelFalse) {  //if outofbounds of panels, reset parent to original parent
-                transform.SetParent(startParent);
+                transform.SetParent(_startParent);
             }
-            transform.position = originalPosition; //reset to original position
+            transform.position = _originalPosition; //reset to original position
         }
         
         if (RectTransformUtility.RectangleContainsScreenPoint(panelTrue, Input.mousePosition)) //if in true panel, set parent of button to true panel
@@ -31,7 +31,7 @@ public class DraggableButton : MonoBehaviour, IDragHandler, IEndDragHandler
     }
     void Start() 
     {
-        startParent = transform.parent; //set start parent to parent of button
-        originalPosition = transform.position; //set original position to starting point for button
+        _startParent = transform.parent; //set start parent to parent of button
+        _originalPosition = transform.position; //set original position to starting point for button
     }
 }
