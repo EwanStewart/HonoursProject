@@ -12,19 +12,19 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 6e6cf3ad3a4257e44b4f3fdcc5a349ad
   - enabled: 1
-    path: Assets/Scenes/Quiz.unity
+    path: Assets/Scenes/Pointers/Quiz.unity
     guid: 6b530858e64847a4dace631b3f61ee02
   - enabled: 1
     path: Assets/Scenes/LevelSelect.unity
     guid: 5183e4587898c244a8fee7681f57059f
   - enabled: 1
-    path: Assets/Scenes/Pointers.unity
+    path: Assets/Scenes/Pointers/Pointers.unity
     guid: c171bdb13cd485d4d8846757188e12f8
   - enabled: 1
-    path: Assets/Scenes/PointersLessonUI.unity
+    path: Assets/Scenes/Pointers/PointersLessonUI.unity
     guid: c50f5468f792eba45ba5cc90fab0bf91
   - enabled: 1
-    path: Assets/Scenes/Pointers1.unity
+    path: Assets/Scenes/Pointers/Pointers1.unity
     guid: 142bae5d12131af4087fe8a844d6d0d9
   - enabled: 1
     path: Assets/Scenes/registerLogin/login.unity
@@ -39,9 +39,9 @@ EditorBuildSettings:
     path: Assets/Scenes/BadgeGallery.unity
     guid: a2d73d046d7592549b4fc4cb5c8a8a6d
   - enabled: 1
-    path: Assets/Scenes/SwipeLeftRight.unity
+    path: Assets/Scenes/Pointers/SwipeLeftRight.unity
     guid: b1f5767d069a08b4993c67005652bfce
   - enabled: 1
-    path: Assets/Scenes/FillGaps.unity
+    path: Assets/Scenes/Pointers/FillGaps.unity
     guid: f06b84cad32f67342a4e3709e95bcf08
   m_configObjects: {}
