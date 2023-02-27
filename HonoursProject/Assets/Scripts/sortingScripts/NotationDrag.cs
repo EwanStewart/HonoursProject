@@ -1,47 +1,89 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
-
+using Firebase.Database;
+using UnityEngine.SceneManagement;
 
 namespace sortingScripts
 {
     public class NotationDrag : MonoBehaviour
     {
-        public RectTransform panelNotation; 
-        private int correctCount = 0;
-        private int incorrectCount = 0;
+        public GameObject feedbackPanel;
+        private int _correctCount;
+        private RectTransform _rectTransform;
+        private bool clearing = false;
+        private TextMeshProUGUI text;
+        private void Start()
+        {
+            _rectTransform = feedbackPanel.GetComponent<RectTransform>();
+        }
+
+        private void Update()
+        {
+            if (clearing) return;
+            if (_correctCount == 5)
+            {
+                text.text = "Congratulations! You have unlocked the badge!";
+                _rectTransform.gameObject.SetActive(true);
+                unlockBadge();
+            }
+        }
+
         public void OnSubmit()
         {
-            string[] buttonNames = new string[] { "ConstantButton", "LogarithmicButton", "LinearButton", "QuadraticButton", "CubicButton" };
+            string[] buttonNames = { "ConstantButton", "LogarithmicButton", "LinearButton", "QuadraticButton", "CubicButton" };
+            var panel = feedbackPanel;
+            var panelTransform = panel.GetComponent<RectTransform>();
+            var child = panel.transform.GetChild(0).gameObject;
+            text = child.GetComponent<TextMeshProUGUI>();
             
-            foreach (string buttonName in buttonNames)
+            foreach (var buttonName in buttonNames)
             {
-                GameObject button = GameObject.Find(buttonName);
-                Button buttonComponent = button.GetComponent<Button>();
-                Transform parent = button.transform.parent;
-                string[] splitName = Regex.Split(buttonComponent.name, @"(?<!^)(?=[A-Z])");
-                string[] splitParent = Regex.Split(parent.name, @"(?<!^)(?=[A-Z])");
+                var button = GameObject.Find(buttonName);
+                var buttonComponent = button.GetComponent<Button>();
+                var parent = button.transform.parent;
+                var splitName = Regex.Split(buttonComponent.name, @"(?<!^)(?=[A-Z])");
+                var splitParent = Regex.Split(parent.name, @"(?<!^)(?=[A-Z])");
                 var equals = splitName[0].Equals(splitParent[0]);
-                if (!equals)
-                {
-                    incorrectCount++;
-                }
-                else
-                {
-                    correctCount++;
+                if (equals) {
+                    _correctCount++;
+                } else {
                 }
             }
-            Debug.Log("Correct: " + correctCount + " Incorrect: " + incorrectCount);
+            
+            if (panel != null) { 
+                text.text = _correctCount == 5 ? "All Correct!" : "Not quite correct, try again!";
+            }
+            
+            panelTransform.gameObject.SetActive(true);
+            clearing = true;
+            StartCoroutine(ClearFeedback());
+        }
 
-
-
-
-
-
+        private void unlockBadge()
+        {
+            if (PlayerPrefs.HasKey("username"))
+            {
+                FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge03").SetValueAsync(true);
+                StartCoroutine(loadNextScene());
+            } else
+            {
+                SceneManager.LoadScene("sign-login");
+            }
+        }
+        private IEnumerator ClearFeedback()
+        {
+            yield return new WaitForSeconds(2);
+            _rectTransform.gameObject.SetActive(false);
+            clearing = false;
+        }
+        
+        private IEnumerator loadNextScene()
+        {
+            yield return new WaitForSeconds(2);
+            SceneManager.LoadScene("sorting");
         }
     }
 }
