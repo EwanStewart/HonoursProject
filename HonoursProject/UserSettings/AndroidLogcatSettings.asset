@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "R58N5346GYZ",
         "name": "com.DefaultCompany.HonoursProject",
-        "processId": 31189,
+        "processId": 15695,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -108,6 +108,12 @@
             "deviceId": "R58N5346GYZ",
             "name": "com.DefaultCompany.HonoursProject",
             "processId": 31189,
+            "exited": false
+        },
+        {
+            "deviceId": "R58N5346GYZ",
+            "name": "com.DefaultCompany.HonoursProject",
+            "processId": 15695,
             "exited": false
         }
     ],
