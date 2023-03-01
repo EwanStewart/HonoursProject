@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 namespace UIScripts
 {
     public class IndividualBadge : MonoBehaviour
@@ -10,7 +11,7 @@ namespace UIScripts
         public TextMeshProUGUI headerText;
         public TextMeshProUGUI bodyText;
         public TextMeshProUGUI footerText;
-
+        
         public void LoadPreviousScene()
         {
             SceneManager.LoadScene("BadgeGallery");
@@ -31,6 +32,16 @@ namespace UIScripts
             }
             else {
                 headerText.text = "Badge " + firstChar + lastChar;
+            }
+            
+            var list = BadgeInfo.LoadBadgeData();
+            foreach (var badge in list)
+            {
+                badge.Name = badge.Name.Replace("\"", "");
+                badge.Description = badge.Description.Replace("\"", "");
+                badge.Name = badge.Name.ToLower();
+                if (badge.Name != badgeName) continue;
+                bodyText.text = badge.Description;
             }
         }
     }
