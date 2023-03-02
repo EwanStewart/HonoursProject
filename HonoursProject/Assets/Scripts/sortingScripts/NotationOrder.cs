@@ -10,7 +10,7 @@ namespace sortingScripts
         public RectTransform panelOrder; //panel to hold all buttons
         public RectTransform feedbackPanel;
             [HideInInspector]
-        public static float[] yPositions;
+        public static float[] YPositions;
 
 
         private void SetFeedbackPanel(string text)
@@ -38,32 +38,26 @@ namespace sortingScripts
             }
             if (correctOrder)
             {
-                SetFeedbackPanel("True");
+                SetFeedbackPanel("That's the correct order!");
                 Invoke(nameof(CloseFeedbackPanel), 3f);
             } else {
-                SetFeedbackPanel("False");
+                SetFeedbackPanel("That's not quite right. Try again!");
                 Invoke(nameof(CloseFeedbackPanel), 3f);
             }
         }
-
-        private void Update()
-        {
-            
-        }
-
         private void RandomOrder()
         {
             var buttons = panelOrder.GetComponentsInChildren<Button>();
-            yPositions = new float[buttons.Length];
+            YPositions = new float[buttons.Length];
             for (var i = 0; i < buttons.Length; i++)
             {
                 var temp = buttons[i].transform.position;
                 var randomIndex = UnityEngine.Random.Range(i, buttons.Length);
                 buttons[i].transform.position = buttons[randomIndex].transform.position;
                 buttons[randomIndex].transform.position = temp;
-                yPositions[i] = buttons[i].transform.position.y;
+                YPositions[i] = buttons[i].transform.position.y;
             }
-            Array.Sort(yPositions);
+            Array.Sort(YPositions);
         }
         private void Start()
         {

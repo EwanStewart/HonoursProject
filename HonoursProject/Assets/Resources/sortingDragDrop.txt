@@ -1,0 +1,6 @@
+Big O Notation shows how an algorithm scales based on input size, true
+Big O Notation is used to classify algorithms efficency according to how their requirements grow as the input size grows, true
+Linear complexity O(n) means that an algorithm will take the same amount of time as the input increases, false
+Algorithms have the exact same runtime across different machines, false
+Space complexity means the amount of space the algorithm needs to run, true
+Big O complexity cannot be visualized with graphs, false
