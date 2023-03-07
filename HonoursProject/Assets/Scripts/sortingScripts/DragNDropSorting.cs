@@ -78,7 +78,7 @@ namespace sortingScripts
 				FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge06").SetValueAsync(true);	//store badge in firebase
 				panelFeedback.gameObject.SetActive(true);																	  //set feedback panel to active
 				var feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();						  //get text from feedback panel
-				feedBackTxt.text = "Congratulations! You have got five answers correct in a row! You have unlocked a badge."; //change text to denote badge unlocked
+				feedBackTxt.text = "Congratulations! You got five answers correct in a row! You have unlocked a badge."; //change text to denote badge unlocked
 			} else {
 				PlayerPrefs.DeleteAll();				//delete all playerprefs
 				SceneManager.LoadScene("sign-login");	//send user to login screen
@@ -95,7 +95,7 @@ namespace sortingScripts
 		}
 
 		public void NextScene() {	//load next scene
-			SceneManager.LoadScene("sorting");
+			SceneManager.LoadScene("MainMenu");
 		}
 
 		private void Update()
@@ -113,8 +113,8 @@ namespace sortingScripts
 
 			panelFeedback.gameObject.SetActive(true);														//set feedback panel to active
 			var feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();			//get text from feedback panel
-			feedBackTxt.text = "Well Done! You successfully sorted the statements into true and false.";	//change text to denote completion of scene
-			Invoke(nameof(NextScene), 3);																			//load next scene after 3 seconds
+			feedBackTxt.text = "Well Done! You successfully sorted the statements into true and false. That's all the content for Big O Notation";	//change text to denote completion of scene
+			Invoke(nameof(NextScene), 5);																			//load next scene after 3 seconds
 		}
 
 		private void Start()

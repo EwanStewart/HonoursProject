@@ -24,4 +24,10 @@ public class MainMenu : MonoBehaviour
     {
         Application.Quit();
     }
+    
+    public void wipeGame()
+    {
+        PlayerPrefs.DeleteAll();
+        SceneManager.LoadScene("sign-login");
+    }
 }

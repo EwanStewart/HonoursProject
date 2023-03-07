@@ -1,0 +1,10 @@
+Now that you have some definitions, why do we care about Big O Notation?
+As programmers, we don’t aim to solve our problems in the quickest fashion. We want the BEST solution. Understanding Big O Notation is being able to assess algorithms and figure out how to proceed efficiently. One inefficient method will be insignificant, a system filled with inefficiency is a problem.
+Calculating Big O Notation seems tedious, but over time you will quickly be able to determine the Big O Notation of algorithms.
+Let us start with a simple scenario: Imagine we have a function that takes an array of numbers, adds them together, and returns the sum. 
+We can easily envision how this might work. It would probably involve a quick loop through the array, moving from element to element. As the input array gets larger, the function needs to take only one extra step for each additional element. 
+If, for example, we were to pass it [1,6,4], it would perform three additions and then return the sum. Input [1,6,4,7] would perform four additions, so on and so forth. 
+/This function is represented graphically as below. Our graph shows that as the number of elements increases the time it takes for the function to complete increases linearly. If we take two points, say (25, 60) and (1, 10) we can write the equation of the function to be roughly: f(n) = ~2n + 8. If n = 74, we estimate it will take (2(74) + 8)ms, or ~156ms.
+We only care about the fastest growing term. Looking at f(n) = 2n + 8, we know the fastest growing term is 2n. Larger input shows why smaller terms do not matter for our rate of growth. If we set n to 1000, our estimate of the time it would take is 2,000ms with just 2n, or 2,008ms with the +8 included, and the +8 will never change as input increases.
+We can go further, dropping the constant on 2n, as the constant, like +8, does not apply to how our function scales, leaving us with n. As seen from the graph, or the expression 2n + 8, it scales in a linear fashion. We represent this in Big O Notation as O(n).
+With this knowledge, let's see if we can determine the order of efficiencies.

@@ -37,13 +37,18 @@ public class rigidBodyHandler : MonoBehaviour
     
     public void OnTriggerEnter(Collider other) //when the player enters a trigger
     {
-        if (other.gameObject.tag == "chair") //if the player enters an objective
+        if (other.gameObject.CompareTag("chair")) //if the player enters an objective
         {
-            if (!done)                                             //if the player hasn't already completed the objective
+            if (done) return; //if the player hasn't already completed the objective
+            done = true;                                       //set done to true so that the player can't complete the objective again
+            if (SceneManager.GetActiveScene().name == "Pointers")
             {
-                done = true;                                       //set done to true so that the player can't complete the objective again
                 SceneManager.LoadScene("PointersLessonUI"); //load the next scene
+            } else if (SceneManager.GetActiveScene().name == "sorting")
+            {
+                SceneManager.LoadScene("SortingLessonUI"); //load the next scene
             }
+
         }
     }
     

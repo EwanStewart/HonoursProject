@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace sortingScripts
 {
@@ -12,7 +13,9 @@ namespace sortingScripts
             [HideInInspector]
         public static float[] YPositions;
 
-
+        private bool over = false;
+        private bool waiting = false;
+        
         private void SetFeedbackPanel(string text)
         {
             feedbackPanel.gameObject.SetActive(true);
@@ -21,7 +24,17 @@ namespace sortingScripts
         
         private void CloseFeedbackPanel()
         {
+            waiting = false;
             feedbackPanel.gameObject.SetActive(false);
+        }
+
+        private void Update()
+        {
+            if (!waiting && over)
+            {
+                SceneManager.LoadScene("sorting");
+            }
+            
         }
 
         public void OnSubmit()
@@ -39,6 +52,8 @@ namespace sortingScripts
             if (correctOrder)
             {
                 SetFeedbackPanel("That's the correct order!");
+                over = true;
+                waiting = true;
                 Invoke(nameof(CloseFeedbackPanel), 3f);
             } else {
                 SetFeedbackPanel("That's not quite right. Try again!");

@@ -119,11 +119,18 @@ public class Dialogue : MonoBehaviour
             objCount++;			                    			//increase objPosition by 1	
             PlayerPrefs.SetInt("objPosition", objCount);		//save objPosition to playerprefs
 
-			//using where the user is in pointers content, load the next scene
-            if (path == "pointersContent2") {	
-                SceneManager.LoadScene("Pointers1");	//load matching scene
-            } else if (path == "pointersContent3") {
-                SceneManager.LoadScene("SwipeLeftRight");	//load swipe scene
+            switch (path)
+            {
+                //using where the user is in pointers content, load the next scene
+                case "pointersContent2":
+                    SceneManager.LoadScene("Pointers1");	//load matching scene
+                    break;
+                case "pointersContent3":
+                    SceneManager.LoadScene("SwipeLeftRight");	//load swipe scene
+                    break;
+                case "pointersContent4":
+                    SceneManager.LoadScene("FillGaps");	//load swipe scene
+                    break;
             }
         }
     }

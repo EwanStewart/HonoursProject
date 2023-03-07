@@ -6,201 +6,240 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.IO;
+using System.Linq;
 using Firebase.Database;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 
 public class FillGaps : MonoBehaviour
 {    
-    private TextAsset text;
+    private TextAsset _text;
     public GameObject prefabButton;
     
-    public RectTransform ParentPanel;
+    public RectTransform parentPanel;
     public RectTransform panelText;
     public GameObject textObj;
 	public RectTransform a;
 	public Slider slider;
-
-    private List<List<string>> list = new List<List<string>>();
+	private bool _done = false;
+	private bool _waiting = false;
+    private readonly List<List<string>> _list = new();
 	public RectTransform panelFeedback;
 
-    public void clearFeedback()	//clear text of panel and hide panel
+    public void ClearFeedback()	//clear text of panel and hide panel
     {
 		Debug.Log("Clearing feedback");
 		panelFeedback.gameObject.SetActive(false);
-		TextMeshProUGUI feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();
+		var feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();
 		if (feedBackTxt.text == "That's not quite it, at least one of your answers are incorrect. Try again.")
 		{
-			clearAnswers();
+			ClearAnswers();
 		}
 		else
 		{
-			int currentIndex = PlayerPrefs.GetInt("currentIndexFill");
+			var currentIndex = PlayerPrefs.GetInt("currentIndexFill");
 			currentIndex++;
 			PlayerPrefs.SetInt("currentIndexFill", currentIndex);
-			clearAnswers();
+			ClearAnswers();
 		}
 		feedBackTxt.text = "";
+		_waiting = false;
     }
 
-    public void clearAnswers()
+    public void ClearAnswers()
     { 
 	    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void submitAnswers() {
-		int correctAnswers = 0;
+    public void SubmitAnswers() {
+		var correctAnswers = 0;
 
 		foreach (Transform child in panelText) {
 			if (child.GetComponent<Button>() && child.GetComponentInChildren<TextMeshProUGUI>().text == "" && child.gameObject.activeSelf) {
 				return;
 			}
         }
-		print("all buttons filled");
 
-		List<Button> buttons = new List<Button>();
+		var buttons = new List<Button>();
 
-		foreach (Transform child in panelText) {
-            if (child.GetComponent<Button>()) {
-				if (child.gameObject.activeSelf) {
-               	 	Button tempButton = child.GetComponent<Button>();
-					string tempText = tempButton.GetComponentInChildren<TextMeshProUGUI>().text;
-					buttons.Add(tempButton);	
-				}		
-            }
-        }
+		foreach (Transform child in panelText)
+		{
+			if (!child.GetComponent<Button>()) continue;
+			if (!child.gameObject.activeSelf) continue;
+			var tempButton = child.GetComponent<Button>();
+			var tempText = tempButton.GetComponentInChildren<TextMeshProUGUI>().text;
+			buttons.Add(tempButton);
+		}
 		
-		buttons.Sort((x, y) => x.name.CompareTo(y.name));
+		buttons.Sort((x, y) => string.Compare(x.name, y.name, StringComparison.Ordinal));
 		buttons.Reverse();
 
-		for (int i = 0; i < buttons.Count; i++) {
+		for (var i = 0; i < buttons.Count; i++) {
             if (buttons[i].GetComponentInChildren<TextMeshProUGUI>().text == PlayerPrefs.GetString("key" + i)) {
                 correctAnswers++;
             }
         }
 
 		panelFeedback.gameObject.SetActive(true);															
-        TextMeshProUGUI feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();	
+        var feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();	
 
 		if (correctAnswers == buttons.Count) {
-            feedBackTxt.text = "That's correct!";	
-			for (int i = 0; i < buttons.Count; i++) {
+            feedBackTxt.text = "That's correct!";
+            _waiting = true;
+			for (var i = 0; i < buttons.Count; i++) {
                 PlayerPrefs.DeleteKey("key" + i);
             }
 		} else {
 			feedBackTxt.text = "That's not quite it, at least one of your answers are incorrect. Try again.";	//change text to denote wrong answer
         }
-            Invoke("clearFeedback", 3);
+	    Invoke(nameof(ClearFeedback), 3);
 	}
 
-    void fillText(List<string> line)
+    private void FillText(IReadOnlyList<string> line)
     {
 		
-		TextMeshProUGUI z = panelText.GetChild(panelText.childCount - 1).GetComponent<TextMeshProUGUI>();
+		var z = panelText.GetChild(panelText.childCount - 1).GetComponent<TextMeshProUGUI>();
 		z.text = "";
-		float x, y = 0f;
-		int i = 0;
+		var i = 0;
 
-        foreach (char a in line[0]) {
-			z = panelText.GetChild(panelText.childCount - 1).GetComponent<TextMeshProUGUI>();
-            if (a == '_') {
-                GameObject goText = (GameObject)Instantiate(textObj);
-                goText.transform.SetParent(panelText, false);
-
-				y = panelText.GetChild(panelText.childCount - 2).transform.localPosition.y;
-				x = panelText.GetChild(panelText.childCount - 2).transform.localPosition.x;
-				
-                goText.transform.localPosition = new Vector3(x, y-100, 0);
-				goText.GetComponent<TextMeshProUGUI>().text = "";
-
-				GameObject goButton = (GameObject)Instantiate(prefabButton);
-				goButton.transform.SetParent(panelText, false);
-				goButton.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
-				Button tempButton = goButton.GetComponent<Button>();
-				tempButton.transform.SetAsFirstSibling();
-				tempButton.tag = "question";
-				TextMeshProUGUI tempText = goButton.GetComponentInChildren<TextMeshProUGUI>();
-				tempText.text = "";
-				
-				PlayerPrefs.SetString("key" + i, line[i+1]);
-				
-				i++;
-
-				y = panelText.GetChild(panelText.childCount - 2).transform.localPosition.y;
-				x = panelText.GetChild(panelText.childCount - 2).transform.localPosition.x;
-
-				tempButton.transform.localPosition = new Vector3(x * -1.4f, y, 0);
-		        tempButton.gameObject.SetActive(true);		
+        foreach (var character in line[0])
+        {
+	
+	        z = panelText.GetChild(panelText.childCount - 1).GetComponent<TextMeshProUGUI>();
+	        var rect = z.rectTransform.localPosition;
+	        var width = z.preferredWidth;
+	        var height = z.preferredHeight;
+	        
+	        if (character == '_') {
+	            var goButton = (GameObject)Instantiate(prefabButton, panelText, false);
+	            goButton.transform.localPosition = new Vector3(rect.x+width, rect.y, 0);
+	            goButton.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
+	            goButton.GetComponentInChildren<TextMeshProUGUI>().text = "";
+	            goButton.gameObject.SetActive(true);
+	            goButton.tag = "question";
+	            PlayerPrefs.SetString("key" + i, line[i + 1]);
+	            
+	            var goText = (GameObject)Instantiate(textObj, panelText, false);
+	            var tempText = goText.GetComponent<TextMeshProUGUI>();
+	            tempText.text = "";
+	            tempText.transform.localPosition = new Vector3(rect.x, rect.y-(height*2), 0);
+	            tempText.gameObject.SetActive(true);
+	            i++;
             } else {
-				z.text += a;
-            }
+				z.text += character;
+	        }
+        }
+        
+        
+        foreach (Transform child in panelText)
+		{
+	        if (!child.GetComponent<TextMeshProUGUI>()) continue;
+	        var tempText = child.GetComponent<TextMeshProUGUI>();
+	        var rect = tempText.rectTransform.localPosition;
+	        var width = tempText.preferredWidth;
+	        var height = tempText.preferredHeight;
+	        tempText.transform.localPosition = new Vector3(rect.x + width/2, rect.y, 0);
+		}
+
+        foreach (Transform child in panelText)
+        {
+	        if (!child.GetComponent<Button>()) continue;
+	        var tempButton = child.GetComponent<Button>();
+	        var tempText = child.GetSiblingIndex() - 1;
+	        var tempText2 = panelText.GetChild(tempText).GetComponent<TextMeshProUGUI>();
+	        var rect = tempText2.rectTransform.localPosition;
+	        var width = tempText2.preferredWidth;
+	        var height = tempText2.preferredHeight;
+	        tempButton.transform.localPosition = new Vector3(rect.x + width, rect.y, 0);
+	        
         }
     }
-    
-    void createButtonsForLine(List<string> line)
-    {
-        fillText(line);
-        line.RemoveAt(0);
 
-        foreach (string s in line) {
-            GameObject goButton = (GameObject)Instantiate(prefabButton);
-            goButton.transform.SetParent(ParentPanel, false);
+    private void CreateButtonsForLine(List<string> line)
+    {
+        FillText(line);
+        line.RemoveAt(0);
+        var coordinates = new List<Vector2>();
+
+        foreach (var s in line)
+        {
+	        float x; float y;
+            var goButton = (GameObject)Instantiate(prefabButton, parentPanel, false);
             goButton.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
-            Button tempButton = goButton.GetComponent<Button>();
-            float x = UnityEngine.Random.Range(-ParentPanel.rect.width / 2, ParentPanel.rect.width / 2);
-            float y = UnityEngine.Random.Range(-ParentPanel.rect.height / 2, ParentPanel.rect.height / 2);
-            while (Physics2D.OverlapCircle(new Vector2(x, y), goButton.GetComponent<RectTransform>().rect.width / 2) != null) {
-                x = UnityEngine.Random.Range(-ParentPanel.rect.width / 2, ParentPanel.rect.width / 2);
-                y = UnityEngine.Random.Range(-ParentPanel.rect.height / 2, ParentPanel.rect.height / 2);
-                if (x + goButton.GetComponent<RectTransform>().rect.width / 2 > ParentPanel.rect.width / 2) {
-                    x = ParentPanel.rect.width / 2 - goButton.GetComponent<RectTransform>().rect.width / 2;
-                }
-            }
+            var tempButton = goButton.GetComponent<Button>();
+            var rect = parentPanel.rect;
+            if (coordinates.Count == 0)
+			{
+				x = rect.xMin + 300;
+				y = rect.yMax - 100;
+				coordinates.Add(new Vector2(x, y));
+			}
+			else
+			{
+				var last = coordinates[^1];
+				x = last.x + 500;
+				y = last.y;
+				if (x > rect.xMax - 300)
+				{
+					x = rect.xMin + 300;
+					y = last.y - 100;
+				}
+				coordinates.Add(new Vector2(x, y));
+			}
+
             tempButton.transform.localPosition = new Vector3(x, y, 0);
             tempButton.GetComponentInChildren<TextMeshProUGUI>().text = s;
 			tempButton.tag = "answer";
-            TextMeshProUGUI tempText = goButton.GetComponentInChildren<TextMeshProUGUI>();
+            var tempText = goButton.GetComponentInChildren<TextMeshProUGUI>();
 			tempText.text = s;
             tempButton.gameObject.SetActive(true);
         }
     }
-    
-    
-    void Start()
-    {
-        
-        text = Resources.Load("pointersFillGaps") as TextAsset;	//load text file from resources folder
 
-        if (text == null) {	//ensure file exists
+    private void Update()
+    {
+	    if (!_waiting && _done)
+	    {
+		    SceneManager.LoadScene("LevelSelect");
+	    }
+
+    }
+
+    private void Start()
+    {
+	    _text = Resources.Load("pointersFillGaps") as TextAsset;	//load text file from resources folder
+
+        if (_text == null) {	//ensure file exists
             print("File not found");
             return;
         }
         
         
-        string[] lines = text.text.Split('\n');	//split text file into lines
+        var lines = _text.text.Split('\n');	//split text file into lines
         
-        foreach (string line in lines) {		//for each line in text file
-            string[] split = line.Split(',');	//split line into key and value
-            List<string> temp = new List<string>();
-            foreach (string s in split) {
+        foreach (var line in lines) {		//for each line in text file
+            var split = line.Split(',');	//split line into key and value
+            var temp = new List<string>();
+            foreach (var s in split) {
                 temp.Add(s);
             }
-            list.Add(temp);
+            _list.Add(temp);
         }
         
-        int pos = 0;
-		if (PlayerPrefs.HasKey("currentIndexFill")) {
-			pos = PlayerPrefs.GetInt("currentIndexFill");
+        var pos = 0;
+        if (PlayerPrefs.HasKey("currentIndexFill")) {
+	        pos = PlayerPrefs.GetInt("currentIndexFill");
         }
-        if (pos >= list.Count-1) {
-            pos = 0;
+        if (pos > _list.Count-1) {
+	        _done = true;
+	        return;
         }
-        slider.maxValue = list.Count-1;
+        
+        slider.maxValue = _list.Count-1;
         slider.value = pos;
         
         PlayerPrefs.SetInt("currentIndexFill", pos);
-		print(pos);
-        createButtonsForLine(list[pos]);
-        
+        CreateButtonsForLine(_list[pos]);
     }
 }

@@ -1,3 +1,2 @@
 A pointer is defined using the_symbol. To dereference a memory adress the_symbol is used. if int n=42 and int *p = &n and n=_, *, &, 42, $
 if int n=2 and int *p=_n and cout << *p = 42, &, *
-
