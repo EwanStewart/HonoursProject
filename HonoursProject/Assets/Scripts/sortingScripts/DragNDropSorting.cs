@@ -73,12 +73,12 @@ namespace sortingScripts
 		{
 			//check if badge in this scene has been met
 			if (_done) return;  //check if already met
-			if (_consecutiveCorrect < 5) return; //if the user has got 5 correct answers in a row
+			if (_consecutiveCorrect < 6) return; //if the user has got 5 correct answers in a row
 			if (PlayerPrefs.HasKey("username")) {	//ensure user is logged in
 				FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge06").SetValueAsync(true);	//store badge in firebase
 				panelFeedback.gameObject.SetActive(true);																	  //set feedback panel to active
 				var feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();						  //get text from feedback panel
-				feedBackTxt.text = "Congratulations! You got five answers correct in a row! You have unlocked a badge."; //change text to denote badge unlocked
+				feedBackTxt.text = "Congratulations! You aced this, you have unlocked a badge."; //change text to denote badge unlocked
 			} else {
 				PlayerPrefs.DeleteAll();				//delete all playerprefs
 				SceneManager.LoadScene("sign-login");	//send user to login screen

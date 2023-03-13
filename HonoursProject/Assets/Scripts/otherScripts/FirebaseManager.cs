@@ -81,6 +81,7 @@ public class FirebaseManager : MonoBehaviour
             }
 		}
 		FirebaseDatabase.DefaultInstance.GetReference("users").Child(usernameInputField.text).Child("badges").UpdateChildrenAsync(badgeData); //add badges to user
+        //add a child to ever
         
         nextSceneFlag = true;
     }

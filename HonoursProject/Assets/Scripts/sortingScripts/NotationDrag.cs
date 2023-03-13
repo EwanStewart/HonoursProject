@@ -13,8 +13,8 @@ namespace sortingScripts
         public GameObject feedbackPanel;
         private int _correctCount;
         private RectTransform _rectTransform;
-        private bool clearing = false;
-        private TextMeshProUGUI text;
+        private bool _clearing;
+        private TextMeshProUGUI _text;
         private void Start()
         {
             _rectTransform = feedbackPanel.GetComponent<RectTransform>();
@@ -22,13 +22,11 @@ namespace sortingScripts
 
         private void Update()
         {
-            if (clearing) return;
-            if (_correctCount == 5)
-            {
-                text.text = "Congratulations! You have unlocked the badge!";
-                _rectTransform.gameObject.SetActive(true);
-                unlockBadge();
-            }
+            if (_clearing) return;
+            if (_correctCount != 5) return;
+            _text.text = "Badge Unlocked! Nice work. You've unlocked the 'Master Sorter' badge";
+            _rectTransform.gameObject.SetActive(true);
+            UnlockBadge();
         }
 
         public void OnSubmit()
@@ -37,7 +35,7 @@ namespace sortingScripts
             var panel = feedbackPanel;
             var panelTransform = panel.GetComponent<RectTransform>();
             var child = panel.transform.GetChild(0).gameObject;
-            text = child.GetComponent<TextMeshProUGUI>();
+            _text = child.GetComponent<TextMeshProUGUI>();
             
             foreach (var buttonName in buttonNames)
             {
@@ -49,25 +47,24 @@ namespace sortingScripts
                 var equals = splitName[0].Equals(splitParent[0]);
                 if (equals) {
                     _correctCount++;
-                } else {
                 }
             }
             
             if (panel != null) { 
-                text.text = _correctCount == 5 ? "All Correct!" : "Not quite correct, try again!";
+                _text.text = _correctCount == 5 ? "All Correct!" : "Not quite correct, try again!";
             }
             
             panelTransform.gameObject.SetActive(true);
-            clearing = true;
+            _clearing = true;
             StartCoroutine(ClearFeedback());
         }
 
-        private void unlockBadge()
+        private void UnlockBadge()
         {
             if (PlayerPrefs.HasKey("username"))
             {
-                FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge03").SetValueAsync(true);
-                StartCoroutine(loadNextScene());
+                FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge04").SetValueAsync(true);
+                StartCoroutine(LoadNextScene());
             } else
             {
                 SceneManager.LoadScene("sign-login");
@@ -77,10 +74,10 @@ namespace sortingScripts
         {
             yield return new WaitForSeconds(2);
             _rectTransform.gameObject.SetActive(false);
-            clearing = false;
+            _clearing = false;
         }
         
-        private IEnumerator loadNextScene()
+        private static IEnumerator LoadNextScene()
         {
             yield return new WaitForSeconds(2);
             SceneManager.LoadScene("sorting");
