@@ -1,0 +1,10 @@
+Linked lists are a data structure used in programming to store and organize data.,true
+Each node in a singly linked list has two references, one to the previous node and one to the next node.,false
+The head of a linked list is the first node, and the tail is the last node.,true
+To create a linked list in C++, we start with a pointer to the tail of the list.,false
+If the linked list is empty, a new node added to the end of the list becomes both the head and tail.,true
+To traverse a linked list, we start at the tail and follow the pointers to the previous nodes.,false
+To remove a node from a linked list, we need to update the pointers of the nodes before and after the node to be removed.,true
+Linked lists can be used to implement queues and stacks.,true
+The space complexity of a linked list is O(1).,false
+The time complexity of adding or removing a node from a linked list is O(1).,false

@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/LinkedLists/LinkedListsLessonUI.unity
+    guid: 3384cb190775acc46a725aede339230f
+  - enabled: 1
     path: Assets/Scenes/Splash.unity
     guid: 4de429a11e18f904490e2389b72d4116
   - enabled: 1
