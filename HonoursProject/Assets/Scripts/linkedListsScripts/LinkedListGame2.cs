@@ -31,6 +31,7 @@ namespace LinkedListsScripts
 
         public GameObject topPanel;
         public GameObject bottomPanel;
+        public GameObject feedbackPanel;
 
         public GameObject dropdown;
 
@@ -66,10 +67,19 @@ namespace LinkedListsScripts
         {
             if (_dict[node1]._next == node2 && _dict[node2]._next == node4 && _dict[node3]._next == null && _dict[node4]._next == null)
             {
-                Debug.Log("Correct");
+                //set feedback panel to true
+                feedbackPanel.SetActive(true);
+                feedbackPanel.GetComponentInChildren<TextMeshProUGUI>().text = "Successfully delinked Node 3!";
             } else {
-                Debug.Log("Incorrect");
+                feedbackPanel.SetActive(true);
+                feedbackPanel.GetComponentInChildren<TextMeshProUGUI>().text = "That's not quite it, have another look. Note that Node 3 should also point to Null and you must select save changes after each change.";
             }
+            Invoke(nameof(ClearFeedback), 4);
+        }
+        
+        public void ClearFeedback()
+        {
+            feedbackPanel.SetActive(false);
         }
         
         public void UpdateLeftPanel(GameObject node)
