@@ -65,4 +65,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/sorting/TrueFalseSorting.unity
     guid: 9dcf6e20eb85966409f6665c1ad9d5b7
+  - enabled: 1
+    path: Assets/Scenes/LinkedLists/LinkedLists.unity
+    guid: dd59fe3e8cd6e1f4491c3a3903a2a9c3
+  - enabled: 1
+    path: Assets/Scenes/LinkedLists/LinkedListGame3.unity
+    guid: 5b905fafce66bcd4faf17fcd2d35c230
+  - enabled: 1
+    path: Assets/Scenes/LinkedLists/LinkedListGame2.unity
+    guid: 68bbaa04c8d0498428f77d17c357095f
+  - enabled: 1
+    path: Assets/Scenes/LinkedLists/LinkedListGame1.unity
+    guid: c6c87b3b422ab1d4aac5b8c72a11884d
   m_configObjects: {}

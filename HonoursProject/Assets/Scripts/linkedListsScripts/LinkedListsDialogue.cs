@@ -99,8 +99,7 @@ namespace LinkedListsScripts
         {
             if (_textLine[_index].ToCharArray()[0] == '/') 						//if first character of line is a forward slash, an image is required
             {
-                _imgCount = PlayerPrefs.GetInt("imgCountLinkedLists"); 				
-                
+                _imgCount = PlayerPrefs.GetInt("imgCountLinkedLists");
                 panel.transform.GetChild(_imgCount+1).gameObject.SetActive(true); //activate child of main panel with index of imgCount+1, to display image
                 _imgCount++; 													//increase imgCount by 1
                 PlayerPrefs.SetInt("imgCountLinkedLists", _imgCount);                       //save imgCount to playerprefs
@@ -138,13 +137,13 @@ namespace LinkedListsScripts
                 {
                     //using where the user is in pointers content, load the next scene
                     case "listContent2":
-                        SceneManager.LoadScene("NotationDrag");	//load matching scene
+                        SceneManager.LoadScene("LinkedListGame1");	//load matching scene
                         break;
                     case "listContent3":
-                        SceneManager.LoadScene("OrganiseOrder");	//load swipe scene
+                        SceneManager.LoadScene("LinkedListGame2");	//load swipe scene
                         break;
                     case "listContent4":
-                        SceneManager.LoadScene("TrueFalseLinkedLists");	//load swipe scene
+                        SceneManager.LoadScene("LinkedListGame3");	//load swipe scene
                         break;
                 }
             }
