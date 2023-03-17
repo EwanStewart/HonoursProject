@@ -18,11 +18,16 @@ namespace LinkedListsScripts
 		public RectTransform panelTrue;
 		public RectTransform panelFalse;
 		public RectTransform panelFeedback;
+		public RectTransform badgePanel;
+		public Canvas canvasPause;
 		public TextAsset text;
 
 		private bool _done;    				//check if game over
 		private int _consecutiveCorrect = 0;	//total correct answers in a row
 		private int _buttonsSubmitted = 0;	//total statements correctly submitted
+		private bool _incorrectAnswer;	//total incorrect answers
+		private TextMeshProUGUI _feedBackTxt;
+		private TextMeshProUGUI _badgeTxt;
 
 		public void SubmitAnswers() {
 			var dict = new Dictionary<string, string>();	//create dictionary to hold statements and values
@@ -59,34 +64,47 @@ namespace LinkedListsScripts
 						Destroy(tempButton.gameObject);			//destroy button to denote correct answer
 					} else {																					//if wrong
 						_consecutiveCorrect = 0;																				//reset correct answers in a row
-						panelFeedback.gameObject.SetActive(true);															//show feedback panel to denote wrong answer	
-						var feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();				//get text from feedback panel
-						feedBackTxt.text = "That's not quite it, at least one of your answers are incorrect. Try again.";	//change text to denote wrong answer
-						Invoke(nameof(ClearFeedback), 3);																//clear feedback panel after 3 seconds
+						if (!_incorrectAnswer)
+						{
+							_incorrectAnswer = true;
+							panelFeedback.gameObject.SetActive(true);															
+							var feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();				
+							feedBackTxt.text = "That's not quite it, at least one of your answers are incorrect. Answer incorrectly again and you will be sent back to the content.";	
+							Invoke(nameof(ClearFeedback), 3);
+							break;
+						}
+						else
+						{
+							panelFeedback.gameObject.SetActive(true);															
+							var feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();				
+							feedBackTxt.text = "That's not quite it, at least one of your answers are incorrect. You will now be sent back to the content.";	
+							StartCoroutine(LoadScene("LinkedListsLessonUI"));
+							PlayerPrefs.DeleteKey("imgCountLinkedLists");
+							PlayerPrefs.DeleteKey("LinkedListsPosition");
+							PlayerPrefs.DeleteKey("keys");
+						}
+
 					}
 				}
 				panelIndex++;	//increment panel index, to go to next panel
 			}
 		}
 
-		private void CheckIfBadgeMet()
+		private static System.Collections.IEnumerator LoadScene(string sceneName)
 		{
-			//check if badge in this scene has been met
-			if (_done) return;  //check if already met
-			if (_consecutiveCorrect < 10) return; //if the user has got 5 correct answers in a row
-			if (PlayerPrefs.HasKey("username")) {	//ensure user is logged in
-				FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge06").SetValueAsync(true);	//store badge in firebase
-				panelFeedback.gameObject.SetActive(true);																	  //set feedback panel to active
-				var feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();						  //get text from feedback panel
-				feedBackTxt.text = "Congratulations! You aced this, you have unlocked a badge."; //change text to denote badge unlocked
-			} else {
-				PlayerPrefs.DeleteAll();				//delete all playerprefs
-				SceneManager.LoadScene("sign-login");	//send user to login screen
-			}
-			_done = true;	//badge has been met
-			Invoke(nameof(ClearFeedback), 3);	//clear feedback panel after 3 seconds
+			yield return new WaitForSeconds(2);
+			SceneManager.LoadScene(sceneName);
 		}
 
+		public void LoadSceneNoDelay()
+		{
+			PlayerPrefs.DeleteKey("imgCountLinkedLists");
+			PlayerPrefs.DeleteKey("LinkedListsPosition");
+			PlayerPrefs.DeleteKey("keys");
+			SceneManager.LoadScene("LinkedListsLessonUI");
+		}
+	
+		
 		public void ClearFeedback()	//clear text of panel and hide panel
 		{
 			panelFeedback.gameObject.SetActive(false);
@@ -94,31 +112,43 @@ namespace LinkedListsScripts
 			feedBackTxt.text = "";
 		}
 
-		public void NextScene() {	//load next scene
+		public void NextScene() {
 			SceneManager.LoadScene("LinkedLists");
 		}
 
+		public void PauseGame() {	
+			canvasPause.gameObject.SetActive(!canvasPause.gameObject.activeSelf);
+			Time.timeScale = 0;
+		}
+		
 		private void Update()
 		{
-			if (!_done) {	//if badge hasn't been met check
-				CheckIfBadgeMet();
-			}
-
 			if (panelFeedback.gameObject.activeSelf) return; //if feedback panel is not active
-			if (_buttonsSubmitted < 6) return; //check if all statements have been submitted
+			if (_buttonsSubmitted !=7) return; //check if all statements have been submitted
 			foreach (var k in PlayerPrefs.GetString("keys", "").Split(','))	//delete data stored in playerprefs pertaining to this scene
 			{
 				PlayerPrefs.DeleteKey(k);
 			}
 
-			panelFeedback.gameObject.SetActive(true);														//set feedback panel to active
-			var feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();			//get text from feedback panel
-			feedBackTxt.text = "Well Done! You successfully sorted the statements into true and false.";	//change text to denote completion of scene
-			Invoke(nameof(NextScene), 5);																			//load next scene after 3 seconds
+			panelFeedback.gameObject.SetActive(true);		
+			
+			_feedBackTxt.text = "Well Done! You successfully sorted the statements into True and False.";	
+			
+			if (PlayerPrefs.HasKey("username")) {	
+				FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge09").SetValueAsync(true);	
+				badgePanel.gameObject.SetActive(true);
+			} else {
+				PlayerPrefs.DeleteAll();				
+				SceneManager.LoadScene("sign-login");	
+			}
+			
+			Invoke(nameof(NextScene), 5);																		
 		}
 
 		private void Start()
 		{
+			_badgeTxt = badgePanel.GetComponentInChildren<TextMeshProUGUI>();
+			_feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();
 			var dict = new Dictionary<string, string>();
 			var keys = "";
 
