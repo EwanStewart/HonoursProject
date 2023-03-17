@@ -47,6 +47,9 @@ public class rigidBodyHandler : MonoBehaviour
             } else if (SceneManager.GetActiveScene().name == "sorting")
             {
                 SceneManager.LoadScene("SortingLessonUI"); //load the next scene
+            } else if (SceneManager.GetActiveScene().name == "LinkedLists")
+            {
+                SceneManager.LoadScene("LinkedListsLessonUI"); //load the next scene
             }
 
         }

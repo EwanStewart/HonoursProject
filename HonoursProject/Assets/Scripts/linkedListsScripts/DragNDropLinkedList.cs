@@ -81,6 +81,7 @@ namespace LinkedListsScripts
 							StartCoroutine(LoadScene("LinkedListsLessonUI"));
 							PlayerPrefs.DeleteKey("imgCountLinkedLists");
 							PlayerPrefs.DeleteKey("LinkedListsPosition");
+							PlayerPrefs.DeleteKey("objPositionLinkedLists");
 							PlayerPrefs.DeleteKey("keys");
 						}
 
@@ -100,6 +101,7 @@ namespace LinkedListsScripts
 		{
 			PlayerPrefs.DeleteKey("imgCountLinkedLists");
 			PlayerPrefs.DeleteKey("LinkedListsPosition");
+			PlayerPrefs.DeleteKey("objPositionLinkedLists");
 			PlayerPrefs.DeleteKey("keys");
 			SceneManager.LoadScene("LinkedListsLessonUI");
 		}

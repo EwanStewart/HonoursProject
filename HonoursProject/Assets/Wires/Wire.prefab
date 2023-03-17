@@ -78,6 +78,7 @@ MonoBehaviour:
   receiver: 0
   wireEnd: {fileID: 1151102658283015935}
   lightOn: {fileID: 7637261302054642816}
+  canvas: {fileID: 0}
 --- !u!1 &2096238755354242727
 GameObject:
   m_ObjectHideFlags: 0
