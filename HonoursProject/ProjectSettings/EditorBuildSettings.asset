@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/LinkedLists/LinkedListGame2.unity
+    guid: 68bbaa04c8d0498428f77d17c357095f
+  - enabled: 1
     path: Assets/Scenes/LinkedLists/LinkedListsLessonUI.unity
     guid: 3384cb190775acc46a725aede339230f
   - enabled: 1
@@ -71,9 +74,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LinkedLists/LinkedListGame3.unity
     guid: 5b905fafce66bcd4faf17fcd2d35c230
-  - enabled: 1
-    path: Assets/Scenes/LinkedLists/LinkedListGame2.unity
-    guid: 68bbaa04c8d0498428f77d17c357095f
   - enabled: 1
     path: Assets/Scenes/LinkedLists/LinkedListGame1.unity
     guid: c6c87b3b422ab1d4aac5b8c72a11884d

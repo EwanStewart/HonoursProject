@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 
@@ -38,6 +39,9 @@ namespace LinkedListsScripts
         private TextMeshProUGUI _topText;
         private TextMeshProUGUI _bottomText;
         
+        public TextMeshProUGUI deleteText;
+        public TextMeshProUGUI insertText;
+        
         private Node _node1;
         private Node _node2;
         private Node _node3;
@@ -46,7 +50,8 @@ namespace LinkedListsScripts
         private GameObject _currentNode;
         
         private Dictionary<GameObject, Node> _dict = new();
-
+        private int _counter = 0;
+        
         public void SaveChanges()
         {
             var temp = dropdown.GetComponent<TMP_Dropdown>().options[dropdown.GetComponent<TMP_Dropdown>().value].text;
@@ -65,21 +70,51 @@ namespace LinkedListsScripts
 
         public void SubmitAnswers()
         {
-            if (_dict[node1]._next == node2 && _dict[node2]._next == node4 && _dict[node3]._next == null && _dict[node4]._next == null)
+            switch (_counter)
             {
-                //set feedback panel to true
-                feedbackPanel.SetActive(true);
-                feedbackPanel.GetComponentInChildren<TextMeshProUGUI>().text = "Successfully delinked Node 3!";
-            } else {
-                feedbackPanel.SetActive(true);
-                feedbackPanel.GetComponentInChildren<TextMeshProUGUI>().text = "That's not quite it, have another look. Note that Node 3 should also point to Null and you must select save changes after each change.";
+                case 0:
+                    if (_dict[node1]._next == node2 && _dict[node2]._next == node4 && _dict[node3]._next == null && _dict[node4]._next == null)
+                    {
+                        feedbackPanel.SetActive(true);
+                        feedbackPanel.GetComponentInChildren<TextMeshProUGUI>().text = "Successfully delinked Node 3!";
+                        (node3.transform.position, node4.transform.position) = (node4.transform.position, node3.transform.position);
+                        _counter++;
+                        deleteText.gameObject.SetActive(false);
+                        insertText.gameObject.SetActive(true);
+                        node3.GetComponent<Image>().color = Color.green;
+                    } else {
+                        feedbackPanel.SetActive(true);
+                        feedbackPanel.GetComponentInChildren<TextMeshProUGUI>().text = "That's not quite it, have another look. Note that Node 3 should also point to Null and you must select save changes after each change.";
+                    }
+                    Invoke(nameof(ClearFeedback), 4);
+                    break;
+                case 1:
+                    if (_dict[node1]._next == node3 && _dict[node2]._next == node4 && _dict[node3]._next == node2 && _dict[node4]._next == null)
+                    {
+                        feedbackPanel.SetActive(true);
+                        feedbackPanel.GetComponentInChildren<TextMeshProUGUI>().text = "Successfully inserted the new node!";
+                        insertText.gameObject.SetActive(false);
+                        _counter++;
+                    } else {
+                        feedbackPanel.SetActive(true);
+                        feedbackPanel.GetComponentInChildren<TextMeshProUGUI>().text = "That's not quite it, have another look. Note that you must select save changes after each change.";
+                    }
+                    Invoke(nameof(ClearFeedback), 4);
+                    break;
+                default:
+                    break;
             }
-            Invoke(nameof(ClearFeedback), 4);
+
         }
         
         public void ClearFeedback()
         {
             feedbackPanel.SetActive(false);
+        }
+        
+        public void NextScene()
+        {
+            SceneManager.LoadScene("LinkedLists");
         }
         
         public void UpdateLeftPanel(GameObject node)
@@ -88,6 +123,7 @@ namespace LinkedListsScripts
             bottomPanel.SetActive(true);
             var tempNode = _dict[node];
             _topText.text = "Data stored in Node: " + tempNode._data;
+            
             
             _currentNode = node;
             
@@ -119,14 +155,22 @@ namespace LinkedListsScripts
                 _bottomText.text = "Next Node in List: Null Pointer";
             }
         }
+        
+        private void Update()
+        {
+            if (_counter != 2) return;
+            topPanel.SetActive(false);
+            bottomPanel.SetActive(false);
+            feedbackPanel.SetActive(true);
+            feedbackPanel.GetComponentInChildren<TextMeshProUGUI>().text = "Congratulations! You have successfully completed the game!";
+            Invoke(nameof(NextScene), 3);
+        }
 
         private void Start()
         {
             _topText = topPanel.GetComponentInChildren<TextMeshProUGUI>();
             _bottomText = bottomPanel.GetComponentInChildren<TextMeshProUGUI>();
             
- 
-
             _node1 = new Node(node1, node2);
             _node2 = new Node(node2, node3);
             _node3 = new Node(node3, node4);
