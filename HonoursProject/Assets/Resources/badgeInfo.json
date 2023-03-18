@@ -1,15 +1,15 @@
 [
   {
     "name": "Badge00",
-    "description": "This is badge number 1"
+    "description": "New beginnings are always exciting. Unlock this badge for starting the game."
   },
   {
     "name": "Badge01",
-    "description": "This is badge number 2"
+    "description": "Unlock this badge for connecting up the code blocks to their outputs in Pointers."
   },
   {
     "name": "Badge02",
-    "description": "This is badge number 3"
+    "description": "Unlock this badge for completing Pointers."
   },
   {
     "name": "Badge03",
@@ -21,7 +21,7 @@
   },
   {
     "name": "Badge05",
-    "description": "Unlock this badge for getting 100% on True/False"
+    "description": "Unlock this badge for getting 100% on the True/False game in Big O Notation."
   },
   {
     "name": "Badge06",
@@ -29,22 +29,22 @@
   },
   {
     "name": "Badge07",
-    "description": "This is badge number 8"
+    "description": "Unlock this badge for starting Linked Lists."
   },
   {
     "name": "Badge08",
-    "description": "This is badge number 9"
+    "description": "Unlock this badge for completing Linked Lists."
   },
   {
     "name": "Badge09",
-    "description": "This is badge number 10"
+    "description": "Unlock this badge for completing all the courses."
   },
   {
     "name": "Badge10",
-    "description": "This is badge number 11"
+    "description": "Unlock this badge for completing every course with 100% accuracy."
   },
   {
     "name": "Badge11",
-    "description": "This is badge number 9"
+    "description": "Unlock this badge for completing every course in under 1 hour."
   }
 ]

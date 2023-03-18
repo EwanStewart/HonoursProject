@@ -29,7 +29,7 @@ namespace pointersScripts
         
             if (PlayerPrefs.HasKey("username"))
             {
-                FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge00").SetValueAsync(true);
+                FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge01").SetValueAsync(true);
             } else
             {
                 SceneManager.LoadScene("sign-login");

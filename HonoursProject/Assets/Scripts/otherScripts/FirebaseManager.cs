@@ -1,191 +1,181 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using Firebase.Database;
 using System.Security.Cryptography;
+using Firebase.Database;
 using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
-public class FirebaseManager : MonoBehaviour
+using UnityEngine.UI;
+
+namespace otherScripts
 {
-    //get objects from scene
-    public TMP_InputField passwordInputField;
-    public TMP_InputField usernameInputField;
-    public TMP_InputField confirmPasswordInputField;
-    public Button submitButton;
+    public class FirebaseManager : MonoBehaviour
+    {
+        //get objects from scene
+        public TMP_InputField passwordInputField;
+        public TMP_InputField usernameInputField;
+        public TMP_InputField confirmPasswordInputField;
+        public Button submitButton;
     
-    public bool nextSceneFlag = false;
-    public bool usernameTakenFlag = false;
+        private bool _nextSceneFlag = false;
+        private bool _usernameTakenFlag = false;
     
-    public bool incorrectDetailsFlag = false;
-    public TextMeshProUGUI errorText;
+        private bool _incorrectDetailsFlag = false;
+        public TextMeshProUGUI errorText;
     
-    public void backToLoginMenu() //load login scene
-    {
-        SceneManager.LoadScene("sign-login");
-    }
-    static string encrypt(string password) //encrypt password using sha256
-    {
-        SHA256 sha256 = SHA256.Create();
-        byte[] bytes = sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-        System.Text.StringBuilder builder = new System.Text.StringBuilder();
-        for (int i = 0; i < bytes.Length; i++)
+        public void BackToLoginMenu() //load login scene
         {
-            builder.Append(bytes[i].ToString("x2"));
+            SceneManager.LoadScene("sign-login");
         }
-        return builder.ToString();
-    }
-    
-    public class User //user class to structure data for firebase
-    {
-        public string username;
-        public string password;
-        public User(string username, string password)
+        static string Encrypt(string password) //encrypt password using sha256
         {
-            this.username = username;
-            this.password = encrypt(password);
-        }
-    }
-
-    void Update()
-    {
-        if (nextSceneFlag) 
-        {
-            PlayerPrefs.SetString("username", usernameInputField.text); //save username to playerprefs
-            SceneManager.LoadScene("MainMenu");                         //load main menu
-        }
-
-        if (usernameTakenFlag)
-        {
-            errorText.text = "Username already taken";
-        }
-
-        if (incorrectDetailsFlag)
-        {
-            errorText.text = "Incorrect details";
-        }
-    }
-    
-    void addUserToFirebase() 
-    {
-        User user = new User(usernameInputField.text, passwordInputField.text);                                           //create user
-        string json = JsonUtility.ToJson(user);                                                                           //convert user to json
-        FirebaseDatabase.DefaultInstance.GetReference("users").Child(usernameInputField.text).SetRawJsonValueAsync(json); //add user to firebase
-        
-		Dictionary<string, object> badgeData = new Dictionary<string, object>();    //create dictionary for badges
-		for (int i = 0; i < 12; i++) {                                             //add badges to user
-            if (i < 10) {
-                badgeData.Add("badge0" + i, false);
-            } else {
-                badgeData.Add("badge" + i, false);
-            }
-		}
-		FirebaseDatabase.DefaultInstance.GetReference("users").Child(usernameInputField.text).Child("badges").UpdateChildrenAsync(badgeData); //add badges to user
-        //add a child to ever
-        
-        nextSceneFlag = true;
-    }
-    void checkIfUsernameTaken()
-    {
-        
-        FirebaseDatabase.DefaultInstance.GetReference("users").GetValueAsync().ContinueWith(task => { //get all users
-            if (task.IsFaulted)
+            SHA256 sha256 = SHA256.Create();
+            byte[] bytes = sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            System.Text.StringBuilder builder = new System.Text.StringBuilder();
+            for (int i = 0; i < bytes.Length; i++)
             {
-                // Handle the error...
+                builder.Append(bytes[i].ToString("x2"));
             }
-            else if (task.IsCompleted)
+            return builder.ToString();
+        }
+
+        private class User //user class to structure data for firebase
+        {
+            public string username;
+            public string password;
+            public User(string username, string password)
             {
-                DataSnapshot snapshot = task.Result; 
-                foreach (DataSnapshot user in snapshot.Children)                            //loop through all users
-                {
-                    if (user.Child("username").Value.ToString() == usernameInputField.text) //check if username is taken
-                    {
-                        Debug.Log("Username already taken");
-                        usernameTakenFlag = true;
-                        return;
-                    }
+                this.username = username;
+                this.password = Encrypt(password);
+            }
+        }
+
+        private void Update()
+        {
+            if (_nextSceneFlag) 
+            {
+                PlayerPrefs.SetString("username", usernameInputField.text); //save username to playerprefs
+                SceneManager.LoadScene("MainMenu");                         //load main menu
+            }
+
+            if (_usernameTakenFlag)
+            {
+                errorText.text = "Username already taken";
+            }
+
+            if (_incorrectDetailsFlag)
+            {
+                errorText.text = "Incorrect details";
+            }
+        }
+
+        private void AddUserToFirebase() 
+        {
+            User user = new User(usernameInputField.text, passwordInputField.text);                                           //create user
+            string json = JsonUtility.ToJson(user);                                                                           //convert user to json
+            FirebaseDatabase.DefaultInstance.GetReference("users").Child(usernameInputField.text).SetRawJsonValueAsync(json); //add user to firebase
+            print("here");
+            Dictionary<string, object> badgeData = new Dictionary<string, object>();    //create dictionary for badges
+            for (int i = 0; i < 12; i++) {                                             //add badges to user
+                if (i < 10) {
+                    badgeData.Add("badge0" + i, false);
+                } else {
+                    badgeData.Add("badge" + i, false);
                 }
-                addUserToFirebase();                                                       //add user to firebase
             }
-        });
-    }
-    
-    void checkLoginDetails()
-    {
-        FirebaseDatabase.DefaultInstance.GetReference("users").GetValueAsync().ContinueWith(task => { //get all users
-            if (task.IsFaulted)
-            {
-                // Handle the error...
-            }
-            else if (task.IsCompleted)
-            {
-                DataSnapshot snapshot = task.Result;
-                foreach (DataSnapshot user in snapshot.Children)                            //loop through all users
+            FirebaseDatabase.DefaultInstance.GetReference("users").Child(usernameInputField.text).Child("badges").UpdateChildrenAsync(badgeData); //add badges to user
+            _nextSceneFlag = true;
+        }
+
+        private void CheckIfUsernameTaken()
+        {
+            FirebaseDatabase.DefaultInstance.GetReference("users").GetValueAsync().ContinueWith(task => { //get all users
+                if (task.IsFaulted)
                 {
-                    if (user.Child("username").Value.ToString() == usernameInputField.text) //check if username is taken
-                    {
-                        if (user.Child("password").Value.ToString() == encrypt(passwordInputField.text)) //check if password is correct
-                        {
-                            nextSceneFlag = true;
-                            return;
-                        }
-                        else
-                        {
-                            incorrectDetailsFlag = true;
+                    print("Error");
+                } else if (task.IsCompleted) {
+                    var snapshot = task.Result; 
+                    foreach (var user in snapshot.Children) {
+                        if (user.Child("username").Value.ToString() == usernameInputField.text) { //check if username exists
+                            _usernameTakenFlag = true;
                             return;
                         }
                     }
+                    AddUserToFirebase();                                                       
                 }
-                incorrectDetailsFlag = true;
-            }
-        });
-    }
-    
-    void RegisterAccount()
-    {
-        if (usernameInputField.text.Length >= 1 && passwordInputField.text.Length >= 1)   //check if inputs aren't empty
+            });
+        }
+
+        private void CheckLoginDetails()
         {
-            if (passwordInputField.text != confirmPasswordInputField.text)
+            FirebaseDatabase.DefaultInstance.GetReference("users").GetValueAsync().ContinueWith(task => {
+                if (task.IsFaulted)
+                {
+                    print("Error");
+                }
+                else if (task.IsCompleted)
+                {
+                    DataSnapshot snapshot = task.Result;
+                    foreach (DataSnapshot user in snapshot.Children)
+                    {
+                        if (user.Child("username").Value.ToString() == usernameInputField.text) //check if username exists
+                        {
+                            if (user.Child("password").Value.ToString() == Encrypt(passwordInputField.text)) //check if password is correct
+                            {
+                                _nextSceneFlag = true;
+                                return;
+                            }
+                        }
+                    }
+                    _incorrectDetailsFlag = true;
+                }
+            });
+        }
+
+        private void RegisterAccount()
+        {
+            if (usernameInputField.text.Length >= 1 && passwordInputField.text.Length >= 1)   //check if inputs aren't empty
             {
-                errorText.text = "Passwords do not match";
-                return;
+                if (passwordInputField.text != confirmPasswordInputField.text)
+                {
+                    errorText.text = "Passwords do not match";
+                    return;
+                }
+
+                CheckIfUsernameTaken();                                                     //check if username is taken
+
+            } else {    //set error text
+                errorText.text = "Please enter a username and password";
             }
 
-            checkIfUsernameTaken();                                                     //check if username is taken
-
-        } else {    //set error text
-            errorText.text = "Please enter a username and password";
         }
 
-    }
 
-    
-
-    void LoginAccount()
-    {
-        if (usernameInputField.text.Length >= 1 && passwordInputField.text.Length >= 1)   //check if inputs aren't empty
+        private void LoginAccount()
         {
-            if (usernameInputField.text.Length > 15)
+            if (usernameInputField.text.Length >= 1 && passwordInputField.text.Length >= 1)   //check if inputs aren't empty
             {
-                errorText.text = "Username must be no longer than 15 characters";
-                return;
+                if (usernameInputField.text.Length > 15)
+                {
+                    errorText.text = "Username must be no longer than 15 characters";
+                    return;
+                }
+                CheckLoginDetails();
+            } else {   
+                errorText.text = "Please enter a username and password";
             }
-            checkLoginDetails();
-        } else {   
-            errorText.text = "Please enter a username and password";
+
         }
 
-    }
-    
-    void Start() { 
-        if (confirmPasswordInputField != null) //if register scene
-        {
-            submitButton.onClick.AddListener(RegisterAccount);
+        private void Start() { 
+            if (confirmPasswordInputField != null) //if register scene
+            {
+                submitButton.onClick.AddListener(RegisterAccount);
+            }
+            else                                    //if login scene
+            {
+                submitButton.onClick.AddListener(LoginAccount); 
+            }
         }
-        else                                    //if login scene
-        {
-            submitButton.onClick.AddListener(LoginAccount); 
-        }
-    }
     
+    }
 }

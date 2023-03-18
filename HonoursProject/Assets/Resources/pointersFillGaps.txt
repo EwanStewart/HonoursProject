@@ -1,2 +1,5 @@
-A pointer is defined using the_symbol. To dereference a memory adress the_symbol is used. if int n=42 and int *p = &n and n=_, *, &, 42, $
-if int n=2 and int *p=_n and cout << *p = 42, &, *
+To access the value stored in a pointer variable the_operator is used, *, !, $
+A dangling pointer is when a pointer references a_memory address, deallocated, allocated, freed, deleted
+A pointer variable in C++ must be declared with a_that matches the data type of the variable it points to, type specifier, modifier, function, keyword 
+Pointers that point to another pointer are called_in C++,double,triple,quadruple,nested
+To assign the memory address of a variable to a pointer the_operator is used, &, *, !, $

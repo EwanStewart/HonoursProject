@@ -3,54 +3,58 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Objectives : MonoBehaviour
+namespace otherScripts
 {
-    public TextMeshProUGUI txtComponent;
-    private List<string> textLine;
-
-    private string textFilePath;
-    private int count = 0;
-
-    void Start()
+    public class Objectives : MonoBehaviour
     {
-        
-        textLine = new List<string>(); 
-        txtComponent.text = string.Empty;
-        TextAsset file;
+        public TextMeshProUGUI txtComponent;
+        private List<string> _textLine;
 
-        if (SceneManager.GetActiveScene().name == "Pointers") {
-            file = Resources.Load("pointers") as TextAsset; 
-            if (!PlayerPrefs.HasKey("objPosition")) {
-                PlayerPrefs.SetInt("objPosition", 0);
-            } else  {
-                count = PlayerPrefs.GetInt("objPosition");
-            }
-        } else if (SceneManager.GetActiveScene().name == "sorting") {
-            file = Resources.Load("sorting") as TextAsset;
-            if (!PlayerPrefs.HasKey("objPositionSorting")) {
-                PlayerPrefs.SetInt("objPositionSorting", 0);
-            }                 
-            count = PlayerPrefs.GetInt("objPositionSorting");
-        } else {
-            return;
-        }
+        private string _textFilePath;
+        private int _count = 0;
 
-        string[] linesFromfile = file.text.Split("\n"[0]); 
-        foreach (string line in linesFromfile)
+        private void Start()
         {
-            textLine.Add(line);
-
-        }
         
+            _textLine = new List<string>(); 
+            txtComponent.text = string.Empty;
+            TextAsset file;
 
-		Debug.Log(count);
-		Debug.Log(textLine.Count-1);
-        txtComponent.text = textLine[count]; 
-    }
+            if (SceneManager.GetActiveScene().name == "Pointers") {
+                file = Resources.Load("pointers") as TextAsset; 
+                if (!PlayerPrefs.HasKey("objPosition")) {
+                    PlayerPrefs.SetInt("objPosition", 0);
+                } else  {
+                    _count = PlayerPrefs.GetInt("objPosition");
+                }
+            } else if (SceneManager.GetActiveScene().name == "sorting") {
+                file = Resources.Load("sorting") as TextAsset;
+                if (!PlayerPrefs.HasKey("objPositionSorting")) {
+                    PlayerPrefs.SetInt("objPositionSorting", 0);
+                }                 
+                _count = PlayerPrefs.GetInt("objPositionSorting");
+            } else {
+                file = Resources.Load("LinkedLists") as TextAsset;
+                if (!PlayerPrefs.HasKey("objPositionLinkedLists")) {
+                    PlayerPrefs.SetInt("objPositionLinkedLists", 0);
+                }                 
+                _count = PlayerPrefs.GetInt("objPositionLinkedLists");
+            }
 
-    public void nextLine() 
-    {
-        count++;
-        txtComponent.text = textLine[count];
+            string[] linesFromfile = file.text.Split("\n"[0]); 
+            foreach (string line in linesFromfile)
+            {
+                _textLine.Add(line);
+
+            }
+            
+            txtComponent.text = _textLine[_count]; 
+        }
+
+        public void nextLine() 
+        {
+            _count++;
+            txtComponent.text = _textLine[_count];
+        }
     }
 }

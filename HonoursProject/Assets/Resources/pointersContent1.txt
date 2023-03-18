@@ -1,10 +1,9 @@
-Pointers are a distinctive feature of C and C++, they provide a powerful feature but also can be dangerous.
-A pointer is a reference type – it points to another variable in memory. Which provides lots of useful utility.
+In C++, a pointer is a variable that stores the memory address of another variable, they provide a powerful feature but also can be dangerous.
+Pointers are denoted by the use of an asterisk (*) symbol, and they can be used to access and manipulate data indirectly. Which provides lots of useful utility.
 These are pointers:  int *p, char *q;
 These are not pointers: int n, char c;
-/Here is an example of a pointer pointing to a memory location.
-Pointer p now points towards integer n, you can now dereference the pointer to use the value it is pointing to.
-Using the * symbol when interacting with pointers will reference a literal value. Whilst using the & symbol will reference the memory address.
-These symbols can be used interchangably to meet the needs of the program.
-/Outputting *p, will now print the value of n so in this case p will have the value of 42.
-Let's try match up some basic pointer examples! Drag the wires on the left handside to the appropriate connection to complete this game.
+/To declare a pointer variable, you first need to specify the data type of the variable it's pointing to. 
+In this example, we've declared a pointer variable called p that now stores the memory address of integer n.
+To initialize a pointer, you can assign it the memory address of an existing variable using the "address-of" operator (&).
+/Once you have a pointer variable, you can use the dereference operator (*) to access the value stored at the memory address it's pointing to.
+Let's try match up some basic pointer examples! Drag the wires on the left hand side to the appropriate connection to complete this game.

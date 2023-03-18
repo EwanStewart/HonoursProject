@@ -66,13 +66,16 @@ namespace UIScripts
             foreach (var badge in _data) //loop through badge dictionary
             {
                 try {
-                    if (badge.Value.ToString() != "True") continue;
                     var obj = GameObject.Find(badge.Key);
-                    var child = obj.transform.GetChild(obj.transform.childCount - 1);
-                    Destroy(child.gameObject);
                     var button = obj.GetComponent<Button>();
                     button.onClick.AddListener(() => SetBadgeData(badge.Key));
                     _flag = false;
+                    
+                    if (badge.Value.ToString() == "True") {
+                        var child = obj.transform.GetChild(obj.transform.childCount - 1);
+                        Destroy(child.gameObject);
+                    }
+
                 } catch {
                     Debug.Log("Error");
                 }

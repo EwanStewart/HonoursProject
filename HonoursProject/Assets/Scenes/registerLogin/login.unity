@@ -1117,7 +1117,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 90830782}
         m_TargetAssemblyTypeName: FirebaseManager, Assembly-CSharp
-        m_MethodName: backToLoginMenu
+        m_MethodName: BackToLoginMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
