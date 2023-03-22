@@ -84,7 +84,7 @@ public class DragNDrop : MonoBehaviour
 						feedBackTxt.text =
 							"That's not quite it, at least one of your answers are incorrect. Answer incorrectly again and you will be sent back to the content.";
 						Invoke(nameof(ClearFeedback), 3);
-						break;
+						return;
 					}
 					else
 					{
@@ -122,7 +122,7 @@ public class DragNDrop : MonoBehaviour
 		if (!_done) {									//check if already met
 			if (_consecutiveCorrect >=5) {				//if the user has got 5 correct answers in a row
 				if (PlayerPrefs.HasKey("username")) {	//ensure user is logged in
-            		FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge01").SetValueAsync(true);	//store badge in firebase
+            		FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge02").SetValueAsync(true);	//store badge in firebase
 					panelBadge.gameObject.SetActive(true);																	  //set feedback panel to active
 					TextMeshProUGUI feedBackTxt = panelBadge.GetComponentInChildren<TextMeshProUGUI>();						  //get text from feedback panel
 					feedBackTxt.text = "'Show Off' unlocked!"; //change text to denote badge unlocked

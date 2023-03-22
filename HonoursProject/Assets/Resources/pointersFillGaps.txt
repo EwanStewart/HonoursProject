@@ -1,5 +1,8 @@
-To access the value stored in a pointer variable the_operator is used, *, !, $
-A dangling pointer is when a pointer references a_memory address, deallocated, allocated, freed, deleted
-A pointer variable in C++ must be declared with a_that matches the data type of the variable it points to, type specifier, modifier, function, keyword 
-Pointers that point to another pointer are called_in C++,double,triple,quadruple,nested
-To assign the memory address of a variable to a pointer the_operator is used, &, *, !, $
+To access the value stored in a pointer variable the_operator is used., *, !, $
+A dangling pointer is when a pointer references a_memory address., deallocated, allocated, freed, deleted
+A pointer variable in C++ must be declared with a_that matches the data type of the variable it points to., type specifier, modifier, function, keyword 
+Pointers that point to another pointer are called_in C++.,double,triple,quadruple,nested
+To assign the memory address of a variable to a pointer the_operator is used., &, *, !, $
+To dynamically allocate memory in C++ you use the _ operator., new, delete, malloc, calloc
+To deallocate memory that was dynamically allocated you use the_keyword., delete, new, malloc, calloc
+Accessing a variable by reference is _ memory efficient than accessing it by value., more, less

@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Firebase.Database;
 
 namespace sortingScripts
 {
@@ -10,11 +11,13 @@ namespace sortingScripts
     {
         public RectTransform panelOrder; //panel to hold all buttons
         public RectTransform feedbackPanel;
-            [HideInInspector]
+        public RectTransform badgePanel;
+        [HideInInspector]
         public static float[] YPositions;
 
-        private bool over = false;
-        private bool waiting = false;
+
+        private bool _over = false;
+        private bool _waiting = false;
         
         private void SetFeedbackPanel(string text)
         {
@@ -24,17 +27,34 @@ namespace sortingScripts
         
         private void CloseFeedbackPanel()
         {
-            waiting = false;
+            _waiting = false;
             feedbackPanel.gameObject.SetActive(false);
         }
 
         private void Update()
         {
-            if (!waiting && over)
+            if (!_waiting && _over)
             {
-                SceneManager.LoadScene("sorting");
+                var badgeText = badgePanel.GetComponentInChildren<TextMeshProUGUI>();
+                
+                badgeText.text = "'Sorted it' unlocked!";
+                badgePanel.gameObject.SetActive(true);
+                
+                if (PlayerPrefs.HasKey("username")) {	
+                    FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge04").SetValueAsync(true);	//store badge in firebase
+                } else {
+                    PlayerPrefs.DeleteAll();				
+                    SceneManager.LoadScene("sign-login");	
+                }
+                
+                SetFeedbackPanel("You've successfully sorted the notations!");
+                Invoke(nameof(LoadNextScene), 4);
             }
-            
+        }
+        
+        private void LoadNextScene()
+        {
+            SceneManager.LoadScene("sorting");
         }
 
         public void OnSubmit()
@@ -52,15 +72,15 @@ namespace sortingScripts
             if (correctOrder)
             {
                 SetFeedbackPanel("That's the correct order!");
-                over = true;
-                waiting = true;
+                _over = true;
+                _waiting = true;
                 Invoke(nameof(CloseFeedbackPanel), 3f);
             } else {
                 SetFeedbackPanel("That's not quite right. Try again!");
                 Invoke(nameof(CloseFeedbackPanel), 3f);
             }
         }
-        private void RandomOrder()
+        public void RandomOrder()
         {
             var buttons = panelOrder.GetComponentsInChildren<Button>();
             YPositions = new float[buttons.Length];

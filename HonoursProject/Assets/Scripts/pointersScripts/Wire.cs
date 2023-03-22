@@ -42,12 +42,10 @@ public class Wire : MonoBehaviour
         canvas.SetActive(true);
         countText.gameObject.SetActive(false);
         Invoke("loadPointers", 1);
-        Debug.Log("a");
     }
     
     void loadPointers()
     {
-        Debug.Log("Loading Pointers");
         SceneManager.LoadScene("Pointers");
     }
     

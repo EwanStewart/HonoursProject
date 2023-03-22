@@ -32,6 +32,10 @@ public class MainMenu : MonoBehaviour
         {
             PlayerPrefs.SetInt("badge00Unlocked", 99);
         }
+        if (!PlayerPrefs.HasKey("badge08Unlocked"))
+        {
+            PlayerPrefs.SetInt("badge08Unlocked", 99);
+        }
     }
 
     void Update()
@@ -39,10 +43,31 @@ public class MainMenu : MonoBehaviour
         if (PlayerPrefs.HasKey("username"))
         {
             if (PlayerPrefs.GetInt("badge00Unlocked") == 99) {
+                PlayerPrefs.SetString("start", System.DateTime.Now.ToString());
                 FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge00").SetValueAsync(true);
                 PlayerPrefs.SetInt("badge00Unlocked", 0);
                 badgePanel.SetActive(true);
                 Invoke(nameof(ClearFeedback), 5);
+            }
+
+            if (PlayerPrefs.GetInt("badge08Unlocked") == 99) {
+                if (PlayerPrefs.GetInt("PointersCompleted") == 1 && PlayerPrefs.GetInt("SortingCompleted") == 1 && PlayerPrefs.GetInt("LinkedListsCompleted") == 1) {
+                    PlayerPrefs.SetString("end", System.DateTime.Now.ToString());
+                    var diff = System.DateTime.Parse(PlayerPrefs.GetString("end")) - System.DateTime.Parse(PlayerPrefs.GetString("start"));
+                    if (diff.TotalMinutes < 60) {
+                        FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge11").SetValueAsync(true);
+                    } 
+                    if (diff.TotalMinutes < 30) {
+                        FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge10").SetValueAsync(true);
+                    } 
+                    
+                    FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username"))
+                        .Child("badges").Child("badge09").SetValueAsync(true);
+                    badgePanel.SetActive(true);
+                    badgePanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Completed it!";
+                    PlayerPrefs.SetInt("badge08Unlocked", 0);
+                    Invoke(nameof(ClearFeedback), 5);
+                }
             }
         }
     }

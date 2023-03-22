@@ -9,11 +9,11 @@
   },
   {
     "name": "Badge02",
-    "description": "Unlock this badge for completing Pointers."
+    "description": "Unlock this badge for getting 5 answers or more correct in a row in the True/False game in Pointers."
   },
   {
     "name": "Badge03",
-    "description": "Unlock this badge for starting Big O Notation."
+    "description": "Unlock this badge for completing Pointers."
   },
   {
     "name": "Badge04",
@@ -41,7 +41,7 @@
   },
   {
     "name": "Badge10",
-    "description": "Unlock this badge for completing every course with 100% accuracy."
+    "description": "Unlock this badge for completing every course in under 30 minutes."
   },
   {
     "name": "Badge11",

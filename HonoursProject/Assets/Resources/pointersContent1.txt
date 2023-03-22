@@ -2,8 +2,8 @@ In C++, a pointer is a variable that stores the memory address of another variab
 Pointers are denoted by the use of an asterisk (*) symbol, and they can be used to access and manipulate data indirectly. Which provides lots of useful utility.
 These are pointers:  int *p, char *q;
 These are not pointers: int n, char c;
-/To declare a pointer variable, you first need to specify the data type of the variable it's pointing to. 
+/To declare a pointer variable, you first need to specify the type specifier of the variable it's pointing to. 
 In this example, we've declared a pointer variable called p that now stores the memory address of integer n.
 To initialize a pointer, you can assign it the memory address of an existing variable using the "address-of" operator (&).
-/Once you have a pointer variable, you can use the dereference operator (*) to access the value stored at the memory address it's pointing to.
+/Once you have a pointer variable, you can now use the dereference operator (*) to access the value stored at the memory address it's pointing to.
 Let's try match up some basic pointer examples! Drag the wires on the left hand side to the appropriate connection to complete this game.

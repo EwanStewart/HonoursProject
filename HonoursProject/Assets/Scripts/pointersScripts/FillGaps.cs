@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
+using Firebase.Database;
 namespace pointersScripts
 {
 	public class FillGaps : MonoBehaviour
@@ -14,8 +14,10 @@ namespace pointersScripts
     
 		public RectTransform parentPanel;
 		public RectTransform panelText;
+		public GameObject badgePanel;
+		
 		public GameObject textObj;
-		public RectTransform a;
+		
 		private bool _done = false;
 		private bool _waiting = false;
 		private readonly List<List<string>> _list = new();
@@ -197,8 +199,26 @@ namespace pointersScripts
 			if (!_waiting && _done)
 			{
 				var feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();
+				var badgeText = badgePanel.GetComponentInChildren<TextMeshProUGUI>();
+
 				feedBackTxt.text = "That's all for pointers!";
+				badgeText.text = "'It's Over!' unlocked!";
+				PlayerPrefs.SetInt("PointersCompleted", 1);
+
+				var z = panelText.GetChild(panelText.childCount - 1).GetComponent<TextMeshProUGUI>();
+				z.text = "";
+			
+				
 				panelFeedback.gameObject.SetActive(true);
+				
+				if (PlayerPrefs.HasKey("username")) {	
+					FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge03").SetValueAsync(true);	
+					badgePanel.gameObject.SetActive(true);
+				} else {
+					PlayerPrefs.DeleteAll();				
+					SceneManager.LoadScene("sign-login");	
+				}
+				
 				Invoke(nameof(NextScene), 3);
 			}
 		}

@@ -1,6 +1,13 @@
-/Pointers can be used to reference structures and classes aswell as variables.
+/Pointers can be used to reference structures and classes as well as variables.
 C++ provides syntactical sugar to interact with values within a class or structure referenced by a pointer. 
 /(*p).x is replace by p-> x, which is much nicer to read.
-It's often useful to have a pointer that doesn't point to anything, often used to return as a sentinel value for “item not found”.
-The special value nullptr can be used for this – it's guaranteed not to be a valid pointer. This is typed as int *p = nullptr;
+Pointers are highly manipulable, and can be used to implement many data structures however due this flexibility they can cause many problems if used incorrectly.
+One example of this is the dangling pointer, which is a pointer that points to a memory location that has been freed.
+This can cause some very strange behaviour, such as the program crashing or the pointer pointing to a completely different location in memory.
+When interacting with pointers it is important to remember that they are just memory addresses, and that the data they point to can be changed at any time.
+To dynamically allocate memory in C++ use the new keyword. This will allocate a block of memory on the heap, and return a pointer to the start of the block.
+To free this memory use the delete keyword. This will free the memory, and set the pointer to null.
+Another useful feature of pointers is the ability to create a pointer that doesn't point to anything, often used to return as a sentinel value for “item not found”.
+A special pointer called a null pointer can be used for this – it's guaranteed not to be a valid pointer and can represent many things. This is typed as int *p = nullptr;
+This is often used in implementing data structures such as linked lists, where the end of the list is represented by a null pointer.
 Let's try match up some statements about pointers to test your knowledge.

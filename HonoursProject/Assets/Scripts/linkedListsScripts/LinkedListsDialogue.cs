@@ -23,10 +23,15 @@ namespace LinkedListsScripts
         private int _index = 0; 				//index of current line of text array
         private int _imgCount  = 0; 			//index holding how many images have been displayed
         public RectTransform feedbackPanel; //gameobject for feedback panel
-
-
+        
         private void ClearFeedback()
         {
+            if (PlayerPrefs.HasKey("username"))
+            {
+                FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge07").SetValueAsync(true);
+            } else {
+                SceneManager.LoadScene("sign-login");
+            }
             feedbackPanel.gameObject.SetActive(false);
         }
 
@@ -56,6 +61,12 @@ namespace LinkedListsScripts
             if (_text == null)
             {
                 return;
+            }
+            
+            if (PlayerPrefs.GetString("LinkedListsPosition") == "listContent1") {
+                feedbackPanel.gameObject.SetActive(true);
+                feedbackPanel.GetChild(0).GetComponent<TextMeshProUGUI>().text = "'Linked Lists' Unlocked!";
+                Invoke(nameof(ClearFeedback), 2);
             }
             
             lines = _text.text.Split('\n');	//split the text asset by new line into an array
@@ -137,13 +148,10 @@ namespace LinkedListsScripts
                 {
                     //using where the user is in pointers content, load the next scene
                     case "listContent2":
-                        SceneManager.LoadScene("LinkedListGame1");	//load matching scene
+                        SceneManager.LoadScene("LinkedListGame2");	//load matching scene
                         break;
                     case "listContent3":
-                        SceneManager.LoadScene("LinkedListGame2");	//load swipe scene
-                        break;
-                    case "listContent4":
-                        SceneManager.LoadScene("LinkedListGame3");	//load swipe scene
+                        SceneManager.LoadScene("LinkedListGame1");	//load swipe scene
                         break;
                 }
             }

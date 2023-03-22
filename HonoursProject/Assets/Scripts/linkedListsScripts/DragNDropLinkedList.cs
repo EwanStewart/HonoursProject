@@ -19,7 +19,6 @@ namespace LinkedListsScripts
 		public RectTransform panelFalse;
 		public RectTransform panelFeedback;
 		public RectTransform badgePanel;
-		public Canvas canvasPause;
 		public TextAsset text;
 
 		private bool _done;    				//check if game over
@@ -71,7 +70,7 @@ namespace LinkedListsScripts
 							var feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();				
 							feedBackTxt.text = "That's not quite it, at least one of your answers are incorrect. Answer incorrectly again and you will be sent back to the content.";	
 							Invoke(nameof(ClearFeedback), 3);
-							break;
+							return;
 						}
 						else
 						{
@@ -79,10 +78,10 @@ namespace LinkedListsScripts
 							var feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();				
 							feedBackTxt.text = "That's not quite it, at least one of your answers are incorrect. You will now be sent back to the content.";	
 							StartCoroutine(LoadScene("LinkedListsLessonUI"));
-							PlayerPrefs.DeleteKey("imgCountLinkedLists");
-							PlayerPrefs.DeleteKey("LinkedListsPosition");
-							PlayerPrefs.DeleteKey("objPositionLinkedLists");
+							PlayerPrefs.SetInt("imgCountLinkedLists", 6);
+							PlayerPrefs.SetString("LinkedListsPosition", "listContent2");
 							PlayerPrefs.DeleteKey("keys");
+							Invoke(nameof(LoadSceneNoDelay), 3);
 						}
 
 					}
@@ -99,9 +98,8 @@ namespace LinkedListsScripts
 
 		public void LoadSceneNoDelay()
 		{
-			PlayerPrefs.DeleteKey("imgCountLinkedLists");
-			PlayerPrefs.DeleteKey("LinkedListsPosition");
-			PlayerPrefs.DeleteKey("objPositionLinkedLists");
+			PlayerPrefs.SetInt("imgCountLinkedLists", 6);
+			PlayerPrefs.SetString("LinkedListsPosition", "listContent2");
 			PlayerPrefs.DeleteKey("keys");
 			SceneManager.LoadScene("LinkedListsLessonUI");
 		}
@@ -115,12 +113,7 @@ namespace LinkedListsScripts
 		}
 
 		public void NextScene() {
-			SceneManager.LoadScene("LinkedLists");
-		}
-
-		public void PauseGame() {	
-			canvasPause.gameObject.SetActive(!canvasPause.gameObject.activeSelf);
-			Time.timeScale = 0;
+			SceneManager.LoadScene("LevelSelect");
 		}
 		
 		private void Update()
@@ -134,10 +127,11 @@ namespace LinkedListsScripts
 
 			panelFeedback.gameObject.SetActive(true);		
 			
-			_feedBackTxt.text = "Well Done! You successfully sorted the statements into True and False.";	
+			_feedBackTxt.text = "Well Done! You successfully sorted the statements into True and False. That's the end of this lesson!";	
+			PlayerPrefs.SetInt("LinkedListsCompleted", 1);
 			
 			if (PlayerPrefs.HasKey("username")) {	
-				FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge09").SetValueAsync(true);	
+				FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge08").SetValueAsync(true);	
 				badgePanel.gameObject.SetActive(true);
 			} else {
 				PlayerPrefs.DeleteAll();				

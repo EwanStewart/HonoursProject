@@ -18,73 +18,102 @@ namespace sortingScripts
 		public RectTransform panelTrue;
 		public RectTransform panelFalse;
 		public RectTransform panelFeedback;
+		public RectTransform panelBadge;
+
 		public TextAsset text;
 
 		private bool _done;    				//check if game over
 		private int _consecutiveCorrect = 0;	//total correct answers in a row
+		private bool _incorrectAnswer;	//total correct answers in a row
+
 		private int _buttonsSubmitted = 0;	//total statements correctly submitted
 
-		public void SubmitAnswers() {
-			var dict = new Dictionary<string, string>();	//create dictionary to hold statements and values
-			var panelList = new List<RectTransform>();	//list to hold panels
+		public void SubmitAnswers()
+		{
+			var dict = new Dictionary<string, string>(); //create dictionary to hold statements and values
+			var panelList = new List<RectTransform>(); //list to hold panels
 
-			var panelIndex = 0;	//index to hold which panel is being checked
-			var correctValueForPanel = true;	
+			var panelIndex = 0; //index to hold which panel is being checked
+			var correctValueForPanel = true;
 
 			panelList.Add(panelTrue);
 			panelList.Add(panelFalse);
 
-			foreach (var k in PlayerPrefs.GetString("keys", "").Split(','))	//for each key in dictionary, add to dictionary with value from playerprefs
+			foreach (var k in PlayerPrefs.GetString("keys", "").Split(',')) //for each key in dictionary, add to dictionary with value from playerprefs
 			{
 				dict.Add(k, PlayerPrefs.GetString(k, ""));
 			}
-        
-			foreach (var panel in panelList)	//for each panel
+
+			foreach (var panel in panelList) //for each panel
 			{
-				foreach (Transform child in panel)		//for each child in panel
+				foreach (Transform child in panel) //for each child in panel
 				{
-					if (panelIndex > 0)					//define correct answer for panel
+					if (panelIndex > 0) //define correct answer for panel
 					{
 						correctValueForPanel = false;
 					}
 
 					if (!child.GetComponent<Button>()) continue; //if child is a button
-					var tempButton = child.GetComponent<Button>();	//get button
-					var tempText = tempButton.GetComponentInChildren<TextMeshProUGUI>().text; 	    //get text from button
-					var tempValue = Convert.ToBoolean(dict[tempText]);	//convert value from dictionary to bool
-          
-					if (tempValue == correctValueForPanel) { 	//if value is correct
-						_consecutiveCorrect++;					//increment correct answers in a row
-						_buttonsSubmitted++;						//increment total statements submitted
-						Destroy(tempButton.gameObject);			//destroy button to denote correct answer
-					} else {																					//if wrong
-						_consecutiveCorrect = 0;																				//reset correct answers in a row
-						panelFeedback.gameObject.SetActive(true);															//show feedback panel to denote wrong answer	
-						var feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();				//get text from feedback panel
-						feedBackTxt.text = "That's not quite it, at least one of your answers are incorrect. Try again.";	//change text to denote wrong answer
-						Invoke(nameof(ClearFeedback), 3);																//clear feedback panel after 3 seconds
+					var tempButton = child.GetComponent<Button>(); //get button
+					var tempText = tempButton.GetComponentInChildren<TextMeshProUGUI>().text; //get text from button
+					var tempValue = Convert.ToBoolean(dict[tempText]); //convert value from dictionary to bool
+
+					if (tempValue == correctValueForPanel)
+					{
+						//if value is correct
+						_consecutiveCorrect++; //increment correct answers in a row
+						_buttonsSubmitted++; //increment total statements submitted
+						Destroy(tempButton.gameObject); //destroy button to denote correct answer
+					}
+					else
+					{
+						//if wrong
+						_consecutiveCorrect = 0; //reset correct answers in a row
+						if (!_incorrectAnswer)
+						{
+							_incorrectAnswer = true;
+							panelFeedback.gameObject.SetActive(true);
+							var feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();
+							feedBackTxt.text =
+								"That's not quite it, at least one of your answers are incorrect. Answer incorrectly again and you will be sent back to the content.";
+							Invoke(nameof(ClearFeedback), 5);
+							return;
+						}
+						else
+						{
+							panelFeedback.gameObject.SetActive(true);
+							var feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();
+							feedBackTxt.text =
+								"That's not quite it, at least one of your answers are incorrect. You will now be sent back to the content.";
+							StartCoroutine(LoadScene("SortingLessonUI"));
+							PlayerPrefs.SetInt("imgCountSorting", 4);
+							PlayerPrefs.SetInt("objPositionSorting", 1);
+							PlayerPrefs.SetString("sortingPosition", "sortingContent3");
+							PlayerPrefs.DeleteKey("keys");
+						}
+
 					}
 				}
-				panelIndex++;	//increment panel index, to go to next panel
+
+				panelIndex++; //increment panel index, to go to next panel
 			}
 		}
 
+		private static System.Collections.IEnumerator LoadScene(string sceneName) {
+		    yield return new WaitForSeconds(2);
+		    SceneManager.LoadScene(sceneName);
+		}
 		private void CheckIfBadgeMet()
 		{
-			//check if badge in this scene has been met
 			if (_done) return;  //check if already met
 			if (_consecutiveCorrect < 6) return; //if the user has got 5 correct answers in a row
 			if (PlayerPrefs.HasKey("username")) {	//ensure user is logged in
-				FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge06").SetValueAsync(true);	//store badge in firebase
-				panelFeedback.gameObject.SetActive(true);																	  //set feedback panel to active
-				var feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();						  //get text from feedback panel
-				feedBackTxt.text = "Congratulations! You aced this, you have unlocked a badge."; //change text to denote badge unlocked
+				FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge05").SetValueAsync(true);	//store badge in firebase
 			} else {
 				PlayerPrefs.DeleteAll();				//delete all playerprefs
 				SceneManager.LoadScene("sign-login");	//send user to login screen
 			}
 			_done = true;	//badge has been met
-			Invoke(nameof(ClearFeedback), 3);	//clear feedback panel after 3 seconds
 		}
 
 		public void ClearFeedback()	//clear text of panel and hide panel
@@ -95,6 +124,9 @@ namespace sortingScripts
 		}
 
 		public void NextScene() {	//load next scene
+			PlayerPrefs.DeleteKey("objPositionSorting");
+			PlayerPrefs.DeleteKey("sortingPosition");
+			PlayerPrefs.DeleteKey("imgCountSorting");
 			SceneManager.LoadScene("MainMenu");
 		}
 
@@ -114,6 +146,10 @@ namespace sortingScripts
 			panelFeedback.gameObject.SetActive(true);														//set feedback panel to active
 			var feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();			//get text from feedback panel
 			feedBackTxt.text = "Well Done! You successfully sorted the statements into true and false. That's all the content for Big O Notation";	//change text to denote completion of scene
+			panelBadge.gameObject.SetActive(true);	//set badge panel to active
+			FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge06").SetValueAsync(true);	//store badge in firebase
+			PlayerPrefs.SetInt("SortingCompleted", 1);
+			panelBadge.GetComponentInChildren<TextMeshProUGUI>().text = _done ? "'Big O-ver and Flawless' unlocked" : "'Big O-ver unlocked";
 			Invoke(nameof(NextScene), 5);																			//load next scene after 3 seconds
 		}
 
