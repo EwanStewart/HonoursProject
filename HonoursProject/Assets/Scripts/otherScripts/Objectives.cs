@@ -47,8 +47,13 @@ namespace otherScripts
                 _textLine.Add(line);
 
             }
-            
-            txtComponent.text = _textLine[_count]; 
+
+            try
+            {
+                txtComponent.text = _textLine[_count];
+            } catch (System.Exception e) {
+                txtComponent.text = _textLine[0];
+            }
         }
 
         public void nextLine() 

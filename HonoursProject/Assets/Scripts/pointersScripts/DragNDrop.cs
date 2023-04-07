@@ -95,6 +95,7 @@ public class DragNDrop : MonoBehaviour
 						StartCoroutine(LoadScene("PointersLessonUI"));
 						PlayerPrefs.SetInt("imgCount", 2);
 						PlayerPrefs.SetInt("objPosition", 1);
+						PlayerPrefs.SetString("pointersPosition", "pointersContent2");
 						PlayerPrefs.DeleteKey("keys");
 					}
 

@@ -1,14 +1,17 @@
 Let's work the complexities for some common sorting algorithms.  
 /Bubble sort is a simple, sorting algorithm used to sort lists. It is generally one of the first algorithms taught in programming.
 Bubble Sort works by continuously comparing adjacent indexes and swaps them if they are out of order.
-This is very inefficient, as it requires comparing every element to its neighbor. This means the algorithm is O(n^2) in the worst case, and O(n) in the best case.
+This is very inefficient, as it requires comparing every element to its neighbor. This algorithm is O(n^2) in the worst case, and O(n) in the best case.
 The best case is when the list is already sorted, and the algorithm only needs to make one pass through the list. The worst case is when the list is in reverse order, and the algorithm needs to swap every element.
-There is an endless amount of sorting algorithms, and each one has its own strengths and weaknesses. Insertion sort is another simple sorting algorithm that is often taught. It works by taking each element in a list, and inserting it into another list in the correct order. It continues this process until the entire list is sorted.
+There is an endless amount of sorting algorithms, and each one has its own strengths and weaknesses. Insertion sort is another simple sorting algorithm that is often taught.
+Insertion sorts works by taking each element in a list, and inserting it into another list in the correct order. It continues this process until the entire list is sorted.
 /
-This presents the same issues as bubble sort, as it requires traversing the entire list for each element whilst comparing elements. This means the algorithm is O(n^2) in the worst case, and O(n) in the best case.
-The best case is when the list is already sorted, and the algorithm only needs to make one pass through the list. The worst case is when the list is in reverse order, and the algorithm needs to compare every element.
-Let's look at an efficient sorting algorithm. Mergesort is a divide and conquer algorithm that works by splitting the list into two halves, sorting each half, and then merging the two halves together. This is a recursive algorithm, meaning it calls itself until the list is split into single elements.
+This presents the same issues as bubble sort, as it requires traversing the entire list for each element whilst comparing elements. This algorithm is O(n^2) in the worst case, and O(n) in the best case.
+The best case is when the list is already sorted, and the algorithm only needs to make one pass through the list to confirm no swaps are required.
+The worst case is when the list is in reverse order, and will have to make n passes over the list, and on each pass, swap the current element each time. Let's look at an efficient sorting algorithm.
+Mergesort is a divide and conquer algorithm that works by splitting the list into two halves, sorting each half, and then merging the two halves together. This is a recursive algorithm, meaning it calls itself until the list is split into single elements.
 /
 /
-The algorithm is O(n log n) in the worst case, and O(n) in the best case. The best case is when the list is already sorted, and the algorithm only needs to make one pass through the list. The worst case is when the list is in reverse order, and the algorithm needs to split the list into two halves for each element.
+The best case is when the input is already sorted. In this case, merge sort still has to perform the divide and conquer steps, but the merge step can be done without any comparisons or swaps. The time complexity of the best case is O(n log n), where n is the number of elements in the array.
+The worst case is when the input array is sorted in reverse order. In this case, merge sort still performs the divide and conquer steps, but each merge step requires comparing and merging every element in both sub-arrays, resulting in more time and space usage. The time complexity of the worst case is also O(n log n), where n is the number of elements in the array.
 Let's consolidate your knowledge of Big O Notation.

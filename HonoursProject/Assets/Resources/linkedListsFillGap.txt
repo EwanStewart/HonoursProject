@@ -1,0 +1,5 @@
+A stack is a data structure that follows the_ principle., LIFO, FIFO, FCFS, LCLS
+When removing an item from a stack the_ operation is used., pop, enqueue, dequeue, push
+The data structure_ is used as the underlying data structure for a stack., linked list, array, stack, tree
+It is important to check if the stack is_ before performing any operations on it., empty, full, populated, initialized
+To implement a stack using a linked list a_ class must be defined that points to the next element., node, queue, list, pointer

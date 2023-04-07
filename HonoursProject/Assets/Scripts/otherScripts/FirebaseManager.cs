@@ -73,7 +73,6 @@ namespace otherScripts
             User user = new User(usernameInputField.text, passwordInputField.text);                                           //create user
             string json = JsonUtility.ToJson(user);                                                                           //convert user to json
             FirebaseDatabase.DefaultInstance.GetReference("users").Child(usernameInputField.text).SetRawJsonValueAsync(json); //add user to firebase
-            print("here");
             Dictionary<string, object> badgeData = new Dictionary<string, object>();    //create dictionary for badges
             for (int i = 0; i < 12; i++) {                                             //add badges to user
                 if (i < 10) {

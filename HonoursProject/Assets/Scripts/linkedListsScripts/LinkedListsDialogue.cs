@@ -151,7 +151,10 @@ namespace LinkedListsScripts
                         SceneManager.LoadScene("LinkedListGame2");	//load matching scene
                         break;
                     case "listContent3":
-                        SceneManager.LoadScene("LinkedListGame1");	//load swipe scene
+                        SceneManager.LoadScene(23);	//load swipe scene
+                        break;
+                    case "listContent4":
+                        SceneManager.LoadScene("LinkedListGame1");	//load matching scene
                         break;
                 }
             }

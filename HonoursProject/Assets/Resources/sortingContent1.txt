@@ -1,12 +1,14 @@
-Big O Notation is a way to measure an algorithm’s efficiency. It measures the time it takes to run your function as the input grows. Or in other words, how well does the function scale. There are two parts to measuring efficiency — time complexity and space complexity.
-Time complexity is a measure of how long the function takes to run in terms of its computational steps. Space complexity has to do with the amount of memory used by the function.
+Big O Notation is a way to measure an algorithm’s efficiency. It measures the time it takes to run your function as the input grows. Or in other words, how well does the function scale.
+There are two parts to measuring efficiency. Time complexity is a measure of how long the function takes to run. Space complexity is a measure of how much memory the function requires to run.
 Big O is sometimes referred to as the algorithm’s upper bound, meaning that it deals with the worst-case scenario.
 We use worst-case to remove uncertainty — the algorithm will never perform worse than we expect.
 Let’s look at a simple example of an algorithm's efficiency.
-/We will search for the number eight out of a range from 1–8. Our first strategy is to start with the first number of the array and move up by one until we find our target number.
-/In round 1, we choose number one; that’s not correct, so we move to round 2 and eliminate number one as an option. Step 2 is also not correct, and we continue all the way until we select number eight.
-In our worst-case scenario, this is not very efficient. We have to check every single number in the list until we get to our answer.
-The Big O notation for this algorithm is O(2N). The complexity is directly related to the size of the inputs — the algorithm takes an additional step for each additional data element.
-When we write Big O notation, we look for the fastest-growing term as the input gets larger and larger. We can simplify the equation by dropping constants and any non-dominant terms. For example, O(2N) becomes O(N).
-/Algorithms are ordered by their complexities. For example, Binary Search has a complexity of O(log N) which is less than Linear Search's O(N). Therefore Binary Search is considered to be more efficient than Linear Search.
+/We will search for the number eight out of a range of 1-8. The easiest approach would be to start with the first number in the range and work our way up until we reach the number 8.
+/In round 1, we choose number one; that’s not correct, so we move to round 2 and eliminate number one as an option. Step 2 is also not correct, and we repeat until we reach number 8.
+In this worst-case scenario, this approach is not very efficient. We have to check every number in the range.
+The Big O notation for this approach is O(2N). The complexity is bound to the size of our range.
+When determining the notation of an algorithm, we look for the fastest-growing term as the input gets larger and larger.
+To make this more readable we can simplify the notation by dropping constants and any non-dominant terms. In this case, O(2N) becomes O(N). Or in other words, the time complexity of this algorithm is linear to the size of the input.
+The efficiency of an algorithm is classed by how close it is to O(1). With O(1) or constant time being the most efficient.
+/For example, Binary Search has a complexity of O(log N) which is less than Linear Search's O(N). Therefore Binary Search is considered to be more efficient than Linear Search as O(Log N) is closer to O(1) than O(N).
 Let's see if you can associate the different complexities by their names!

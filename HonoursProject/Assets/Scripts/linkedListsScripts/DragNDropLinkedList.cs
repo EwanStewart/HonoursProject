@@ -98,8 +98,9 @@ namespace LinkedListsScripts
 
 		public void LoadSceneNoDelay()
 		{
-			PlayerPrefs.SetInt("imgCountLinkedLists", 6);
-			PlayerPrefs.SetString("LinkedListsPosition", "listContent2");
+			PlayerPrefs.SetInt("imgCountLinkedLists", 8);
+			PlayerPrefs.SetInt("objPositionLinkedLists", 2);
+			PlayerPrefs.SetString("LinkedListsPosition", "listContent3");
 			PlayerPrefs.DeleteKey("keys");
 			SceneManager.LoadScene("LinkedListsLessonUI");
 		}
