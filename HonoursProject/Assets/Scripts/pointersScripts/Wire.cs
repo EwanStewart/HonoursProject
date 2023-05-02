@@ -28,14 +28,14 @@ public class Wire : MonoBehaviour
     void Update()
     {
         TextMeshProUGUI countText = canvas.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
-        if (countText.text == "3/3")
+        if (countText.text == "3/3") //if all wires are connected, unlock badge
         {
             unlockBadge();
         }
     }
 
 
-    void unlockBadge()
+    void unlockBadge() //unlocks badge and loads next scene
     {
         TextMeshProUGUI countText = canvas.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
 
@@ -44,31 +44,32 @@ public class Wire : MonoBehaviour
         Invoke("loadPointers", 1);
     }
     
-    void loadPointers()
+    void loadPointers() //loads pointers
     {
         SceneManager.LoadScene("Pointers");
     }
     
     private void OnMouseDrag()
     {
-        if (!receiver)
+        if (!receiver) 
         { //moves
             Vector3 newPosition = Input.mousePosition;
             newPosition.z = 3;
             newPosition = Camera.main.ScreenToWorldPoint(newPosition);
 
             Collider2D[] colliders = Physics2D.OverlapCircleAll(newPosition, .2f);
-            foreach (Collider2D collider in colliders)
+            foreach (Collider2D collider in colliders)  //checks if wire is connected to another wire
             {
-                if (collider.gameObject != gameObject)
+                if (collider.gameObject != gameObject) //checks if it is not the same wire
                 {
-                    updateWire(collider.GetComponent<Wire>().GetAttachPoint());
+                    updateWire(collider.GetComponent<Wire>().GetAttachPoint()); 
 
-                    if (transform.parent.name.Equals(collider.transform.parent.name))
+                    if (transform.parent.name.Equals(collider.transform.parent.name)) //checks if it is correct wire
                     {
+                        //update counter and connect wire
                         TextMeshProUGUI countText = canvas.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
 
-                        char firstChar = countText.text[0];
+                        char firstChar = countText.text[0]; 
                         int count = int.Parse(firstChar.ToString());
                         count++;
                         countText.text = count.ToString() + "/3";
@@ -89,17 +90,16 @@ public class Wire : MonoBehaviour
         Destroy(this);
     }
 
-    private void OnMouseUp()
+    private void OnMouseUp() //if wire is not connected to another wire, it returns to its original position
     {
         if (!receiver)
         {
             wireEnd.size = new Vector2(2f, wireEnd.size.y);
-
             updateWire(startPosition);
         }
     }
 
-    void updateWire (Vector3 newPosition)
+    void updateWire (Vector3 newPosition) 
     {
         transform.position = newPosition;
 

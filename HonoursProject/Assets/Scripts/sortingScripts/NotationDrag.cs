@@ -28,14 +28,14 @@ namespace sortingScripts
             var child = panel.transform.GetChild(0).gameObject;
             _text = child.GetComponent<TextMeshProUGUI>();
             
-            foreach (var buttonName in buttonNames)
+            foreach (var buttonName in buttonNames) //check if button is in correct parent
             {
                 var button = GameObject.Find(buttonName);
                 var buttonComponent = button.GetComponent<Button>();
                 var parent = button.transform.parent;
                 var splitName = Regex.Split(buttonComponent.name, @"(?<!^)(?=[A-Z])");
                 var splitParent = Regex.Split(parent.name, @"(?<!^)(?=[A-Z])");
-                var equals = splitName[0].Equals(splitParent[0]);
+                var equals = splitName[0].Equals(splitParent[0]); 
                 if (equals) {
                     _correctCount++;
                 }
@@ -50,7 +50,7 @@ namespace sortingScripts
             StartCoroutine(ClearFeedback());
         }
         
-        private IEnumerator ClearFeedback()
+        private IEnumerator ClearFeedback() //if correct == 5 then load next scene
         {
             yield return new WaitForSeconds(2);
             _rectTransform.gameObject.SetActive(false);

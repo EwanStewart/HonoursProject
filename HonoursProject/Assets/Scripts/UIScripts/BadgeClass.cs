@@ -6,7 +6,7 @@ namespace UIScripts
 {
     public abstract class BadgeInfo
     {
-        public class Badge
+        public class Badge // Badge class to store badge information
         {
             public string Name;
             public string Description;
@@ -17,8 +17,10 @@ namespace UIScripts
                 this.Description = description;
             }
         }
+        
+        
         public static string CrossSceneInformation { get; set; }
-        public static List<Badge> LoadBadgeData()
+        public static List<Badge> LoadBadgeData() // Load badge data from JSON file
         {
             List<Badge> badges = new List<Badge>();
             TextAsset jsonFile = Resources.Load<TextAsset>("badgeInfo");

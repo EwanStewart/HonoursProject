@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 
 namespace LinkedListsScripts
 {
-    internal class Node
+    internal class Node //create linked list node to be used in the game
     {
         public Node(GameObject name, GameObject next)
         {
@@ -54,23 +54,23 @@ namespace LinkedListsScripts
         
         public void SaveChanges()
         {
-            var temp = dropdown.GetComponent<TMP_Dropdown>().options[dropdown.GetComponent<TMP_Dropdown>().value].text;
+            var temp = dropdown.GetComponent<TMP_Dropdown>().options[dropdown.GetComponent<TMP_Dropdown>().value].text; //get the value of the dropdown
             
-            if (temp == "Null Pointer")
+            if (temp == "Null Pointer") //if the value is null, set the next node to null
             {
                 _dict[_currentNode]._next = null;
                 UpdateLeftPanel(_currentNode);
                 return;
             }
             
-            var a = GameObject.Find(temp);
-            _dict[_currentNode]._next = a;
-            UpdateLeftPanel(_currentNode);
+            var nodeObj = GameObject.Find(temp); //find the game-object with the name of the dropdown value
+            _dict[_currentNode]._next = nodeObj;           //set the next node to the game-object
+            UpdateLeftPanel(_currentNode);                //update the left panel to reflect the changes
         }
 
         public void SubmitAnswers()
         {
-            switch (_counter)
+            switch (_counter) //check if the nodes are in the correct order and display feedback accordingly
             {
                 case 0:
                     if (_dict[node1]._next == node2 && _dict[node2]._next == node4 && _dict[node3]._next == null && _dict[node4]._next == null)
@@ -107,17 +107,17 @@ namespace LinkedListsScripts
 
         }
         
-        public void ClearFeedback()
+        public void ClearFeedback() //clear the feedback panel
         {
             feedbackPanel.SetActive(false);
         }
         
-        public void NextScene()
+        public void NextScene() //load linked list scenes
         {
             SceneManager.LoadScene("LinkedLists");
         }
         
-        public void UpdateLeftPanel(GameObject node)
+        public void UpdateLeftPanel(GameObject node) //update the left panel to reflect the properties of each node
         {
             topPanel.SetActive(true);
             bottomPanel.SetActive(true);
@@ -156,7 +156,7 @@ namespace LinkedListsScripts
             }
         }
         
-        private void Update()
+        private void Update() //check if the game is complete, if so, display feedback
         {
             if (_counter != 2) return;
             topPanel.SetActive(false);
@@ -166,7 +166,7 @@ namespace LinkedListsScripts
             Invoke(nameof(NextScene), 3);
         }
 
-        private void Start()
+        private void Start() //initialise the nodes and the dictionary
         {
             _topText = topPanel.GetComponentInChildren<TextMeshProUGUI>();
             _bottomText = bottomPanel.GetComponentInChildren<TextMeshProUGUI>();

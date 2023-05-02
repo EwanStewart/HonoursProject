@@ -4,7 +4,6 @@ using Firebase.Database;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace LinkedListsScripts
@@ -22,23 +21,22 @@ namespace LinkedListsScripts
 		public TextAsset text;
 
 		private bool _done;    				//check if game over
+		private bool _incorrectAnswer;		//total incorrect answers
+
 		private int _consecutiveCorrect = 0;	//total correct answers in a row
-		private int _buttonsSubmitted = 0;	//total statements correctly submitted
-		private bool _incorrectAnswer;	//total incorrect answers
-		private TextMeshProUGUI _feedBackTxt;
-		private TextMeshProUGUI _badgeTxt;
+		private int _buttonsSubmitted = 0;		//total statements correctly submitted
+		private TextMeshProUGUI _feedBackTxt;	//ref to feedback text
+		private TextMeshProUGUI _badgeTxt;		//ref to badge text
 
 		public void SubmitAnswers() {
 			var dict = new Dictionary<string, string>();	//create dictionary to hold statements and values
-			var panelList = new List<RectTransform>();	//list to hold panels
+			var panelList = new List<RectTransform> {panelTrue, panelFalse};		//list to hold panels
 
-			var panelIndex = 0;	//index to hold which panel is being checked
-			var correctValueForPanel = true;	
+			var panelIndex = 0;								//index to hold which panel is being checked
+			var correctValueForPanel = true;				//bool to check if statement is correct for panel
 
-			panelList.Add(panelTrue);
-			panelList.Add(panelFalse);
-
-			foreach (var k in PlayerPrefs.GetString("keys", "").Split(','))	//for each key in dictionary, add to dictionary with value from playerprefs
+			
+			foreach (var k in PlayerPrefs.GetString("keys", "").Split(','))	//for each key in dictionary, add to dictionary with value from PlayerPrefs
 			{
 				dict.Add(k, PlayerPrefs.GetString(k, ""));
 			}
@@ -52,19 +50,20 @@ namespace LinkedListsScripts
 						correctValueForPanel = false;
 					}
 
-					if (!child.GetComponent<Button>()) continue; //if child is a button
-					var tempButton = child.GetComponent<Button>();	//get button
+					if (!child.GetComponent<Button>()) { continue;		//if child is not a button, skip
+}
+					var tempButton = child.GetComponent<Button>();		//get button
 					var tempText = tempButton.GetComponentInChildren<TextMeshProUGUI>().text; 	    //get text from button
 					var tempValue = Convert.ToBoolean(dict[tempText]);	//convert value from dictionary to bool
           
 					if (tempValue == correctValueForPanel) { 	//if value is correct
-						_consecutiveCorrect++;					//increment correct answers in a row
+						_consecutiveCorrect++;						//increment correct answers in a row
 						_buttonsSubmitted++;						//increment total statements submitted
-						Destroy(tempButton.gameObject);			//destroy button to denote correct answer
-					} else {																					//if wrong
-						_consecutiveCorrect = 0;																				//reset correct answers in a row
-						if (!_incorrectAnswer)
-						{
+						Destroy(tempButton.gameObject);				//destroy button to denote correct answer
+					} else {									//if wrong
+						_consecutiveCorrect = 0;					//reset correct answers in a row
+						if (!_incorrectAnswer)					//if no incorrect answers yet
+						{											//display feedback and set incorrect answer to true
 							_incorrectAnswer = true;
 							panelFeedback.gameObject.SetActive(true);															
 							var feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();				
@@ -72,8 +71,8 @@ namespace LinkedListsScripts
 							Invoke(nameof(ClearFeedback), 3);
 							return;
 						}
-						else
-						{
+						else 									//if incorrect answer already
+						{											//display feedback and send back to content
 							panelFeedback.gameObject.SetActive(true);															
 							var feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();				
 							feedBackTxt.text = "That's not quite it, at least one of your answers are incorrect. You will now be sent back to the content.";	
@@ -90,13 +89,13 @@ namespace LinkedListsScripts
 			}
 		}
 
-		private static System.Collections.IEnumerator LoadScene(string sceneName)
+		private static System.Collections.IEnumerator LoadScene(string sceneName)	//load scene after 2 seconds
 		{
 			yield return new WaitForSeconds(2);
 			SceneManager.LoadScene(sceneName);
 		}
 
-		public void LoadSceneNoDelay()
+		public void LoadSceneNoDelay()	//load scene immediately, delete data stored in PlayerPrefs within this scene
 		{
 			PlayerPrefs.SetInt("imgCountLinkedLists", 8);
 			PlayerPrefs.SetInt("objPositionLinkedLists", 2);
@@ -113,25 +112,25 @@ namespace LinkedListsScripts
 			feedBackTxt.text = "";
 		}
 
-		public void NextScene() {
+		public void NextScene() {	//load levelSelect scene
 			SceneManager.LoadScene("LevelSelect");
 		}
 		
 		private void Update()
 		{
 			if (panelFeedback.gameObject.activeSelf) return; //if feedback panel is not active
-			if (_buttonsSubmitted !=7) return; //check if all statements have been submitted
-			foreach (var k in PlayerPrefs.GetString("keys", "").Split(','))	//delete data stored in playerprefs pertaining to this scene
+			if (_buttonsSubmitted !=7) return;				 //check if all statements have been submitted
+			foreach (var k in PlayerPrefs.GetString("keys", "").Split(','))	//delete data stored in PlayerPrefs for this scene
 			{
 				PlayerPrefs.DeleteKey(k);
 			}
 
-			panelFeedback.gameObject.SetActive(true);		
-			
+			panelFeedback.gameObject.SetActive(true);			//display feedback
 			_feedBackTxt.text = "Well Done! You successfully sorted the statements into True and False. That's the end of this lesson!";	
-			PlayerPrefs.SetInt("LinkedListsCompleted", 1);
 			
-			if (PlayerPrefs.HasKey("username")) {	
+			PlayerPrefs.SetInt("LinkedListsCompleted", 1); 		//set unit as completed
+			
+			if (PlayerPrefs.HasKey("username")) {				//if user is logged in, set badge as completed
 				FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge08").SetValueAsync(true);	
 				badgePanel.gameObject.SetActive(true);
 			} else {
@@ -139,21 +138,20 @@ namespace LinkedListsScripts
 				SceneManager.LoadScene("sign-login");	
 			}
 			
-			Invoke(nameof(NextScene), 5);																		
+			Invoke(nameof(NextScene), 5);		 //load levelSelect scene after 5 seconds																
 		}
 
 		private void Start()
 		{
-			_badgeTxt = badgePanel.GetComponentInChildren<TextMeshProUGUI>();
-			_feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();
+			_badgeTxt = badgePanel.GetComponentInChildren<TextMeshProUGUI>();				//get text from badge panel
+			_feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();			//get text from feedback panel
 			var dict = new Dictionary<string, string>();
 			var keys = "";
 
-			var feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();									//get text from feedback panel
-			feedBackTxt.text = "Drag and drop the statements to the correct side depending on whether they are true or false.";		//change text to denote start of scene
+			_feedBackTxt.text = "Drag and drop the statements to the correct side depending on whether they are true or false.";				//change text to denote start of scene
 			Invoke(nameof(ClearFeedback), 3);																								//clear feedback panel after 3 seconds
 		
-			_text = text;	//load text file from resources folder
+			_text = text;			//load text file from resources folder
 
 			if (_text == null) {	//ensure file exists
 				print("File not found");

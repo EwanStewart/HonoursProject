@@ -33,7 +33,7 @@ namespace sortingScripts
 
         private void Update()
         {
-            if (!_waiting && _over)
+            if (!_waiting && _over) //if the order is correct and the feedback panel has closed
             {
                 var badgeText = badgePanel.GetComponentInChildren<TextMeshProUGUI>();
                 
@@ -63,14 +63,14 @@ namespace sortingScripts
             var buttons = panelOrder.GetComponentsInChildren<Button>();
             Array.Sort(buttons, (a, b) => b.transform.position.y.CompareTo(a.transform.position.y));
             var correctOrder = true;
-            for (var i = 0; i < buttons.Length; i++)
+            for (var i = 0; i < buttons.Length; i++) //check if the buttons are in the correct order
             {
                 if (buttons[i].CompareTag(i.ToString())) continue;
                 correctOrder = false;
                 break;
             }
-            if (correctOrder)
-            {
+            //depending on if correct or not, display feedback
+            if (correctOrder) { 
                 SetFeedbackPanel("That's the correct order!");
                 _over = true;
                 _waiting = true;
@@ -80,10 +80,11 @@ namespace sortingScripts
                 Invoke(nameof(CloseFeedbackPanel), 3f);
             }
         }
-        public void RandomOrder()
+        public void RandomOrder() //randomise the order of the buttons
         {
             var buttons = panelOrder.GetComponentsInChildren<Button>();
             YPositions = new float[buttons.Length];
+            
             for (var i = 0; i < buttons.Length; i++)
             {
                 var temp = buttons[i].transform.position;
@@ -94,7 +95,12 @@ namespace sortingScripts
             }
             Array.Sort(YPositions);
         }
-        private void Start()
+
+        public void ResetButtons() //reload scene
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        private void Start() //randomise the order of the buttons on start
         {
             RandomOrder();
         }

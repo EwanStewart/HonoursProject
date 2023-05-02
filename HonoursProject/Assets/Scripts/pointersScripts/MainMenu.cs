@@ -28,6 +28,7 @@ public class MainMenu : MonoBehaviour
             SceneManager.LoadScene("sign-login");
         }
         
+        //initialise time based badges
         if (!PlayerPrefs.HasKey("badge00Unlocked"))
         {
             PlayerPrefs.SetInt("badge00Unlocked", 99);
@@ -42,6 +43,7 @@ public class MainMenu : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("username"))
         {
+            //if badge hasen't been unlocked yet, check if it should be unlocked
             if (PlayerPrefs.GetInt("badge00Unlocked") == 99) {
                 PlayerPrefs.SetString("start", System.DateTime.Now.ToString());
                 FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge00").SetValueAsync(true);
@@ -49,7 +51,8 @@ public class MainMenu : MonoBehaviour
                 badgePanel.SetActive(true);
                 Invoke(nameof(ClearFeedback), 5);
             }
-
+            
+            //if badge hasen't been unlocked yet, check if it should be unlocked
             if (PlayerPrefs.GetInt("badge08Unlocked") == 99) {
                 if (PlayerPrefs.GetInt("PointersCompleted") == 1 && PlayerPrefs.GetInt("SortingCompleted") == 1 && PlayerPrefs.GetInt("LinkedListsCompleted") == 1) {
                     PlayerPrefs.SetString("end", System.DateTime.Now.ToString());

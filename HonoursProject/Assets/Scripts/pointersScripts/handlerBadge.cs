@@ -20,7 +20,7 @@ namespace pointersScripts
             }
         }
     
-        void unlockBadge()
+        void unlockBadge() 
         {
             TextMeshProUGUI countText = canvas.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
 
@@ -40,7 +40,6 @@ namespace pointersScripts
     
         void loadPointers()
         {
-            Debug.Log("Loading Pointers");
             SceneManager.LoadScene("Pointers");
         }
     }

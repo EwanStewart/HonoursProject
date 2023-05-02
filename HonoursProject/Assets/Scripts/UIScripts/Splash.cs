@@ -12,7 +12,7 @@ namespace UIScripts
     {
         public Slider progressBar;
 
-        private IEnumerator LoadSceneAsync(string sceneName)
+        private IEnumerator LoadSceneAsync(string sceneName) // Load the scenes asynchronously
         {
             var asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
             asyncLoad.allowSceneActivation = false;
@@ -26,7 +26,7 @@ namespace UIScripts
         
         void Start()
         {
-            var list = new List<string> {"Pointers", "sorting", "MainMenu", "FillGaps", "BadgeGallery"};
+            var list = new List<string> {"Pointers", "sorting", "MainMenu", "FillGaps", "BadgeGallery"}; // List of scenes to load
             progressBar.maxValue = list.Count;
             foreach (var s in list)
             {
@@ -40,7 +40,7 @@ namespace UIScripts
         }
         
         void Update() {
-            if (progressBar.value == progressBar.maxValue) {
+            if (progressBar.value == progressBar.maxValue) { // If the progress bar is full, load the main menu
                 Invoke(nameof(Wait), 2);
             }
         }

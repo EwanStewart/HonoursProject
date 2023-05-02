@@ -13,13 +13,14 @@ namespace otherScripts
         private string _textFilePath;
         private int _count = 0;
 
-        private void Start()
+        private void Start() 
         {
         
             _textLine = new List<string>(); 
             txtComponent.text = string.Empty;
             TextAsset file;
 
+            //depending on the scene, load the correct file
             if (SceneManager.GetActiveScene().name == "Pointers") {
                 file = Resources.Load("pointers") as TextAsset; 
                 if (!PlayerPrefs.HasKey("objPosition")) {
@@ -41,22 +42,20 @@ namespace otherScripts
                 _count = PlayerPrefs.GetInt("objPositionLinkedLists");
             }
 
+            //split objectives by line
             string[] linesFromfile = file.text.Split("\n"[0]); 
-            foreach (string line in linesFromfile)
-            {
-                _textLine.Add(line);
-
+            foreach (string line in linesFromfile) {
+                _textLine.Add(line); 
             }
 
-            try
-            {
+            try { //set text, if out of bounds, set to first line
                 txtComponent.text = _textLine[_count];
             } catch (System.Exception e) {
                 txtComponent.text = _textLine[0];
             }
         }
 
-        public void nextLine() 
+        public void nextLine()  //load next line of objectives
         {
             _count++;
             txtComponent.text = _textLine[_count];

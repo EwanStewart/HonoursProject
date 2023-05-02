@@ -2907,7 +2907,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 74666770}
         m_TargetAssemblyTypeName: sortingScripts.NotationOrder, Assembly-CSharp
-        m_MethodName: RandomOrder
+        m_MethodName: ResetButtons
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

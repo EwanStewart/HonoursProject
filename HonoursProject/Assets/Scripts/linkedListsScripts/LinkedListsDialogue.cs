@@ -10,9 +10,9 @@ namespace LinkedListsScripts
 {
     public class LinkedListsDialogue : MonoBehaviour
     {
-        public TextMeshProUGUI txtComponent; //gameobject for main text
+        public TextMeshProUGUI txtComponent; //game-object for main text
         public Slider slider; 				 //slider object  to show progress of dialogue
-        public GameObject panel;     		 //gameobject for parent panel
+        public GameObject panel;     		 //game-object for parent panel
         private TextAsset _text; 			 //text asset to load text file
 
         public string[] lines;				 //holds lines of text from text file
@@ -22,7 +22,7 @@ namespace LinkedListsScripts
 
         private int _index = 0; 				//index of current line of text array
         private int _imgCount  = 0; 			//index holding how many images have been displayed
-        public RectTransform feedbackPanel; //gameobject for feedback panel
+        public RectTransform feedbackPanel; //game-object for feedback panel
         
         private void ClearFeedback()
         {

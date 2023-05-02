@@ -23,7 +23,7 @@ namespace pointersScripts
 		private readonly List<List<string>> _list = new();
 		public RectTransform panelFeedback;
 
-		public void ClearFeedback()	//clear text of panel and hide panel
+		public void ClearFeedback()	//clear feedback on screen, if correct move to next question else reset
 		{
 			panelFeedback.gameObject.SetActive(false);
 			var feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();
@@ -49,8 +49,8 @@ namespace pointersScripts
 
 		public void SubmitAnswers() {
 			var correctAnswers = 0;
-
-			foreach (Transform child in panelText) {
+ 
+			foreach (Transform child in panelText) { //check if all buttons have been filled
 				if (child.GetComponent<Button>() && child.GetComponentInChildren<TextMeshProUGUI>().text == "" && child.gameObject.activeSelf) {
 					return;
 				}
@@ -58,7 +58,7 @@ namespace pointersScripts
 
 			var buttons = new List<Button>();
 
-			foreach (Transform child in panelText)
+			foreach (Transform child in panelText) //store all buttons in list
 			{
 				if (!child.GetComponent<Button>()) continue;
 				if (!child.gameObject.activeSelf) continue;
@@ -67,10 +67,10 @@ namespace pointersScripts
 				buttons.Add(tempButton);
 			}
 		
-			buttons.Sort((x, y) => string.Compare(x.name, y.name, StringComparison.Ordinal));
-			buttons.Reverse();
+			buttons.Sort((x, y) => string.Compare(x.name, y.name, StringComparison.Ordinal)); //sort buttons by name
+			buttons.Reverse(); //reverse list to get correct order
 
-			for (var i = 0; i < buttons.Count; i++) {
+			for (var i = 0; i < buttons.Count; i++) { //get number of correct answers
 				if (buttons[i].GetComponentInChildren<TextMeshProUGUI>().text == PlayerPrefs.GetString("key" + i)) {
 					correctAnswers++;
 				}
@@ -79,10 +79,10 @@ namespace pointersScripts
 			panelFeedback.gameObject.SetActive(true);															
 			var feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();	
 
-			if (correctAnswers == buttons.Count) {
+			if (correctAnswers == buttons.Count) { //check if all answers are correct
 				feedBackTxt.text = "That's correct!";
 				_waiting = true;
-				for (var i = 0; i < buttons.Count; i++) {
+				for (var i = 0; i < buttons.Count; i++) { //clear key cache
 					PlayerPrefs.DeleteKey("key" + i);
 				}
 			} else {
@@ -98,7 +98,7 @@ namespace pointersScripts
 			z.text = "";
 			var i = 0;
 
-			foreach (var character in line[0])
+			foreach (var character in line[0]) //fill text with question
 			{
 	
 				z = panelText.GetChild(panelText.childCount - 1).GetComponent<TextMeshProUGUI>();
@@ -106,7 +106,7 @@ namespace pointersScripts
 				var width = z.preferredWidth;
 				var height = z.preferredHeight;
 	        
-				if (character == '_') {
+				if (character == '_') { //create button if character is '_'
 					var goButton = (GameObject)Instantiate(prefabButton, panelText, false);
 					goButton.transform.localPosition = new Vector3(rect.x+width, rect.y, 0);
 					goButton.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
@@ -116,7 +116,7 @@ namespace pointersScripts
 					goButton.name = "button" + i;
 					PlayerPrefs.SetString("key" + i, line[i + 1]);
 	            
-					var goText = (GameObject)Instantiate(textObj, panelText, false);
+					var goText = (GameObject)Instantiate(textObj, panelText, false); //create new text after button
 					var tempText = goText.GetComponent<TextMeshProUGUI>();
 					tempText.text = "";
 					tempText.transform.localPosition = new Vector3(rect.x, rect.y-(height*2), 0);
@@ -156,23 +156,23 @@ namespace pointersScripts
 		private void CreateButtonsForLine(List<string> line)
 		{
 			FillText(line);
-			line.RemoveAt(0);
+			line.RemoveAt(0); //remove question from list
 			var coordinates = new List<Vector2>();
 
-			foreach (var s in line)
+			foreach (var s in line) //create buttons for answers
 			{
 				float x; float y;
 				var goButton = (GameObject)Instantiate(prefabButton, parentPanel, false);
 				goButton.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
 				var tempButton = goButton.GetComponent<Button>();
 				var rect = parentPanel.rect;
-				if (coordinates.Count == 0)
+				if (coordinates.Count == 0) //set coordinates for first button
 				{
 					x = rect.xMin + 300;
 					y = rect.yMax - 100;
 					coordinates.Add(new Vector2(x, y));
 				}
-				else
+				else //set coordinates for other buttons relative to previous button
 				{
 					var last = coordinates[^1];
 					x = last.x + 500;
@@ -186,8 +186,8 @@ namespace pointersScripts
 				}
 
 				tempButton.transform.localPosition = new Vector3(x, y, 0);
-				tempButton.GetComponentInChildren<TextMeshProUGUI>().text = s;
-				tempButton.tag = "answer";
+				tempButton.GetComponentInChildren<TextMeshProUGUI>().text = s; //set text for button
+				tempButton.tag = "answer";										//set tag for button
 				var tempText = goButton.GetComponentInChildren<TextMeshProUGUI>();
 				tempText.text = s;
 				tempButton.gameObject.SetActive(true);
@@ -196,14 +196,14 @@ namespace pointersScripts
 
 		private void Update()
 		{
-			if (!_waiting && _done)
+			if (!_waiting && _done) // if not waiting for feedback to clear and game over
 			{
 				var feedBackTxt = panelFeedback.GetComponentInChildren<TextMeshProUGUI>();
 				var badgeText = badgePanel.GetComponentInChildren<TextMeshProUGUI>();
 
 				feedBackTxt.text = "That's all for pointers!";
 				badgeText.text = "'It's Over!' unlocked!";
-				PlayerPrefs.SetInt("PointersCompleted", 1);
+				PlayerPrefs.SetInt("PointersCompleted", 1); //set level completed
 
 				var z = panelText.GetChild(panelText.childCount - 1).GetComponent<TextMeshProUGUI>();
 				z.text = "";
@@ -211,7 +211,7 @@ namespace pointersScripts
 				
 				panelFeedback.gameObject.SetActive(true);
 				
-				if (PlayerPrefs.HasKey("username")) {	
+				if (PlayerPrefs.HasKey("username")) {	 //unlock badge
 					FirebaseDatabase.DefaultInstance.GetReference("users").Child(PlayerPrefs.GetString("username")).Child("badges").Child("badge03").SetValueAsync(true);	
 					badgePanel.gameObject.SetActive(true);
 				} else {
@@ -223,7 +223,7 @@ namespace pointersScripts
 			}
 		}
 		
-		private void NextScene()
+		private void NextScene() //load next scene and clear PlayerPrefs
 		{
 			PlayerPrefs.DeleteKey("objPosition");
 			PlayerPrefs.DeleteKey("currentIndexFill");
@@ -253,18 +253,18 @@ namespace pointersScripts
 				_list.Add(temp);
 			}
         
-			var pos = 0;
-			if (PlayerPrefs.HasKey("currentIndexFill")) {
+			var pos = 0; 
+			if (PlayerPrefs.HasKey("currentIndexFill")) { //if key exists, get value
 				pos = PlayerPrefs.GetInt("currentIndexFill");
 			}
-			if (pos > _list.Count-1) {
+			if (pos > _list.Count-1) { //if value is greater than number of lines, game is over
 				_done = true;
 				return;
 			}
 			
         
-			PlayerPrefs.SetInt("currentIndexFill", pos);
-			CreateButtonsForLine(_list[pos]);
+			PlayerPrefs.SetInt("currentIndexFill", pos); //set key to current line
+			CreateButtonsForLine(_list[pos]); //create visual for current line
 		}
 	}
 }
